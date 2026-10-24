@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { loadGames } from './loadGames.js'
-import { planRoute } from './route.js'
+import { planRouteAsync } from './planAsync.js'
 
 const loaded = loadGames()
 const STORAGE_KEY = 'achievement-route:v1'
@@ -95,12 +95,32 @@ export default function App() {
   const [query, setQuery] = useState('')
   const [copied, setCopied] = useState(false)
   const [result, setResult] = useState(null)
+  const [planning, setPlanning] = useState(false)
+  const planRequest = useRef(0)
   const game = loaded.games.find((item) => item.id === gameId) ?? null
+
+  async function runPlan(nextGame, ids) {
+    const request = ++planRequest.current
+    setPlanning(true)
+    try {
+      const next = await planRouteAsync(nextGame, ids)
+      if (request !== planRequest.current) return
+      setResult(next)
+      if (next.ok) {
+        const keys = new Set(next.steps.map(stepKey))
+        setChecked((current) => new Set([...current].filter((k) => keys.has(k))))
+      } else {
+        setChecked(new Set())
+      }
+    } finally {
+      if (request === planRequest.current) setPlanning(false)
+    }
+  }
 
   // Auto-generate if we restored picks
   useEffect(() => {
     if (!game || picked.size === 0) return
-    setResult(planRoute(game, [...picked]))
+    runPlan(game, [...picked])
     // ponytail: mount-only restore; game/picked changes go through explicit handlers
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -142,7 +162,7 @@ export default function App() {
     setResult(null)
     if (nextState?.picked?.length) {
       const nextGame = loaded.games.find((item) => item.id === id)
-      if (nextGame) setResult(planRoute(nextGame, nextState.picked))
+      if (nextGame) runPlan(nextGame, nextState.picked)
     }
   }
 
@@ -156,26 +176,20 @@ export default function App() {
   }
 
   function clearPicked() {
+    planRequest.current += 1
+    setPlanning(false)
     setPicked(new Set())
     setResult(null)
     setChecked(new Set())
   }
 
   function generate() {
-    if (!game) return
+    if (!game || planning) return
     if (picked.size === 0) {
       setResult({ ok: false, message: 'Select at least one achievement.' })
       return
     }
-    const next = planRoute(game, [...picked])
-    setResult(next)
-    if (next.ok) {
-      // keep checks that still match the new route
-      const keys = new Set(next.steps.map(stepKey))
-      setChecked((current) => new Set([...current].filter((k) => keys.has(k))))
-    } else {
-      setChecked(new Set())
-    }
+    runPlan(game, [...picked])
   }
 
   function toggleChecked(key) {
@@ -282,18 +296,19 @@ export default function App() {
             </ul>
 
             <div className="generate-bar">
-              <button type="button" className="generate" onClick={generate}>
-                Generate route
+              <button type="button" className="generate" onClick={generate} disabled={planning}>
+                {planning ? 'Planning…' : 'Generate route'}
               </button>
             </div>
           </section>
 
           <section className="route" aria-live="polite" aria-label="Route">
-            {!result && (
+            {planning && <p className="waiting">Planning route…</p>}
+            {!planning && !result && (
               <p className="waiting">Select achievements, then generate a route.</p>
             )}
-            {result && !result.ok && <p className="warning">{result.message}</p>}
-            {result?.ok && (
+            {!planning && result && !result.ok && <p className="warning">{result.message}</p>}
+            {!planning && result?.ok && (
               <>
                 <div className="route-head">
                   <p className="route-meta">

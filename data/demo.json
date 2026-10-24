@@ -1,7 +1,6 @@
 {
   "id": "ashen-keep",
   "name": "Ashen Keep",
-  "persistItemTypes": ["key", "weapon", "soul"],
   "areas": [
     { "id": "yard", "name": "Ash Yard" },
     { "id": "gatehouse", "name": "Gatehouse" },
@@ -17,12 +16,12 @@
     { "id": "chapel-sealed", "name": "Chapel sealed" }
   ],
   "items": [
-    { "id": "courtyard-key", "name": "Courtyard Key", "type": "key" },
-    { "id": "warden-key", "name": "Warden Key", "type": "key" },
-    { "id": "candle", "name": "Saint's Candle", "type": "key" },
-    { "id": "relic", "name": "Relic", "type": "key" },
-    { "id": "coin", "name": "Loose Coin", "type": "consumable" },
-    { "id": "rat-tooth", "name": "Rat Tooth", "type": "material" }
+    { "id": "courtyard-key", "name": "Courtyard Key", "type": "key", "persist": true },
+    { "id": "warden-key", "name": "Warden Key", "type": "key", "persist": true },
+    { "id": "candle", "name": "Saint's Candle", "type": "key", "persist": true },
+    { "id": "relic", "name": "Relic", "type": "key", "persist": true },
+    { "id": "coin", "name": "Loose Coin", "type": "consumable", "persist": false },
+    { "id": "rat-tooth", "name": "Rat Tooth", "type": "material", "persist": true }
   ],
   "actions": [
     {

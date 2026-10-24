@@ -2,12 +2,12 @@
 
 Works:
 
-- Game select, achievement search/toggles, Generate Route, all-steps / by-run display.
-- Step checkoffs, copy route as text, localStorage for game/picks/checks/display.
-- Farms with enemy source, result states, repeatable, newRun, persist by item type, meta achievements.
-- `npm run check` passes.
-- Demo `data/ashen-keep.json`.
-- Offline `data/dark-souls-remastered.json` (41 achievements; The Dark Soul plans).
+- A\* route planner (world state, persist flags, newRun reset); see `docs/algorithm.md`.
+- Game select, achievement search/toggles, Generate Route, all-steps / by-run, checkoffs, copy, localStorage.
+- Farms, results, repeatable, meta achievements, missable `before`.
+- `npm run check` passes (15).
+- Demo `data/demo.json` (Ashen Keep).
+- Offline DSR JSON (41 achievements); Link Fire + Dark Lord replays Asylum→Lordvessel after ending.
 
 Not built:
 
@@ -15,3 +15,4 @@ Not built:
 - Attribute/stat requires.
 - Exact “before N of a set” missable counters.
 - Online / co-op route mode.
+- Weighted / timed routes (action count only).

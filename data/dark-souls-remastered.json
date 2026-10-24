@@ -1,13 +1,6 @@
 {
   "id": "dark-souls-remastered",
   "name": "DARK SOULS: REMASTERED",
-  "persistItemTypes": [
-    "key",
-    "weapon",
-    "material",
-    "spell",
-    "soul"
-  ],
   "areas": [
     {
       "id": "undead-asylum",
@@ -167,937 +160,1126 @@
   "results": [
     {
       "id": "way-of-white",
-      "name": "Way of White joined"
+      "name": "Way of White joined",
+      "persist": true
     },
     {
       "id": "princess-guard",
-      "name": "Princess's Guard joined"
+      "name": "Princess's Guard joined",
+      "persist": true
     },
     {
       "id": "darkmoon",
-      "name": "Blade of the Darkmoon joined"
+      "name": "Blade of the Darkmoon joined",
+      "persist": true
     },
     {
       "id": "warrior-sunlight",
-      "name": "Warrior of Sunlight joined"
+      "name": "Warrior of Sunlight joined",
+      "persist": true
     },
     {
       "id": "forest-hunter",
-      "name": "Forest Hunter joined"
+      "name": "Forest Hunter joined",
+      "persist": true
     },
     {
       "id": "darkwraith",
-      "name": "Darkwraith joined"
+      "name": "Darkwraith joined",
+      "persist": true
     },
     {
       "id": "path-dragon",
-      "name": "Path of the Dragon joined"
+      "name": "Path of the Dragon joined",
+      "persist": true
     },
     {
       "id": "gravelord",
-      "name": "Gravelord Servant joined"
+      "name": "Gravelord Servant joined",
+      "persist": true
     },
     {
       "id": "chaos-servant",
-      "name": "Chaos Servant joined"
+      "name": "Chaos Servant joined",
+      "persist": true
     },
     {
       "id": "lordvessel-placed",
-      "name": "Lordvessel placed"
+      "name": "Lordvessel placed",
+      "persist": false
     },
     {
       "id": "firelink-down",
-      "name": "Firelink bonfire disabled"
+      "name": "Firelink bonfire disabled",
+      "persist": false
     },
     {
       "id": "both-bells",
-      "name": "Both Bells of Awakening rung"
+      "name": "Both Bells of Awakening rung",
+      "persist": false
     },
     {
       "id": "gwyn-fallen",
-      "name": "Gwyn defeated this run"
+      "name": "Gwyn defeated this run",
+      "persist": false
     }
   ],
   "items": [
     {
       "id": "estus-flask",
       "name": "Estus Flask",
-      "type": "key"
+      "type": "key",
+      "persist": true
     },
     {
       "id": "residence-key",
       "name": "Residence Key",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "basement-key",
       "name": "Basement Key",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "key-depths",
       "name": "Key to the Depths",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "blighttown-key",
       "name": "Blighttown Key",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "cage-key",
       "name": "Cage Key",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "crest-artorias",
       "name": "Crest of Artorias",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "lordvessel",
       "name": "Lordvessel",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "rite-kindling",
       "name": "Rite of Kindling",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "covenant-abyss",
       "name": "Covenant of Artorias",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "mystery-key",
       "name": "Mystery Key",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "sewer-chamber-key",
       "name": "Sewer Chamber Key",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "new-londo-key",
       "name": "Key to New Londo Ruins",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "archive-tower-key",
       "name": "Archive Tower Cell Key",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "archive-prison-extra",
       "name": "Archive Prison Extra Key",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "peculiar-doll",
       "name": "Peculiar Doll",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "darkmoon-seance",
       "name": "Darkmoon Seance Ring",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "eyes-of-death",
       "name": "Eye of Death",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "humanity",
       "name": "Humanity",
-      "type": "consumable"
+      "type": "consumable",
+      "persist": false
     },
     {
       "id": "titanite-shard",
       "name": "Titanite Shard",
-      "type": "material"
+      "type": "material",
+      "persist": true
     },
     {
       "id": "large-titanite-shard",
       "name": "Large Titanite Shard",
-      "type": "material"
+      "type": "material",
+      "persist": true
     },
     {
       "id": "titanite-chunk",
       "name": "Titanite Chunk",
-      "type": "material"
+      "type": "material",
+      "persist": true
     },
     {
       "id": "titanite-slab",
       "name": "Titanite Slab",
-      "type": "material"
+      "type": "material",
+      "persist": true
     },
     {
       "id": "green-titanite",
       "name": "Green Titanite Shard",
-      "type": "material"
+      "type": "material",
+      "persist": true
     },
     {
       "id": "blue-chunk",
       "name": "Blue Titanite Chunk",
-      "type": "material"
+      "type": "material",
+      "persist": true
     },
     {
       "id": "blue-slab",
       "name": "Blue Titanite Slab",
-      "type": "material"
+      "type": "material",
+      "persist": true
     },
     {
       "id": "white-chunk",
       "name": "White Titanite Chunk",
-      "type": "material"
+      "type": "material",
+      "persist": true
     },
     {
       "id": "white-slab",
       "name": "White Titanite Slab",
-      "type": "material"
+      "type": "material",
+      "persist": true
     },
     {
       "id": "red-chunk",
       "name": "Red Titanite Chunk",
-      "type": "material"
+      "type": "material",
+      "persist": true
     },
     {
       "id": "red-slab",
       "name": "Red Titanite Slab",
-      "type": "material"
+      "type": "material",
+      "persist": true
     },
     {
       "id": "twinkling",
       "name": "Twinkling Titanite",
-      "type": "material"
+      "type": "material",
+      "persist": true
     },
     {
       "id": "dragon-scale",
       "name": "Dragon Scale",
-      "type": "material"
+      "type": "material",
+      "persist": true
     },
     {
       "id": "demon-titanite",
       "name": "Demon Titanite",
-      "type": "material"
+      "type": "material",
+      "persist": true
     },
     {
       "id": "large-ember",
       "name": "Large Ember",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "very-large-ember",
       "name": "Very Large Ember",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "crystal-ember",
       "name": "Crystal Ember",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "large-magic-ember",
       "name": "Large Magic Ember",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "enchanted-ember",
       "name": "Enchanted Ember",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "divine-ember",
       "name": "Divine Ember",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "large-divine-ember",
       "name": "Large Divine Ember",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "dark-ember",
       "name": "Dark Ember",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "large-flame-ember",
       "name": "Large Flame Ember",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "chaos-flame-ember",
       "name": "Chaos Flame Ember",
-      "type": "key"
+      "type": "key",
+      "persist": false
     },
     {
       "id": "soul-asylum",
       "name": "Soul of the Asylum Demon",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "soul-taurus",
       "name": "Soul of the Taurus Demon",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "soul-gargoyle",
       "name": "Soul of the Bell Gargoyle",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "soul-capra",
       "name": "Soul of the Capra Demon",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "soul-gaping",
       "name": "Soul of the Gaping Dragon",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "soul-butterfly",
       "name": "Soul of the Moonlight Butterfly",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "soul-sif",
       "name": "Soul of Sif",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "soul-quelaag",
       "name": "Soul of Quelaag",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "soul-iron-golem",
       "name": "Core of an Iron Golem",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "soul-ornstein",
       "name": "Soul of Ornstein",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "soul-smough",
       "name": "Soul of Smough",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "soul-priscilla",
       "name": "Soul of Priscilla",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "soul-gwyndolin",
       "name": "Soul of Gwyndolin",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "soul-seath",
       "name": "Soul of Seath",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "soul-nito",
       "name": "Soul of Nito",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "soul-bed",
       "name": "Soul of the Bed of Chaos",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "soul-four-kings",
       "name": "Bequeathed Lord Soul Shard (Four Kings)",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "soul-gwyn",
       "name": "Soul of Gwyn",
-      "type": "soul"
+      "type": "soul",
+      "persist": true
     },
     {
       "id": "drake-sword",
       "name": "Drake Sword",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "dragon-king-greataxe",
       "name": "Dragon King Greataxe",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "chaos-storm",
       "name": "Chaos Storm",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "astora-straight-sword",
       "name": "Astora's Straight Sword",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "dragon-crest-shield",
       "name": "Dragon Crest Shield",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "dragon-greatsword",
       "name": "Dragon Greatsword",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "priscilla-dagger",
       "name": "Priscilla's Dagger",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "dark-hand",
       "name": "Dark Hand",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "moonlight-greatsword",
       "name": "Moonlight Greatsword",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "standard-weapon",
       "name": "Standard Weapon",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "crystal-weapon",
       "name": "Crystal Weapon",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "lightning-weapon",
       "name": "Lightning Weapon",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "raw-weapon",
       "name": "Raw Weapon",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "magic-weapon",
       "name": "Magic Weapon",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "enchanted-weapon",
       "name": "Enchanted Weapon",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "divine-weapon",
       "name": "Divine Weapon",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "occult-weapon",
       "name": "Occult Weapon",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "fire-weapon",
       "name": "Fire Weapon",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "chaos-weapon",
       "name": "Chaos Weapon",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "moonlight-butterfly-horn",
       "name": "Moonlight Butterfly Horn",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "crystal-ring-shield",
       "name": "Crystal Ring Shield",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "greatsword-artorias",
       "name": "Greatsword of Artorias",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "greatsword-artorias-cursed",
       "name": "Greatsword of Artorias (Cursed)",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "greatshield-artorias",
       "name": "Greatshield of Artorias",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "chaos-blade",
       "name": "Chaos Blade",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "quelaag-fury-sword",
       "name": "Quelaag's Furysword",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "golem-axe",
       "name": "Golem Axe",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "dragon-bone-fist",
       "name": "Dragon Bone Fist",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "dragonslayer-spear",
       "name": "Dragonslayer Spear",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "lifehunt-scythe",
       "name": "Lifehunt Scythe",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "darkmoon-bow",
       "name": "Darkmoon Bow",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "tin-darkmoon-catalyst",
       "name": "Tin Darkmoon Catalyst",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "great-lord-greatsword",
       "name": "Great Lord Greatsword",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "smough-hammer",
       "name": "Smough's Hammer",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "silver-knight-straight-sword",
       "name": "Silver Knight Straight Sword",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "silver-knight-spear",
       "name": "Silver Knight Spear",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "silver-knight-shield",
       "name": "Silver Knight Shield",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "black-knight-sword",
       "name": "Black Knight Sword",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "black-knight-greatsword",
       "name": "Black Knight Greatsword",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "black-knight-greataxe",
       "name": "Black Knight Greataxe",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "black-knight-halberd",
       "name": "Black Knight Halberd",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "black-knight-shield",
       "name": "Black Knight Shield",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "stone-greatsword",
       "name": "Stone Greatsword",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "stone-greatshield",
       "name": "Stone Greatshield",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "channelers-trident",
       "name": "Channeler's Trident",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "grant",
       "name": "Grant",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "sanctus",
       "name": "Sanctus",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "crest-shield",
       "name": "Crest Shield",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "crescent-axe",
       "name": "Crescent Axe",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "demons-spear",
       "name": "Demon's Spear",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "giants-halberd",
       "name": "Giant's Halberd",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "velkas-rapier",
       "name": "Velka's Rapier",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "gravelord-sword",
       "name": "Gravelord Sword",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "demons-great-hammer",
       "name": "Demon's Great Hammer",
-      "type": "weapon"
+      "type": "weapon",
+      "persist": true
     },
     {
       "id": "soul-arrow",
       "name": "Soul Arrow",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "great-soul-arrow",
       "name": "Great Soul Arrow",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "heavy-soul-arrow",
       "name": "Heavy Soul Arrow",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "great-heavy-soul-arrow",
       "name": "Great Heavy Soul Arrow",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "homing-soulmass",
       "name": "Homing Soulmass",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "homing-crystal-soulmass",
       "name": "Homing Crystal Soulmass",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "soul-spear",
       "name": "Soul Spear",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "crystal-soul-spear",
       "name": "Crystal Soul Spear",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "great-magic-weapon",
       "name": "Great Magic Weapon",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "crystal-magic-weapon",
       "name": "Crystal Magic Weapon",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "magic-shield",
       "name": "Magic Shield",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "strong-magic-shield",
       "name": "Strong Magic Shield",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "aural-decoy",
       "name": "Aural Decoy",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "hush",
       "name": "Hush",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "fall-control",
       "name": "Fall Control",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "hidden-body",
       "name": "Hidden Body",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "cast-light",
       "name": "Cast Light",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "repair",
       "name": "Repair",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "chameleon",
       "name": "Chameleon",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "remedy",
       "name": "Remedy",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "resist-curse",
       "name": "Resist Curse",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "white-dragon-breath",
       "name": "White Dragon Breath",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "fireball",
       "name": "Fireball",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "fire-orb",
       "name": "Fire Orb",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "combustion",
       "name": "Combustion",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "great-combustion",
       "name": "Great Combustion",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "firestorm",
       "name": "Firestorm",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "fire-tempest",
       "name": "Fire Tempest",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "fire-whip",
       "name": "Fire Whip",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "poison-mist",
       "name": "Poison Mist",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "toxic-mist",
       "name": "Toxic Mist",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "acid-surge",
       "name": "Acid Surge",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "iron-flesh",
       "name": "Iron Flesh",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "flash-sweat",
       "name": "Flash Sweat",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "power-within",
       "name": "Power Within",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "undead-rapport",
       "name": "Undead Rapport",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "great-chaos-fireball",
       "name": "Great Chaos Fireball",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "chaos-fire-whip",
       "name": "Chaos Fire Whip",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "heal",
       "name": "Heal",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "great-heal-excerpt",
       "name": "Great Heal Excerpt",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "great-heal",
       "name": "Great Heal",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "soothing-sunlight",
       "name": "Soothing Sunlight",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "replenishment",
       "name": "Replenishment",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "bountiful-sunlight",
       "name": "Bountiful Sunlight",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "force",
       "name": "Force",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "wrath-of-gods",
       "name": "Wrath of the Gods",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "emit-force",
       "name": "Emit Force",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "magic-barrier",
       "name": "Magic Barrier",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "great-magic-barrier",
       "name": "Great Magic Barrier",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "homeward",
       "name": "Homeward",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "seek-guidance",
       "name": "Seek Guidance",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "karmic-justice",
       "name": "Karmic Justice",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "vow-of-silence",
       "name": "Vow of Silence",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "tranquil-walk",
       "name": "Tranquil Walk of Peace",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "lightning-spear",
       "name": "Lightning Spear",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "great-lightning-spear",
       "name": "Great Lightning Spear",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "sunlight-spear",
       "name": "Sunlight Spear",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "darkmoon-blade",
       "name": "Darkmoon Blade",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "gravelord-sword-dance",
       "name": "Gravelord Sword Dance",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "gravelord-greatsword-dance",
       "name": "Gravelord Greatsword Dance",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     },
     {
       "id": "sunlight-blade",
       "name": "Sunlight Blade",
-      "type": "spell"
+      "type": "spell",
+      "persist": true
     }
   ],
   "actions": [

@@ -1,9 +1,28 @@
-// ponytail: requirement-built route with runs. Caps repeatable grants by demand.
-// Upgrade: exact BFS when the relevant graph is tiny.
+// Achievement Route planner
+//
+// Algorithm (group-and-merge):
+// 1. Resolve each selected achievement alone (greedy dependency walk) → solo steps.
+// 2. Build a conflict graph: A conflicts with B if they cannot both finish in one
+//    cycle (greedy resolve of {A,B} with newRun forbidden fails).
+// 3. Color the conflict graph (min colors ≈ min runs). Exact bit-DP for n≤18,
+//    greedy Welsh-Powell otherwise.
+// 4. For each color class (group), merge by greedy-resolving that set of
+ //    achievements in one pass (shared work done once, correct order).
+// 5. Between groups, perform a newRun when the world still has cycle progress.
+ //
+ // World state = { done, results, inventory, everDone, run }
+ //   done      — once-only actions since last reset
+ //   results   — flags (persist:true keep on newRun)
+ //   inventory — counts (persist:true keep on newRun)
+ //   everDone  — achievement ledger (never cleared)
+ //   run       — UI counter only
+ //
+ // requires {type:"action"} → must be in done (this cycle), not merely everDone.
 
 const ITEM_TYPES = new Set(['key', 'weapon', 'consumable', 'material', 'spell', 'soul'])
 const ACTION_TYPES = new Set(['collect', 'interact', 'fight', 'go', 'farm'])
 const MAX_STEPS = 5_000
+const EXACT_COLOR_LIMIT = 18
 
 export function planRoute(game, achievementIds) {
   const actions = (game.actions ?? []).map(normalizeAction)
@@ -21,25 +40,80 @@ export function planRoute(game, achievementIds) {
   if (selected.length === 0) return fail('Select at least one achievement.')
 
   const itemById = new Map((game.items ?? []).map((item) => [item.id, item]))
+  const resultById = new Map((game.results ?? []).map((row) => [row.id, row]))
   const enemyById = new Map((game.enemies ?? []).map((enemy) => [enemy.id, enemy]))
   const areas = new Map((game.areas ?? []).map((area) => [area.id, area.name]))
-  const persistTypes = new Set(game.persistItemTypes ?? [])
   const newRunActions = actions.filter((action) => action.newRun)
-  const preferredActions = preferredActionIds(selected, achievementById)
 
-  const state = {
-    everDone: new Set(),
-    doneThisRun: new Set(),
-    inventory: new Map(),
-    results: new Set(),
-    run: 1,
+  const baseCtx = {
+    byId,
+    actions,
+    itemById,
+    resultById,
+    achievementById,
+    newRunActions,
+    preferredActions: preferredActionIds(selected, achievementById),
+    allowNewRun: true,
   }
-  const steps = []
-  const ctx = { byId, actions, itemById, persistTypes, newRunActions, achievementById, preferredActions }
 
+  // 1) Solo plans — fail early if any achievement is impossible alone.
+  for (const achievement of selected) {
+    const solo = resolveAchievements([achievement], emptyState(), {
+      ...baseCtx,
+      preferredActions: preferredActionIds([achievement], achievementById),
+      allowNewRun: true,
+    })
+    if (!solo.ok) return solo
+  }
+
+  // 2) Conflict graph — cannot share one cycle.
+  const n = selected.length
+  const conflict = Array.from({ length: n }, () => Array(n).fill(false))
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+      const pair = resolveAchievements([selected[i], selected[j]], emptyState(), {
+        ...baseCtx,
+        preferredActions: preferredActionIds([selected[i], selected[j]], achievementById),
+        allowNewRun: false,
+      })
+      const clashes = !pair.ok
+      conflict[i][j] = clashes
+      conflict[j][i] = clashes
+    }
+  }
+
+  // 3) Min groups (graph coloring).
+  const colors = colorConflict(conflict)
+  const groupCount = Math.max(0, ...colors) + 1
+  const groups = Array.from({ length: groupCount }, () => [])
+  for (let i = 0; i < n; i++) groups[colors[i]].push(selected[i])
+
+  // Stable group order: by earliest selected index in each group.
+  groups.sort((a, b) => selected.indexOf(a[0]) - selected.indexOf(b[0]))
+
+  // 4–5) Merge within each group; newRun between groups when needed.
+  const state = emptyState()
+  const steps = []
   try {
-    for (const achievement of selected) {
-      ensureConditions(achievement.conditions, state, steps, ctx, new Set())
+    for (let g = 0; g < groups.length; g++) {
+      const remaining = groups.slice(g).flat()
+      if (g > 0 && state.done.size > 0) {
+        ensureNewRun(state, steps, {
+          ...baseCtx,
+          allowNewRun: true,
+          packSelected: remaining,
+          preferredActions: preferredActionIds(remaining, achievementById),
+        })
+      }
+      const group = groups[g]
+      const merged = resolveAchievements(group, state, {
+        ...baseCtx,
+        preferredActions: preferredActionIds(group, achievementById),
+        allowNewRun: true,
+        packSelected: group,
+        steps,
+      })
+      if (!merged.ok) return merged
     }
   } catch (error) {
     if (error?.planFail) return fail(error.message)
@@ -48,34 +122,7 @@ export function planRoute(game, achievementIds) {
 
   if (steps.length > MAX_STEPS) return fail('This route is over the step limit.')
 
-  const earnedIds = new Set()
-  const ever = new Set()
-  const out = steps.map((step, index) => {
-    ever.add(step.id)
-    const names = selected
-      .filter((achievement) => earned(achievement, ever, achievementById) && !earnedIds.has(achievement.id))
-      .map((achievement) => {
-        earnedIds.add(achievement.id)
-        return achievement.name
-      })
-    const action = byId.get(step.id)
-    const sourceName =
-      action.type === 'farm' && action.source?.id
-        ? (enemyById.get(action.source.id)?.name ?? action.source.id)
-        : null
-    return {
-      number: index + 1,
-      id: action.id,
-      occurrence: step.occurrence,
-      run: step.run,
-      area: areas.get(action.area) ?? action.area,
-      description: action.description,
-      sourceName,
-      achievements: names,
-    }
-  })
-
-  return { ok: true, steps: out }
+  return formatResult(steps, selected, byId, enemyById, areas, achievementById)
 }
 
 function fail(message) {
@@ -86,6 +133,16 @@ function planFail(message) {
   const error = new Error(message)
   error.planFail = true
   throw error
+}
+
+function emptyState() {
+  return {
+    done: new Set(),
+    results: new Set(),
+    inventory: new Map(),
+    everDone: new Set(),
+    run: 1,
+  }
 }
 
 function normalizeAction(action) {
@@ -125,6 +182,39 @@ function conditionMet(condition, everDone, achievementById, seen = new Set()) {
     return earned(nested, everDone, achievementById, seen)
   }
   return false
+}
+
+function preferredActionIds(selected, achievementById) {
+  const ids = new Set()
+  const walk = (conditions, seen) => {
+    for (const condition of conditions ?? []) {
+      if (condition.type === 'action') ids.add(condition.id)
+      else if (condition.type === 'any') walk(condition.of, seen)
+      else if (condition.type === 'achievement' && !seen.has(condition.id)) {
+        seen.add(condition.id)
+        const nested = achievementById.get(condition.id)
+        if (nested) walk(nested.conditions, seen)
+      }
+    }
+  }
+  for (const achievement of selected) walk(achievement.conditions, new Set())
+  return ids
+}
+
+function resolveAchievements(selected, state, ctx) {
+  const steps = ctx.steps ?? []
+  const ownedSteps = ctx.steps === undefined
+  try {
+    for (const achievement of selected) {
+      if (earned(achievement, state.everDone, ctx.achievementById)) continue
+      ensureConditions(achievement.conditions, state, steps, ctx, new Set())
+    }
+  } catch (error) {
+    if (error?.planFail) return fail(error.message)
+    throw error
+  }
+  if (steps.length > MAX_STEPS) return fail('This route is over the step limit.')
+  return { ok: true, steps: ownedSteps ? steps : undefined }
 }
 
 function ensureConditions(conditions, state, steps, ctx, seenAchievements) {
@@ -169,34 +259,40 @@ function ensureCondition(condition, state, steps, ctx, seenAchievements) {
 }
 
 function ensureSatisfied(actionId, state, steps, ctx) {
-  if (state.everDone.has(actionId) || state.doneThisRun.has(actionId)) return
+  if (state.everDone.has(actionId) || state.done.has(actionId)) return
+  ensurePerform(actionId, state, steps, ctx)
+}
+
+function ensureDone(actionId, state, steps, ctx) {
+  if (state.done.has(actionId)) return
   ensurePerform(actionId, state, steps, ctx)
 }
 
 function ensurePerform(actionId, state, steps, ctx) {
   const action = ctx.byId.get(actionId)
   if (!action) planFail(`Missing action ${actionId}.`)
+  if (ctx.packing && action.newRun) planFail('new run blocked while packing.')
 
   for (const other of ctx.actions) {
     if (!other.before.includes(actionId)) continue
     if (!ctx.preferredActions.has(other.id)) continue
-    if (state.everDone.has(other.id) || state.doneThisRun.has(other.id)) continue
+    if (state.everDone.has(other.id) || state.done.has(other.id)) continue
     ensurePerform(other.id, state, steps, ctx)
   }
 
-  if (state.doneThisRun.has(actionId) && !isRepeatable(action)) {
+  if (state.done.has(actionId) && !isRepeatable(action)) {
     ensureNewRun(state, steps, ctx)
   }
 
   for (const blocked of action.before) {
-    if (state.doneThisRun.has(blocked)) {
+    if (state.done.has(blocked)) {
       ensureNewRun(state, steps, ctx)
       break
     }
   }
 
   for (const requirement of action.requires) {
-    if (requirement.type === 'action') ensureSatisfied(requirement.id, state, steps, ctx)
+    if (requirement.type === 'action') ensureDone(requirement.id, state, steps, ctx)
     else if (requirement.type === 'inventory') ensureItems(requirement.item, requirement.amount, state, steps, ctx)
     else if (requirement.type === 'result') ensureResult(requirement.id, state, steps, ctx)
   }
@@ -206,12 +302,10 @@ function ensurePerform(actionId, state, steps, ctx) {
   }
 
   for (const blocked of action.before) {
-    if (state.doneThisRun.has(blocked)) {
-      ensureNewRun(state, steps, ctx)
-    }
+    if (state.done.has(blocked)) ensureNewRun(state, steps, ctx)
   }
 
-  if (state.doneThisRun.has(actionId) && !isRepeatable(action)) {
+  if (state.done.has(actionId) && !isRepeatable(action)) {
     ensureNewRun(state, steps, ctx)
   }
 
@@ -220,7 +314,7 @@ function ensurePerform(actionId, state, steps, ctx) {
 
 function ensureItems(itemId, amount, state, steps, ctx) {
   while (count(state.inventory, itemId) < amount) {
-    const giver = pickGiver(itemId, ctx.actions, state, ctx.preferredActions, ctx.newRunActions.length > 0)
+    const giver = pickGiver(itemId, ctx.actions, state, ctx.preferredActions, ctx.allowNewRun)
     if (!giver) {
       const name = ctx.itemById.get(itemId)?.name ?? itemId
       planFail(`Nothing gives enough ${name}.`)
@@ -240,17 +334,20 @@ function ensureResult(resultId, state, steps, ctx) {
 }
 
 function ensureNewRun(state, steps, ctx) {
+  if (!ctx.allowNewRun) planFail('new run blocked in this cycle.')
+  if (ctx.packing) planFail('new run blocked while packing.')
   if (ctx.newRunActions.length === 0) {
     planFail('A new run is needed, but this game has no newRun action.')
   }
+  packCurrentCycle(state, steps, ctx)
   let last = null
   for (const action of ctx.newRunActions) {
-    if (state.doneThisRun.has(action.id) && !isRepeatable(action)) continue
+    if (state.done.has(action.id) && !isRepeatable(action)) continue
     const snap = snapshot(state)
     const stepSnap = steps.length
     try {
       for (const requirement of action.requires) {
-        if (requirement.type === 'action') ensureSatisfied(requirement.id, state, steps, ctx)
+        if (requirement.type === 'action') ensureDone(requirement.id, state, steps, ctx)
         else if (requirement.type === 'inventory') ensureItems(requirement.item, requirement.amount, state, steps, ctx)
         else if (requirement.type === 'result') ensureResult(requirement.id, state, steps, ctx)
       }
@@ -269,11 +366,42 @@ function ensureNewRun(state, steps, ctx) {
   planFail(last?.message ?? 'Could not start a new run.')
 }
 
+function packCurrentCycle(state, steps, ctx) {
+  if (ctx.packing) return
+  const selected = ctx.packSelected
+  if (!selected?.length) return
+  ctx.packing = true
+  const prevAllow = ctx.allowNewRun
+  ctx.allowNewRun = false
+  try {
+    let progress = true
+    while (progress) {
+      progress = false
+      for (const achievement of selected) {
+        if (earned(achievement, state.everDone, ctx.achievementById)) continue
+        const snap = snapshot(state)
+        const stepSnap = steps.length
+        try {
+          ensureConditions(achievement.conditions, state, steps, ctx, new Set())
+          if (steps.length > stepSnap) progress = true
+        } catch (error) {
+          if (!error?.planFail) throw error
+          restore(state, snap)
+          steps.length = stepSnap
+        }
+      }
+    }
+  } finally {
+    ctx.allowNewRun = prevAllow
+    ctx.packing = false
+  }
+}
+
 function pickGiver(itemId, actions, state, preferredActions = new Set(), allowNewRun = false) {
   const givers = actions.filter((action) => {
     if (!gives(action, itemId)) return false
     if (isRepeatable(action)) return true
-    if (!state.doneThisRun.has(action.id)) return true
+    if (!state.done.has(action.id)) return true
     return allowNewRun
   })
   if (givers.length === 0) return null
@@ -281,29 +409,12 @@ function pickGiver(itemId, actions, state, preferredActions = new Set(), allowNe
     const aPref = preferredActions.has(a.id) ? 0 : 1
     const bPref = preferredActions.has(b.id) ? 0 : 1
     if (aPref !== bPref) return aPref - bPref
-    const aDone = state.doneThisRun.has(a.id) && !isRepeatable(a) ? 1 : 0
-    const bDone = state.doneThisRun.has(b.id) && !isRepeatable(b) ? 1 : 0
+    const aDone = state.done.has(a.id) && !isRepeatable(a) ? 1 : 0
+    const bDone = state.done.has(b.id) && !isRepeatable(b) ? 1 : 0
     if (aDone !== bDone) return aDone - bDone
     return a.id.localeCompare(b.id)
   })
   return givers[0]
-}
-
-function preferredActionIds(selected, achievementById) {
-  const ids = new Set()
-  const walk = (conditions, seen) => {
-    for (const condition of conditions ?? []) {
-      if (condition.type === 'action') ids.add(condition.id)
-      else if (condition.type === 'any') walk(condition.of, seen)
-      else if (condition.type === 'achievement' && !seen.has(condition.id)) {
-        seen.add(condition.id)
-        const nested = achievementById.get(condition.id)
-        if (nested) walk(nested.conditions, seen)
-      }
-    }
-  }
-  for (const achievement of selected) walk(achievement.conditions, new Set())
-  return ids
 }
 
 function perform(action, state, steps, ctx) {
@@ -325,17 +436,20 @@ function perform(action, state, steps, ctx) {
 
   const occurrence = steps.filter((step) => step.id === action.id).length + 1
   steps.push({ id: action.id, run: state.run, occurrence })
-  state.doneThisRun.add(action.id)
+  state.done.add(action.id)
   state.everDone.add(action.id)
 
   if (action.newRun) {
     state.run += 1
-    state.doneThisRun = new Set()
-    state.results = new Set()
+    state.done = new Set()
+    const nextResults = new Set()
+    for (const id of state.results) {
+      if (ctx.resultById.get(id)?.persist === true) nextResults.add(id)
+    }
+    state.results = nextResults
     const nextInventory = new Map()
     for (const [itemId, amount] of state.inventory) {
-      const type = ctx.itemById.get(itemId)?.type
-      if (type && ctx.persistTypes.has(type)) nextInventory.set(itemId, amount)
+      if (ctx.itemById.get(itemId)?.persist === true) nextInventory.set(itemId, amount)
     }
     state.inventory = nextInventory
   }
@@ -345,19 +459,19 @@ function perform(action, state, steps, ctx) {
 
 function snapshot(state) {
   return {
-    everDone: new Set(state.everDone),
-    doneThisRun: new Set(state.doneThisRun),
-    inventory: new Map(state.inventory),
+    done: new Set(state.done),
     results: new Set(state.results),
+    inventory: new Map(state.inventory),
+    everDone: new Set(state.everDone),
     run: state.run,
   }
 }
 
 function restore(state, snap) {
-  state.everDone = snap.everDone
-  state.doneThisRun = snap.doneThisRun
-  state.inventory = snap.inventory
+  state.done = snap.done
   state.results = snap.results
+  state.inventory = snap.inventory
+  state.everDone = snap.everDone
   state.run = snap.run
 }
 
@@ -367,6 +481,112 @@ function count(inventory, item) {
 
 function gives(action, item) {
   return (action.gives ?? []).some((stack) => stack.item === item && stack.amount > 0)
+}
+
+function colorConflict(conflict) {
+  const n = conflict.length
+  if (n === 0) return []
+  if (n <= EXACT_COLOR_LIMIT) return colorExact(conflict)
+  return colorGreedy(conflict)
+}
+
+// Minimum coloring via DP over independent sets. O(3^n)ish, fine for n≤18.
+function colorExact(conflict) {
+  const n = conflict.length
+  const ok = new Array(1 << n).fill(false)
+  ok[0] = true
+  for (let mask = 1; mask < 1 << n; mask++) {
+    let good = true
+    for (let i = 0; i < n && good; i++) {
+      if (((mask >> i) & 1) === 0) continue
+      for (let j = i + 1; j < n; j++) {
+        if (((mask >> j) & 1) === 0) continue
+        if (conflict[i][j]) {
+          good = false
+          break
+        }
+      }
+    }
+    ok[mask] = good
+  }
+
+  const dp = new Array(1 << n).fill(Infinity)
+  const pick = new Array(1 << n).fill(0)
+  dp[0] = 0
+  for (let mask = 1; mask < 1 << n; mask++) {
+    for (let sub = mask; sub > 0; sub = (sub - 1) & mask) {
+      if (!ok[sub]) continue
+      const prev = mask ^ sub
+      const cand = dp[prev] + 1
+      if (cand < dp[mask]) {
+        dp[mask] = cand
+        pick[mask] = sub
+      }
+    }
+  }
+
+  const colors = Array(n).fill(-1)
+  let color = 0
+  let mask = (1 << n) - 1
+  while (mask > 0) {
+    const sub = pick[mask]
+    for (let i = 0; i < n; i++) {
+      if ((sub >> i) & 1) colors[i] = color
+    }
+    color += 1
+    mask ^= sub
+  }
+  return colors
+}
+
+function colorGreedy(conflict) {
+  const n = conflict.length
+  const order = Array.from({ length: n }, (_, i) => i).sort((a, b) => {
+    const da = conflict[a].filter(Boolean).length
+    const db = conflict[b].filter(Boolean).length
+    return db - da
+  })
+  const colors = Array(n).fill(-1)
+  for (const v of order) {
+    const used = new Set()
+    for (let u = 0; u < n; u++) {
+      if (conflict[v][u] && colors[u] >= 0) used.add(colors[u])
+    }
+    let c = 0
+    while (used.has(c)) c += 1
+    colors[v] = c
+  }
+  return colors
+}
+
+function formatResult(steps, selected, byId, enemyById, areas, achievementById) {
+  const earnedIds = new Set()
+  const ever = new Set()
+  const out = steps.map((step, index) => {
+    ever.add(step.id)
+    const names = selected
+      .filter((achievement) => earned(achievement, ever, achievementById) && !earnedIds.has(achievement.id))
+      .map((achievement) => {
+        earnedIds.add(achievement.id)
+        return achievement.name
+      })
+    const action = byId.get(step.id)
+    const sourceName =
+      action.type === 'farm' && action.source?.id
+        ? (enemyById.get(action.source.id)?.name ?? action.source.id)
+        : null
+    return {
+      number: index + 1,
+      id: action.id,
+      occurrence: step.occurrence,
+      run: step.run,
+      area: areas.get(action.area) ?? action.area,
+      description: action.description,
+      sourceName,
+      achievements: names,
+    }
+  })
+  return { ok: true, steps: out }
 }
 
 export function validateGame(data) {
@@ -379,14 +599,6 @@ export function validateGame(data) {
   const results = asList(data.results)
   const actions = asList(data.actions).map(normalizeAction)
   const achievements = asList(data.achievements)
-  const persistItemTypes = data.persistItemTypes
-
-  if (persistItemTypes !== undefined) {
-    if (!Array.isArray(persistItemTypes)) return 'persistItemTypes must be an array.'
-    for (const type of persistItemTypes) {
-      if (!ITEM_TYPES.has(type)) return `Unknown persist item type ${type}.`
-    }
-  }
 
   if (dupes(areas)) return 'Duplicate area id.'
   if (dupes(items)) return 'Duplicate item id.'
@@ -408,12 +620,18 @@ export function validateGame(data) {
   for (const item of items) {
     if (!item.id || !item.name) return 'Each item needs an id and a name.'
     if (!ITEM_TYPES.has(item.type)) return `${item.id} has an unknown item type.`
+    if (item.persist !== undefined && typeof item.persist !== 'boolean') {
+      return `${item.id} persist must be a boolean.`
+    }
   }
   for (const enemy of enemies) {
     if (!enemy.id || !enemy.name) return 'Each enemy needs an id and a name.'
   }
   for (const result of results) {
     if (!result.id || !result.name) return 'Each result needs an id and a name.'
+    if (result.persist !== undefined && typeof result.persist !== 'boolean') {
+      return `${result.id} persist must be a boolean.`
+    }
   }
 
   for (const action of actions) {

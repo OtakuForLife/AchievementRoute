@@ -6,4 +6,4 @@ The UI is a field-guide tool: search and select achievements, sticky Generate, c
 
 An empty `data/` folder shows no games. A bad file is named and skipped. Selecting nothing asks for at least one achievement. Regenerating keeps checkmarks that still match the new step list.
 
-The list is the product. Shared work is done once. Extra runs appear as normal steps (including `newRun` actions) in the same route.
+The list is the product. Shared work is done once. Extra cycles appear when a `newRun` action resets world progress (with per-item/result persist exceptions).

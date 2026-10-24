@@ -1,9 +1,7 @@
 # Active context
 
-Planner supports farms, live result states, repeatable actions, `newRun` + `persistItemTypes`, and achievement-as-condition. UI toggles all-steps vs by-run.
+Planner is group-and-merge (solo resolve → conflict coloring → merge per run) with per-item/result `persist` on `newRun`. UI: dark field-guide, worker planning, search, checkoffs, copy, localStorage, collapsible runs.
 
-UI is a dark field-guide layout (IBM Plex): achievement search, selected count/clear, sticky generate, step checkoffs, copy route, localStorage session restore. Lists scroll inside the viewport; the page itself does not.
+`data/ashen-keep` via `demo.json`. `data/dark-souls-remastered.json` from `node scripts/build-dsr.js` — keys/Lordvessel/embers do not persist; weapons/spells/materials/souls/estus and covenant results do.
 
-`data/ashen-keep.json` is the small demo. `data/dark-souls-remastered.json` is a full offline 41-achievement graph (regenerate with `node scripts/build-dsr.js`).
-
-Assumptions for DSR: offline only; Rhea-style “N of set” missables use conservative `before` ordering; stats are description/dummy actions.
+Assumptions for DSR: offline only; Rhea-style missables use `before`; stats are description/dummy actions.

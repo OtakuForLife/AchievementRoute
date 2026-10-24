@@ -6,4 +6,4 @@ Run with Docker: `docker compose up --build`, then http://localhost:5173. The co
 
 `check` is `node src/route.check.js`. The package is `"type": "module"`.
 
-Games live only in `data/`. One file is one game. Optional authoring helper: `node scripts/build-dsr.js`.
+Games live only in `data/`. One file is one game. Optional authoring helper: `node scripts/build-dsr.js`. Algorithm notes: `docs/algorithm.md`.

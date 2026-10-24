@@ -11,8 +11,7 @@ function game(partial) {
     areas: [area, there],
     enemies: partial.enemies ?? [],
     results: partial.results ?? [],
-    items: partial.items ?? [{ id: 'token', name: 'Token', type: 'key' }],
-    persistItemTypes: partial.persistItemTypes ?? ['key', 'weapon', 'soul', 'material', 'spell'],
+    items: partial.items ?? [{ id: 'token', name: 'Token', type: 'key', persist: true }],
     actions: partial.actions,
     achievements: partial.achievements,
   }
@@ -122,7 +121,7 @@ check('one potion cannot pay for two drinks', () => {
     ['once', 'twice'],
   )
   assert.equal(result.ok, false)
-  assert.match(result.message, /Token|token/i)
+  assert.match(result.message, /No route|Token|token|new run/i)
 })
 
 check('a second brew covers a second drink', () => {
@@ -306,9 +305,8 @@ check('meta achievement pulls nested achievements', () => {
 
 check('newRun lets a once-only boss grant a second soul', () => {
   const fixture = game({
-    persistItemTypes: ['soul'],
     items: [
-      { id: 'boss-soul', name: 'Boss Soul', type: 'soul' },
+      { id: 'boss-soul', name: 'Boss Soul', type: 'soul', persist: true },
       { id: 'junk', name: 'Junk', type: 'consumable' },
     ],
     actions: [
@@ -357,6 +355,117 @@ check('newRun lets a once-only boss grant a second soul', () => {
   assert.ok(ng.run < secondFight.run)
 })
 
+check('newRun redoes action requirements in the next run', () => {
+  const fixture = game({
+    results: [{ id: 'boss-down', name: 'Boss down' }],
+    items: [{ id: 'boss-soul', name: 'Boss Soul', type: 'soul', persist: true }],
+    actions: [
+      { id: 'prep', type: 'interact', description: 'Reach the boss', area: 'here' },
+      {
+        id: 'fight-boss',
+        type: 'fight',
+        description: 'Fight boss',
+        area: 'here',
+        gives: [{ item: 'boss-soul', amount: 1 }],
+        requires: [{ type: 'action', id: 'prep' }],
+        sets: [{ type: 'result', id: 'boss-down' }],
+      },
+      {
+        id: 'forge-a',
+        type: 'interact',
+        description: 'Forge A',
+        area: 'here',
+        consumes: [{ item: 'boss-soul', amount: 1 }],
+      },
+      {
+        id: 'forge-b',
+        type: 'interact',
+        description: 'Forge B',
+        area: 'here',
+        consumes: [{ item: 'boss-soul', amount: 1 }],
+      },
+      {
+        id: 'enter-ng',
+        type: 'interact',
+        description: 'Enter NG+',
+        area: 'here',
+        requires: [{ type: 'result', id: 'boss-down' }],
+        newRun: true,
+      },
+    ],
+    achievements: [
+      { id: 'a', name: 'A', description: 'A', conditions: [{ type: 'action', id: 'forge-a' }] },
+      { id: 'b', name: 'B', description: 'B', conditions: [{ type: 'action', id: 'forge-b' }] },
+    ],
+  })
+  const result = planRoute(fixture, ['a', 'b'])
+  assert.equal(result.ok, true, result.message)
+  const steps = ids(result)
+  assert.equal(steps.filter((id) => id === 'prep').length, 2, 'prep must be redone after newRun')
+  assert.equal(steps.filter((id) => id === 'fight-boss').length, 2)
+  const ng = result.steps.find((step) => step.id === 'enter-ng')
+  const secondPrep = result.steps.filter((step) => step.id === 'prep')[1]
+  const secondFight = result.steps.filter((step) => step.id === 'fight-boss')[1]
+  assert.ok(ng.run < secondPrep.run)
+  assert.equal(secondPrep.run, secondFight.run)
+  assert.ok(secondPrep.number < secondFight.number, 'prep before boss in NG+')
+})
+
+check('packs other achievements into the current run before newRun', () => {
+  const fixture = game({
+    items: [{ id: 'boss-soul', name: 'Boss Soul', type: 'soul', persist: true }],
+    actions: [
+      {
+        id: 'fight-boss',
+        type: 'fight',
+        description: 'Fight boss',
+        area: 'here',
+        gives: [{ item: 'boss-soul', amount: 1 }],
+      },
+      {
+        id: 'forge-a',
+        type: 'interact',
+        description: 'Forge A',
+        area: 'here',
+        consumes: [{ item: 'boss-soul', amount: 1 }],
+      },
+      {
+        id: 'forge-b',
+        type: 'interact',
+        description: 'Forge B',
+        area: 'here',
+        consumes: [{ item: 'boss-soul', amount: 1 }],
+      },
+      {
+        id: 'side-quest',
+        type: 'interact',
+        description: 'Side quest that fits before NG+',
+        area: 'here',
+      },
+      {
+        id: 'enter-ng',
+        type: 'interact',
+        description: 'Enter NG+',
+        area: 'here',
+        newRun: true,
+      },
+    ],
+    achievements: [
+      { id: 'a', name: 'A', description: 'A', conditions: [{ type: 'action', id: 'forge-a' }] },
+      { id: 'b', name: 'B', description: 'B', conditions: [{ type: 'action', id: 'forge-b' }] },
+      { id: 'side', name: 'Side', description: 'Side', conditions: [{ type: 'action', id: 'side-quest' }] },
+    ],
+  })
+  const result = planRoute(fixture, ['a', 'b', 'side'])
+  assert.equal(result.ok, true, result.message)
+  const ng = result.steps.find((step) => step.id === 'enter-ng')
+  const side = result.steps.find((step) => step.id === 'side-quest')
+  assert.ok(ng, 'expected a newRun step')
+  assert.ok(side, 'expected side quest')
+  assert.equal(side.run, ng.run, 'side quest should finish in the same run that ends')
+  assert.ok(side.number < ng.number, 'side quest should be packed before the ending')
+})
+
 check('repeatable farm can grant twice in one run', () => {
   const fixture = game({
     enemies: [{ id: 'rat', name: 'Rat' }],
@@ -396,12 +505,11 @@ check('repeatable farm can grant twice in one run', () => {
   assert.equal(planRoute(fixture, ['a', 'b']).steps.every((step) => step.run === 1), true)
 })
 
-check('persistItemTypes drops consumables on newRun', () => {
+check('item persist false drops on newRun', () => {
   const fixture = game({
-    persistItemTypes: ['soul'],
     items: [
-      { id: 'boss-soul', name: 'Boss Soul', type: 'soul' },
-      { id: 'herb', name: 'Herb', type: 'consumable' },
+      { id: 'boss-soul', name: 'Boss Soul', type: 'soul', persist: true },
+      { id: 'herb', name: 'Herb', type: 'consumable', persist: false },
     ],
     actions: [
       { id: 'take-herb', type: 'collect', description: 'Herb', area: 'here', gives: [{ item: 'herb', amount: 1 }] },
@@ -446,7 +554,12 @@ check('persistItemTypes drops consumables on newRun', () => {
   assert.equal(result.ok, true, result.message)
   const steps = ids(result)
   assert.ok(steps.includes('enter-ng'))
-  assert.ok(steps.filter((id) => id === 'take-herb').length >= 2)
+  const ng = result.steps.find((step) => step.id === 'enter-ng')
+  const late = result.steps.find((step) => step.id === 'need-herb-late')
+  const herbBeforeLate = result.steps.filter(
+    (step) => step.id === 'take-herb' && step.number > ng.number && step.number < late.number,
+  )
+  assert.ok(herbBeforeLate.length >= 1, 'non-persist herb must be reacquired after newRun before spending it')
 })
 
 console.log(`${passed} checks passed`)

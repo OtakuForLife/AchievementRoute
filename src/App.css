@@ -251,8 +251,13 @@ select,
   cursor: pointer;
 }
 
-.generate:hover {
+.generate:hover:not(:disabled) {
   background: #249266;
+}
+
+.generate:disabled {
+  opacity: 0.65;
+  cursor: wait;
 }
 
 .generate:focus-visible,

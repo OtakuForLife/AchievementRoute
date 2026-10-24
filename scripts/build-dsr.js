@@ -50,36 +50,38 @@ const enemies = [
   ['crystal-lizard', 'Crystal Lizard'],
 ].map(([id, name]) => ({ id, name }))
 
+// persist:true survives newRun (NG+). Covenants keep; world progress does not.
 const results = [
-  ['way-of-white', 'Way of White joined'],
-  ['princess-guard', "Princess's Guard joined"],
-  ['darkmoon', 'Blade of the Darkmoon joined'],
-  ['warrior-sunlight', 'Warrior of Sunlight joined'],
-  ['forest-hunter', 'Forest Hunter joined'],
-  ['darkwraith', 'Darkwraith joined'],
-  ['path-dragon', 'Path of the Dragon joined'],
-  ['gravelord', 'Gravelord Servant joined'],
-  ['chaos-servant', 'Chaos Servant joined'],
-  ['lordvessel-placed', 'Lordvessel placed'],
-  ['firelink-down', 'Firelink bonfire disabled'],
-  ['both-bells', 'Both Bells of Awakening rung'],
-  ['gwyn-fallen', 'Gwyn defeated this run'],
-].map(([id, name]) => ({ id, name }))
+  ['way-of-white', 'Way of White joined', true],
+  ['princess-guard', "Princess's Guard joined", true],
+  ['darkmoon', 'Blade of the Darkmoon joined', true],
+  ['warrior-sunlight', 'Warrior of Sunlight joined', true],
+  ['forest-hunter', 'Forest Hunter joined', true],
+  ['darkwraith', 'Darkwraith joined', true],
+  ['path-dragon', 'Path of the Dragon joined', true],
+  ['gravelord', 'Gravelord Servant joined', true],
+  ['chaos-servant', 'Chaos Servant joined', true],
+  ['lordvessel-placed', 'Lordvessel placed', false],
+  ['firelink-down', 'Firelink bonfire disabled', false],
+  ['both-bells', 'Both Bells of Awakening rung', false],
+  ['gwyn-fallen', 'Gwyn defeated this run', false],
+].map(([id, name, persist]) => ({ id, name, persist }))
 
 const items = []
-const item = (id, name, type) => {
-  items.push({ id, name, type })
+// Default persist false. Weapons/spells/materials/souls carry; most keys do not.
+const item = (id, name, type, persist = false) => {
+  items.push({ id, name, type, persist })
   return id
 }
 
-const key = (id, name) => item(id, name, 'key')
-const weapon = (id, name) => item(id, name, 'weapon')
-const material = (id, name) => item(id, name, 'material')
-const spell = (id, name) => item(id, name, 'spell')
-const soul = (id, name) => item(id, name, 'soul')
-const consumable = (id, name) => item(id, name, 'consumable')
+const key = (id, name, persist = false) => item(id, name, 'key', persist)
+const weapon = (id, name) => item(id, name, 'weapon', true)
+const material = (id, name) => item(id, name, 'material', true)
+const spell = (id, name) => item(id, name, 'spell', true)
+const soul = (id, name) => item(id, name, 'soul', true)
+const consumable = (id, name) => item(id, name, 'consumable', false)
 
-key('estus-flask', 'Estus Flask')
+key('estus-flask', 'Estus Flask', true)
 key('residence-key', 'Residence Key')
 key('basement-key', 'Basement Key')
 key('key-depths', 'Key to the Depths')
@@ -1260,7 +1262,6 @@ for (const row of items) {
 const game = {
   id: 'dark-souls-remastered',
   name: 'DARK SOULS: REMASTERED',
-  persistItemTypes: ['key', 'weapon', 'material', 'spell', 'soul'],
   areas,
   enemies,
   results,
