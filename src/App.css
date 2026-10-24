@@ -465,6 +465,32 @@ select:focus-visible,
   font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
   font-weight: 600;
   font-size: 1.15rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.run-title::-webkit-details-marker {
+  display: none;
+}
+
+.run-title::before {
+  content: "▾";
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.run-block:not([open]) .run-title {
+  margin-bottom: 0;
+}
+
+.run-block:not([open]) .run-title::before {
+  content: "▸";
+}
+
+.run-title:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .run-count {

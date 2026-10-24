@@ -342,14 +342,14 @@ export default function App() {
                   ) : (
                     <div className="run-list">
                       {groupByRun(result.steps).map((group) => (
-                        <section key={group.run} className="run-block">
-                          <h2 className="run-title">
+                        <details key={group.run} className="run-block" open>
+                          <summary className="run-title">
                             Run {group.run}
                             <span className="run-count">
                               {group.steps.length} steps · global{' '}
                               {group.steps[0].number}–{group.steps[group.steps.length - 1].number}
                             </span>
-                          </h2>
+                          </summary>
                           <ol className="steps">
                             {group.steps.map((step, index) => (
                               <StepRow
@@ -361,7 +361,7 @@ export default function App() {
                               />
                             ))}
                           </ol>
-                        </section>
+                        </details>
                       ))}
                     </div>
                   )}
