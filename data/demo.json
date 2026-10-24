@@ -1,0 +1,238 @@
+{
+  "id": "ashen-keep",
+  "name": "Ashen Keep",
+  "persistItemTypes": ["key", "weapon", "soul"],
+  "areas": [
+    { "id": "yard", "name": "Ash Yard" },
+    { "id": "gatehouse", "name": "Gatehouse" },
+    { "id": "chapel", "name": "Chapel" },
+    { "id": "crypt", "name": "Crypt" },
+    { "id": "tower", "name": "Bell Tower" }
+  ],
+  "enemies": [
+    { "id": "ash-rat", "name": "Ash Rat" }
+  ],
+  "results": [
+    { "id": "bell-rung", "name": "Bell rung" },
+    { "id": "chapel-sealed", "name": "Chapel sealed" }
+  ],
+  "items": [
+    { "id": "courtyard-key", "name": "Courtyard Key", "type": "key" },
+    { "id": "warden-key", "name": "Warden Key", "type": "key" },
+    { "id": "candle", "name": "Saint's Candle", "type": "key" },
+    { "id": "relic", "name": "Relic", "type": "key" },
+    { "id": "coin", "name": "Loose Coin", "type": "consumable" },
+    { "id": "rat-tooth", "name": "Rat Tooth", "type": "material" }
+  ],
+  "actions": [
+    {
+      "id": "search-yard",
+      "type": "collect",
+      "description": "Search the ash yard and take the Courtyard Key.",
+      "area": "yard",
+      "gives": [{ "item": "courtyard-key", "amount": 1 }]
+    },
+    {
+      "id": "open-gate",
+      "type": "interact",
+      "description": "Unlock the gatehouse with the Courtyard Key.",
+      "area": "yard",
+      "requires": [{ "type": "inventory", "item": "courtyard-key", "amount": 1 }]
+    },
+    {
+      "id": "light-yard-fire",
+      "type": "interact",
+      "description": "Light the bonfire in the ash yard.",
+      "area": "yard",
+      "requires": [{ "type": "action", "id": "open-gate" }]
+    },
+    {
+      "id": "speak-prisoner",
+      "type": "interact",
+      "description": "Speak with the prisoner in the gatehouse before the executioner is fought.",
+      "area": "gatehouse",
+      "requires": [{ "type": "action", "id": "open-gate" }],
+      "before": ["fight-executioner"]
+    },
+    {
+      "id": "fight-executioner",
+      "type": "fight",
+      "description": "Defeat the executioner and take his Warden Key.",
+      "area": "gatehouse",
+      "gives": [{ "item": "warden-key", "amount": 1 }],
+      "requires": [{ "type": "action", "id": "open-gate" }]
+    },
+    {
+      "id": "enter-chapel",
+      "type": "go",
+      "description": "Enter the chapel.",
+      "area": "chapel",
+      "requires": [{ "type": "action", "id": "open-gate" }]
+    },
+    {
+      "id": "take-candle",
+      "type": "collect",
+      "description": "Take the Saint's Candle from the chapel altar.",
+      "area": "chapel",
+      "gives": [{ "item": "candle", "amount": 1 }],
+      "requires": [{ "type": "action", "id": "enter-chapel" }]
+    },
+    {
+      "id": "light-saint",
+      "type": "interact",
+      "description": "Light the saint's statue with the candle.",
+      "area": "chapel",
+      "requires": [{ "type": "inventory", "item": "candle", "amount": 1 }]
+    },
+    {
+      "id": "seal-chapel",
+      "type": "interact",
+      "description": "Seal the chapel after the saint is lit.",
+      "area": "chapel",
+      "requires": [{ "type": "action", "id": "light-saint" }],
+      "sets": [{ "type": "result", "id": "chapel-sealed" }]
+    },
+    {
+      "id": "take-chapel-relic",
+      "type": "collect",
+      "description": "Take the chapel relic.",
+      "area": "chapel",
+      "gives": [{ "item": "relic", "amount": 1 }],
+      "requires": [{ "type": "action", "id": "enter-chapel" }]
+    },
+    {
+      "id": "enter-crypt",
+      "type": "go",
+      "description": "Descend into the crypt.",
+      "area": "crypt",
+      "requires": [{ "type": "action", "id": "open-gate" }]
+    },
+    {
+      "id": "take-crypt-relic",
+      "type": "collect",
+      "description": "Take the crypt relic. The Warden Key is buried with it.",
+      "area": "crypt",
+      "gives": [
+        { "item": "relic", "amount": 1 },
+        { "item": "warden-key", "amount": 1 }
+      ],
+      "requires": [{ "type": "action", "id": "enter-crypt" }]
+    },
+    {
+      "id": "climb-tower",
+      "type": "go",
+      "description": "Unlock the bell tower with the Warden Key and climb it.",
+      "area": "tower",
+      "requires": [{ "type": "inventory", "item": "warden-key", "amount": 1 }]
+    },
+    {
+      "id": "ring-bell",
+      "type": "interact",
+      "description": "Ring the bell.",
+      "area": "tower",
+      "requires": [{ "type": "action", "id": "climb-tower" }],
+      "sets": [{ "type": "result", "id": "bell-rung" }]
+    },
+    {
+      "id": "offer-relics",
+      "type": "interact",
+      "description": "Offer both relics at the chapel altar. They are consumed.",
+      "area": "chapel",
+      "consumes": [{ "item": "relic", "amount": 2 }],
+      "requires": [
+        { "type": "action", "id": "enter-chapel" },
+        { "type": "inventory", "item": "relic", "amount": 2 },
+        { "type": "result", "id": "chapel-sealed" }
+      ]
+    },
+    {
+      "id": "pick-coin",
+      "type": "collect",
+      "description": "Pocket a loose coin in the yard.",
+      "area": "yard",
+      "gives": [{ "item": "coin", "amount": 1 }]
+    },
+    {
+      "id": "farm-ash-rat",
+      "type": "farm",
+      "description": "Farm Ash Rats until a Rat Tooth drops.",
+      "area": "yard",
+      "source": { "type": "enemy", "id": "ash-rat" },
+      "gives": [{ "item": "rat-tooth", "amount": 1 }]
+    },
+    {
+      "id": "end-keep",
+      "type": "interact",
+      "description": "Leave the keep and begin again with what persists.",
+      "area": "yard",
+      "requires": [{ "type": "result", "id": "bell-rung" }],
+      "newRun": true
+    }
+  ],
+  "achievements": [
+    {
+      "id": "kindled",
+      "name": "Kindled",
+      "description": "Light the ash yard bonfire.",
+      "conditions": [{ "type": "action", "id": "light-yard-fire" }]
+    },
+    {
+      "id": "last-words",
+      "name": "Last Words",
+      "description": "Hear the prisoner before the executioner dies.",
+      "conditions": [{ "type": "action", "id": "speak-prisoner" }]
+    },
+    {
+      "id": "bell-of-ash",
+      "name": "Bell of Ash",
+      "description": "Ring the bell in the tower.",
+      "conditions": [{ "type": "action", "id": "ring-bell" }]
+    },
+    {
+      "id": "chapel-saint",
+      "name": "Chapel Saint",
+      "description": "Light the saint's statue.",
+      "conditions": [{ "type": "action", "id": "light-saint" }]
+    },
+    {
+      "id": "reliquary",
+      "name": "Reliquary",
+      "description": "Offer both relics. One is in the chapel, one is in the crypt.",
+      "conditions": [{ "type": "action", "id": "offer-relics" }]
+    },
+    {
+      "id": "wardens-end",
+      "name": "Warden's End",
+      "description": "Finish the warden, either by the sword or by taking what he buried.",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            { "type": "action", "id": "fight-executioner" },
+            { "type": "action", "id": "take-crypt-relic" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rat-catcher",
+      "name": "Rat Catcher",
+      "description": "Take a tooth from the ash rats.",
+      "conditions": [{ "type": "action", "id": "farm-ash-rat" }]
+    },
+    {
+      "id": "ashen-crown",
+      "name": "Ashen Crown",
+      "description": "Every lesser mark of the keep.",
+      "conditions": [
+        { "type": "achievement", "id": "kindled" },
+        { "type": "achievement", "id": "last-words" },
+        { "type": "achievement", "id": "bell-of-ash" },
+        { "type": "achievement", "id": "chapel-saint" },
+        { "type": "achievement", "id": "reliquary" },
+        { "type": "achievement", "id": "wardens-end" },
+        { "type": "achievement", "id": "rat-catcher" }
+      ]
+    }
+  ]
+}

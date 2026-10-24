@@ -1,0 +1,5978 @@
+{
+  "id": "dark-souls-remastered",
+  "name": "DARK SOULS: REMASTERED",
+  "persistItemTypes": [
+    "key",
+    "weapon",
+    "material",
+    "spell",
+    "soul"
+  ],
+  "areas": [
+    {
+      "id": "undead-asylum",
+      "name": "Northern Undead Asylum"
+    },
+    {
+      "id": "firelink",
+      "name": "Firelink Shrine"
+    },
+    {
+      "id": "undead-burg",
+      "name": "Undead Burg"
+    },
+    {
+      "id": "undead-parish",
+      "name": "Undead Parish"
+    },
+    {
+      "id": "darkroot",
+      "name": "Darkroot Garden"
+    },
+    {
+      "id": "darkroot-basin",
+      "name": "Darkroot Basin"
+    },
+    {
+      "id": "lower-burg",
+      "name": "Lower Undead Burg"
+    },
+    {
+      "id": "depths",
+      "name": "The Depths"
+    },
+    {
+      "id": "blighttown",
+      "name": "Blighttown"
+    },
+    {
+      "id": "valley-drakes",
+      "name": "Valley of Drakes"
+    },
+    {
+      "id": "great-hollow",
+      "name": "The Great Hollow"
+    },
+    {
+      "id": "ash-lake",
+      "name": "Ash Lake"
+    },
+    {
+      "id": "sens",
+      "name": "Sen's Fortress"
+    },
+    {
+      "id": "anor-londo",
+      "name": "Anor Londo"
+    },
+    {
+      "id": "painted-world",
+      "name": "Painted World of Ariamis"
+    },
+    {
+      "id": "dark-anor-londo",
+      "name": "Dark Anor Londo"
+    },
+    {
+      "id": "new-londo",
+      "name": "New Londo Ruins"
+    },
+    {
+      "id": "the-abyss",
+      "name": "The Abyss"
+    },
+    {
+      "id": "catacombs",
+      "name": "The Catacombs"
+    },
+    {
+      "id": "tomb-giants",
+      "name": "Tomb of the Giants"
+    },
+    {
+      "id": "demon-ruins",
+      "name": "Demon Ruins"
+    },
+    {
+      "id": "lost-izalith",
+      "name": "Lost Izalith"
+    },
+    {
+      "id": "dukes",
+      "name": "The Duke's Archives"
+    },
+    {
+      "id": "crystal-cave",
+      "name": "Crystal Cave"
+    },
+    {
+      "id": "kiln",
+      "name": "Kiln of the First Flame"
+    },
+    {
+      "id": "sunlight-altar",
+      "name": "Sunlight Altar"
+    }
+  ],
+  "enemies": [
+    {
+      "id": "channeler",
+      "name": "Channeler"
+    },
+    {
+      "id": "silver-knight-sword",
+      "name": "Silver Knight (sword)"
+    },
+    {
+      "id": "silver-knight-spear",
+      "name": "Silver Knight (spear)"
+    },
+    {
+      "id": "silver-knight",
+      "name": "Silver Knight"
+    },
+    {
+      "id": "black-knight-sword",
+      "name": "Black Knight (sword)"
+    },
+    {
+      "id": "black-knight-greatsword",
+      "name": "Black Knight (greatsword)"
+    },
+    {
+      "id": "black-knight-axe",
+      "name": "Black Knight (greataxe)"
+    },
+    {
+      "id": "black-knight-halberd",
+      "name": "Black Knight (halberd)"
+    },
+    {
+      "id": "black-knight",
+      "name": "Black Knight"
+    },
+    {
+      "id": "stone-knight",
+      "name": "Stone Knight"
+    },
+    {
+      "id": "darkwraith",
+      "name": "Darkwraith"
+    },
+    {
+      "id": "crystal-lizard",
+      "name": "Crystal Lizard"
+    }
+  ],
+  "results": [
+    {
+      "id": "way-of-white",
+      "name": "Way of White joined"
+    },
+    {
+      "id": "princess-guard",
+      "name": "Princess's Guard joined"
+    },
+    {
+      "id": "darkmoon",
+      "name": "Blade of the Darkmoon joined"
+    },
+    {
+      "id": "warrior-sunlight",
+      "name": "Warrior of Sunlight joined"
+    },
+    {
+      "id": "forest-hunter",
+      "name": "Forest Hunter joined"
+    },
+    {
+      "id": "darkwraith",
+      "name": "Darkwraith joined"
+    },
+    {
+      "id": "path-dragon",
+      "name": "Path of the Dragon joined"
+    },
+    {
+      "id": "gravelord",
+      "name": "Gravelord Servant joined"
+    },
+    {
+      "id": "chaos-servant",
+      "name": "Chaos Servant joined"
+    },
+    {
+      "id": "lordvessel-placed",
+      "name": "Lordvessel placed"
+    },
+    {
+      "id": "firelink-down",
+      "name": "Firelink bonfire disabled"
+    },
+    {
+      "id": "both-bells",
+      "name": "Both Bells of Awakening rung"
+    },
+    {
+      "id": "gwyn-fallen",
+      "name": "Gwyn defeated this run"
+    }
+  ],
+  "items": [
+    {
+      "id": "estus-flask",
+      "name": "Estus Flask",
+      "type": "key"
+    },
+    {
+      "id": "residence-key",
+      "name": "Residence Key",
+      "type": "key"
+    },
+    {
+      "id": "basement-key",
+      "name": "Basement Key",
+      "type": "key"
+    },
+    {
+      "id": "key-depths",
+      "name": "Key to the Depths",
+      "type": "key"
+    },
+    {
+      "id": "blighttown-key",
+      "name": "Blighttown Key",
+      "type": "key"
+    },
+    {
+      "id": "cage-key",
+      "name": "Cage Key",
+      "type": "key"
+    },
+    {
+      "id": "crest-artorias",
+      "name": "Crest of Artorias",
+      "type": "key"
+    },
+    {
+      "id": "lordvessel",
+      "name": "Lordvessel",
+      "type": "key"
+    },
+    {
+      "id": "rite-kindling",
+      "name": "Rite of Kindling",
+      "type": "key"
+    },
+    {
+      "id": "covenant-abyss",
+      "name": "Covenant of Artorias",
+      "type": "key"
+    },
+    {
+      "id": "mystery-key",
+      "name": "Mystery Key",
+      "type": "key"
+    },
+    {
+      "id": "sewer-chamber-key",
+      "name": "Sewer Chamber Key",
+      "type": "key"
+    },
+    {
+      "id": "new-londo-key",
+      "name": "Key to New Londo Ruins",
+      "type": "key"
+    },
+    {
+      "id": "archive-tower-key",
+      "name": "Archive Tower Cell Key",
+      "type": "key"
+    },
+    {
+      "id": "archive-prison-extra",
+      "name": "Archive Prison Extra Key",
+      "type": "key"
+    },
+    {
+      "id": "peculiar-doll",
+      "name": "Peculiar Doll",
+      "type": "key"
+    },
+    {
+      "id": "darkmoon-seance",
+      "name": "Darkmoon Seance Ring",
+      "type": "key"
+    },
+    {
+      "id": "eyes-of-death",
+      "name": "Eye of Death",
+      "type": "key"
+    },
+    {
+      "id": "humanity",
+      "name": "Humanity",
+      "type": "consumable"
+    },
+    {
+      "id": "titanite-shard",
+      "name": "Titanite Shard",
+      "type": "material"
+    },
+    {
+      "id": "large-titanite-shard",
+      "name": "Large Titanite Shard",
+      "type": "material"
+    },
+    {
+      "id": "titanite-chunk",
+      "name": "Titanite Chunk",
+      "type": "material"
+    },
+    {
+      "id": "titanite-slab",
+      "name": "Titanite Slab",
+      "type": "material"
+    },
+    {
+      "id": "green-titanite",
+      "name": "Green Titanite Shard",
+      "type": "material"
+    },
+    {
+      "id": "blue-chunk",
+      "name": "Blue Titanite Chunk",
+      "type": "material"
+    },
+    {
+      "id": "blue-slab",
+      "name": "Blue Titanite Slab",
+      "type": "material"
+    },
+    {
+      "id": "white-chunk",
+      "name": "White Titanite Chunk",
+      "type": "material"
+    },
+    {
+      "id": "white-slab",
+      "name": "White Titanite Slab",
+      "type": "material"
+    },
+    {
+      "id": "red-chunk",
+      "name": "Red Titanite Chunk",
+      "type": "material"
+    },
+    {
+      "id": "red-slab",
+      "name": "Red Titanite Slab",
+      "type": "material"
+    },
+    {
+      "id": "twinkling",
+      "name": "Twinkling Titanite",
+      "type": "material"
+    },
+    {
+      "id": "dragon-scale",
+      "name": "Dragon Scale",
+      "type": "material"
+    },
+    {
+      "id": "demon-titanite",
+      "name": "Demon Titanite",
+      "type": "material"
+    },
+    {
+      "id": "large-ember",
+      "name": "Large Ember",
+      "type": "key"
+    },
+    {
+      "id": "very-large-ember",
+      "name": "Very Large Ember",
+      "type": "key"
+    },
+    {
+      "id": "crystal-ember",
+      "name": "Crystal Ember",
+      "type": "key"
+    },
+    {
+      "id": "large-magic-ember",
+      "name": "Large Magic Ember",
+      "type": "key"
+    },
+    {
+      "id": "enchanted-ember",
+      "name": "Enchanted Ember",
+      "type": "key"
+    },
+    {
+      "id": "divine-ember",
+      "name": "Divine Ember",
+      "type": "key"
+    },
+    {
+      "id": "large-divine-ember",
+      "name": "Large Divine Ember",
+      "type": "key"
+    },
+    {
+      "id": "dark-ember",
+      "name": "Dark Ember",
+      "type": "key"
+    },
+    {
+      "id": "large-flame-ember",
+      "name": "Large Flame Ember",
+      "type": "key"
+    },
+    {
+      "id": "chaos-flame-ember",
+      "name": "Chaos Flame Ember",
+      "type": "key"
+    },
+    {
+      "id": "soul-asylum",
+      "name": "Soul of the Asylum Demon",
+      "type": "soul"
+    },
+    {
+      "id": "soul-taurus",
+      "name": "Soul of the Taurus Demon",
+      "type": "soul"
+    },
+    {
+      "id": "soul-gargoyle",
+      "name": "Soul of the Bell Gargoyle",
+      "type": "soul"
+    },
+    {
+      "id": "soul-capra",
+      "name": "Soul of the Capra Demon",
+      "type": "soul"
+    },
+    {
+      "id": "soul-gaping",
+      "name": "Soul of the Gaping Dragon",
+      "type": "soul"
+    },
+    {
+      "id": "soul-butterfly",
+      "name": "Soul of the Moonlight Butterfly",
+      "type": "soul"
+    },
+    {
+      "id": "soul-sif",
+      "name": "Soul of Sif",
+      "type": "soul"
+    },
+    {
+      "id": "soul-quelaag",
+      "name": "Soul of Quelaag",
+      "type": "soul"
+    },
+    {
+      "id": "soul-iron-golem",
+      "name": "Core of an Iron Golem",
+      "type": "soul"
+    },
+    {
+      "id": "soul-ornstein",
+      "name": "Soul of Ornstein",
+      "type": "soul"
+    },
+    {
+      "id": "soul-smough",
+      "name": "Soul of Smough",
+      "type": "soul"
+    },
+    {
+      "id": "soul-priscilla",
+      "name": "Soul of Priscilla",
+      "type": "soul"
+    },
+    {
+      "id": "soul-gwyndolin",
+      "name": "Soul of Gwyndolin",
+      "type": "soul"
+    },
+    {
+      "id": "soul-seath",
+      "name": "Soul of Seath",
+      "type": "soul"
+    },
+    {
+      "id": "soul-nito",
+      "name": "Soul of Nito",
+      "type": "soul"
+    },
+    {
+      "id": "soul-bed",
+      "name": "Soul of the Bed of Chaos",
+      "type": "soul"
+    },
+    {
+      "id": "soul-four-kings",
+      "name": "Bequeathed Lord Soul Shard (Four Kings)",
+      "type": "soul"
+    },
+    {
+      "id": "soul-gwyn",
+      "name": "Soul of Gwyn",
+      "type": "soul"
+    },
+    {
+      "id": "drake-sword",
+      "name": "Drake Sword",
+      "type": "weapon"
+    },
+    {
+      "id": "dragon-king-greataxe",
+      "name": "Dragon King Greataxe",
+      "type": "weapon"
+    },
+    {
+      "id": "chaos-storm",
+      "name": "Chaos Storm",
+      "type": "spell"
+    },
+    {
+      "id": "astora-straight-sword",
+      "name": "Astora's Straight Sword",
+      "type": "weapon"
+    },
+    {
+      "id": "dragon-crest-shield",
+      "name": "Dragon Crest Shield",
+      "type": "weapon"
+    },
+    {
+      "id": "dragon-greatsword",
+      "name": "Dragon Greatsword",
+      "type": "weapon"
+    },
+    {
+      "id": "priscilla-dagger",
+      "name": "Priscilla's Dagger",
+      "type": "weapon"
+    },
+    {
+      "id": "dark-hand",
+      "name": "Dark Hand",
+      "type": "weapon"
+    },
+    {
+      "id": "moonlight-greatsword",
+      "name": "Moonlight Greatsword",
+      "type": "weapon"
+    },
+    {
+      "id": "standard-weapon",
+      "name": "Standard Weapon",
+      "type": "weapon"
+    },
+    {
+      "id": "crystal-weapon",
+      "name": "Crystal Weapon",
+      "type": "weapon"
+    },
+    {
+      "id": "lightning-weapon",
+      "name": "Lightning Weapon",
+      "type": "weapon"
+    },
+    {
+      "id": "raw-weapon",
+      "name": "Raw Weapon",
+      "type": "weapon"
+    },
+    {
+      "id": "magic-weapon",
+      "name": "Magic Weapon",
+      "type": "weapon"
+    },
+    {
+      "id": "enchanted-weapon",
+      "name": "Enchanted Weapon",
+      "type": "weapon"
+    },
+    {
+      "id": "divine-weapon",
+      "name": "Divine Weapon",
+      "type": "weapon"
+    },
+    {
+      "id": "occult-weapon",
+      "name": "Occult Weapon",
+      "type": "weapon"
+    },
+    {
+      "id": "fire-weapon",
+      "name": "Fire Weapon",
+      "type": "weapon"
+    },
+    {
+      "id": "chaos-weapon",
+      "name": "Chaos Weapon",
+      "type": "weapon"
+    },
+    {
+      "id": "moonlight-butterfly-horn",
+      "name": "Moonlight Butterfly Horn",
+      "type": "weapon"
+    },
+    {
+      "id": "crystal-ring-shield",
+      "name": "Crystal Ring Shield",
+      "type": "weapon"
+    },
+    {
+      "id": "greatsword-artorias",
+      "name": "Greatsword of Artorias",
+      "type": "weapon"
+    },
+    {
+      "id": "greatsword-artorias-cursed",
+      "name": "Greatsword of Artorias (Cursed)",
+      "type": "weapon"
+    },
+    {
+      "id": "greatshield-artorias",
+      "name": "Greatshield of Artorias",
+      "type": "weapon"
+    },
+    {
+      "id": "chaos-blade",
+      "name": "Chaos Blade",
+      "type": "weapon"
+    },
+    {
+      "id": "quelaag-fury-sword",
+      "name": "Quelaag's Furysword",
+      "type": "weapon"
+    },
+    {
+      "id": "golem-axe",
+      "name": "Golem Axe",
+      "type": "weapon"
+    },
+    {
+      "id": "dragon-bone-fist",
+      "name": "Dragon Bone Fist",
+      "type": "weapon"
+    },
+    {
+      "id": "dragonslayer-spear",
+      "name": "Dragonslayer Spear",
+      "type": "weapon"
+    },
+    {
+      "id": "lifehunt-scythe",
+      "name": "Lifehunt Scythe",
+      "type": "weapon"
+    },
+    {
+      "id": "darkmoon-bow",
+      "name": "Darkmoon Bow",
+      "type": "weapon"
+    },
+    {
+      "id": "tin-darkmoon-catalyst",
+      "name": "Tin Darkmoon Catalyst",
+      "type": "weapon"
+    },
+    {
+      "id": "great-lord-greatsword",
+      "name": "Great Lord Greatsword",
+      "type": "weapon"
+    },
+    {
+      "id": "smough-hammer",
+      "name": "Smough's Hammer",
+      "type": "weapon"
+    },
+    {
+      "id": "silver-knight-straight-sword",
+      "name": "Silver Knight Straight Sword",
+      "type": "weapon"
+    },
+    {
+      "id": "silver-knight-spear",
+      "name": "Silver Knight Spear",
+      "type": "weapon"
+    },
+    {
+      "id": "silver-knight-shield",
+      "name": "Silver Knight Shield",
+      "type": "weapon"
+    },
+    {
+      "id": "black-knight-sword",
+      "name": "Black Knight Sword",
+      "type": "weapon"
+    },
+    {
+      "id": "black-knight-greatsword",
+      "name": "Black Knight Greatsword",
+      "type": "weapon"
+    },
+    {
+      "id": "black-knight-greataxe",
+      "name": "Black Knight Greataxe",
+      "type": "weapon"
+    },
+    {
+      "id": "black-knight-halberd",
+      "name": "Black Knight Halberd",
+      "type": "weapon"
+    },
+    {
+      "id": "black-knight-shield",
+      "name": "Black Knight Shield",
+      "type": "weapon"
+    },
+    {
+      "id": "stone-greatsword",
+      "name": "Stone Greatsword",
+      "type": "weapon"
+    },
+    {
+      "id": "stone-greatshield",
+      "name": "Stone Greatshield",
+      "type": "weapon"
+    },
+    {
+      "id": "channelers-trident",
+      "name": "Channeler's Trident",
+      "type": "weapon"
+    },
+    {
+      "id": "grant",
+      "name": "Grant",
+      "type": "weapon"
+    },
+    {
+      "id": "sanctus",
+      "name": "Sanctus",
+      "type": "weapon"
+    },
+    {
+      "id": "crest-shield",
+      "name": "Crest Shield",
+      "type": "weapon"
+    },
+    {
+      "id": "crescent-axe",
+      "name": "Crescent Axe",
+      "type": "weapon"
+    },
+    {
+      "id": "demons-spear",
+      "name": "Demon's Spear",
+      "type": "weapon"
+    },
+    {
+      "id": "giants-halberd",
+      "name": "Giant's Halberd",
+      "type": "weapon"
+    },
+    {
+      "id": "velkas-rapier",
+      "name": "Velka's Rapier",
+      "type": "weapon"
+    },
+    {
+      "id": "gravelord-sword",
+      "name": "Gravelord Sword",
+      "type": "weapon"
+    },
+    {
+      "id": "demons-great-hammer",
+      "name": "Demon's Great Hammer",
+      "type": "weapon"
+    },
+    {
+      "id": "soul-arrow",
+      "name": "Soul Arrow",
+      "type": "spell"
+    },
+    {
+      "id": "great-soul-arrow",
+      "name": "Great Soul Arrow",
+      "type": "spell"
+    },
+    {
+      "id": "heavy-soul-arrow",
+      "name": "Heavy Soul Arrow",
+      "type": "spell"
+    },
+    {
+      "id": "great-heavy-soul-arrow",
+      "name": "Great Heavy Soul Arrow",
+      "type": "spell"
+    },
+    {
+      "id": "homing-soulmass",
+      "name": "Homing Soulmass",
+      "type": "spell"
+    },
+    {
+      "id": "homing-crystal-soulmass",
+      "name": "Homing Crystal Soulmass",
+      "type": "spell"
+    },
+    {
+      "id": "soul-spear",
+      "name": "Soul Spear",
+      "type": "spell"
+    },
+    {
+      "id": "crystal-soul-spear",
+      "name": "Crystal Soul Spear",
+      "type": "spell"
+    },
+    {
+      "id": "great-magic-weapon",
+      "name": "Great Magic Weapon",
+      "type": "spell"
+    },
+    {
+      "id": "crystal-magic-weapon",
+      "name": "Crystal Magic Weapon",
+      "type": "spell"
+    },
+    {
+      "id": "magic-shield",
+      "name": "Magic Shield",
+      "type": "spell"
+    },
+    {
+      "id": "strong-magic-shield",
+      "name": "Strong Magic Shield",
+      "type": "spell"
+    },
+    {
+      "id": "aural-decoy",
+      "name": "Aural Decoy",
+      "type": "spell"
+    },
+    {
+      "id": "hush",
+      "name": "Hush",
+      "type": "spell"
+    },
+    {
+      "id": "fall-control",
+      "name": "Fall Control",
+      "type": "spell"
+    },
+    {
+      "id": "hidden-body",
+      "name": "Hidden Body",
+      "type": "spell"
+    },
+    {
+      "id": "cast-light",
+      "name": "Cast Light",
+      "type": "spell"
+    },
+    {
+      "id": "repair",
+      "name": "Repair",
+      "type": "spell"
+    },
+    {
+      "id": "chameleon",
+      "name": "Chameleon",
+      "type": "spell"
+    },
+    {
+      "id": "remedy",
+      "name": "Remedy",
+      "type": "spell"
+    },
+    {
+      "id": "resist-curse",
+      "name": "Resist Curse",
+      "type": "spell"
+    },
+    {
+      "id": "white-dragon-breath",
+      "name": "White Dragon Breath",
+      "type": "spell"
+    },
+    {
+      "id": "fireball",
+      "name": "Fireball",
+      "type": "spell"
+    },
+    {
+      "id": "fire-orb",
+      "name": "Fire Orb",
+      "type": "spell"
+    },
+    {
+      "id": "combustion",
+      "name": "Combustion",
+      "type": "spell"
+    },
+    {
+      "id": "great-combustion",
+      "name": "Great Combustion",
+      "type": "spell"
+    },
+    {
+      "id": "firestorm",
+      "name": "Firestorm",
+      "type": "spell"
+    },
+    {
+      "id": "fire-tempest",
+      "name": "Fire Tempest",
+      "type": "spell"
+    },
+    {
+      "id": "fire-whip",
+      "name": "Fire Whip",
+      "type": "spell"
+    },
+    {
+      "id": "poison-mist",
+      "name": "Poison Mist",
+      "type": "spell"
+    },
+    {
+      "id": "toxic-mist",
+      "name": "Toxic Mist",
+      "type": "spell"
+    },
+    {
+      "id": "acid-surge",
+      "name": "Acid Surge",
+      "type": "spell"
+    },
+    {
+      "id": "iron-flesh",
+      "name": "Iron Flesh",
+      "type": "spell"
+    },
+    {
+      "id": "flash-sweat",
+      "name": "Flash Sweat",
+      "type": "spell"
+    },
+    {
+      "id": "power-within",
+      "name": "Power Within",
+      "type": "spell"
+    },
+    {
+      "id": "undead-rapport",
+      "name": "Undead Rapport",
+      "type": "spell"
+    },
+    {
+      "id": "great-chaos-fireball",
+      "name": "Great Chaos Fireball",
+      "type": "spell"
+    },
+    {
+      "id": "chaos-fire-whip",
+      "name": "Chaos Fire Whip",
+      "type": "spell"
+    },
+    {
+      "id": "heal",
+      "name": "Heal",
+      "type": "spell"
+    },
+    {
+      "id": "great-heal-excerpt",
+      "name": "Great Heal Excerpt",
+      "type": "spell"
+    },
+    {
+      "id": "great-heal",
+      "name": "Great Heal",
+      "type": "spell"
+    },
+    {
+      "id": "soothing-sunlight",
+      "name": "Soothing Sunlight",
+      "type": "spell"
+    },
+    {
+      "id": "replenishment",
+      "name": "Replenishment",
+      "type": "spell"
+    },
+    {
+      "id": "bountiful-sunlight",
+      "name": "Bountiful Sunlight",
+      "type": "spell"
+    },
+    {
+      "id": "force",
+      "name": "Force",
+      "type": "spell"
+    },
+    {
+      "id": "wrath-of-gods",
+      "name": "Wrath of the Gods",
+      "type": "spell"
+    },
+    {
+      "id": "emit-force",
+      "name": "Emit Force",
+      "type": "spell"
+    },
+    {
+      "id": "magic-barrier",
+      "name": "Magic Barrier",
+      "type": "spell"
+    },
+    {
+      "id": "great-magic-barrier",
+      "name": "Great Magic Barrier",
+      "type": "spell"
+    },
+    {
+      "id": "homeward",
+      "name": "Homeward",
+      "type": "spell"
+    },
+    {
+      "id": "seek-guidance",
+      "name": "Seek Guidance",
+      "type": "spell"
+    },
+    {
+      "id": "karmic-justice",
+      "name": "Karmic Justice",
+      "type": "spell"
+    },
+    {
+      "id": "vow-of-silence",
+      "name": "Vow of Silence",
+      "type": "spell"
+    },
+    {
+      "id": "tranquil-walk",
+      "name": "Tranquil Walk of Peace",
+      "type": "spell"
+    },
+    {
+      "id": "lightning-spear",
+      "name": "Lightning Spear",
+      "type": "spell"
+    },
+    {
+      "id": "great-lightning-spear",
+      "name": "Great Lightning Spear",
+      "type": "spell"
+    },
+    {
+      "id": "sunlight-spear",
+      "name": "Sunlight Spear",
+      "type": "spell"
+    },
+    {
+      "id": "darkmoon-blade",
+      "name": "Darkmoon Blade",
+      "type": "spell"
+    },
+    {
+      "id": "gravelord-sword-dance",
+      "name": "Gravelord Sword Dance",
+      "type": "spell"
+    },
+    {
+      "id": "gravelord-greatsword-dance",
+      "name": "Gravelord Greatsword Dance",
+      "type": "spell"
+    },
+    {
+      "id": "sunlight-blade",
+      "name": "Sunlight Blade",
+      "type": "spell"
+    }
+  ],
+  "actions": [
+    {
+      "id": "enkindle",
+      "type": "interact",
+      "description": "Light the first bonfire in the Undead Asylum courtyard.",
+      "area": "undead-asylum"
+    },
+    {
+      "id": "get-estus",
+      "type": "collect",
+      "description": "Talk to Oscar in the Asylum and receive the Estus Flask.",
+      "area": "undead-asylum",
+      "gives": [
+        {
+          "item": "estus-flask",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enkindle"
+        }
+      ]
+    },
+    {
+      "id": "defeat-asylum-demon",
+      "type": "fight",
+      "description": "Defeat the Asylum Demon and leave through the great doors.",
+      "area": "undead-asylum",
+      "gives": [
+        {
+          "item": "soul-asylum",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "get-estus"
+        }
+      ]
+    },
+    {
+      "id": "reach-lordran",
+      "type": "go",
+      "description": "Ride the giant crow to Firelink Shrine in Lordran.",
+      "area": "firelink",
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-asylum-demon"
+        }
+      ]
+    },
+    {
+      "id": "join-way-of-white",
+      "type": "interact",
+      "description": "Talk to Petrus of Thorolund at Firelink until you join the Way of White (or start as Knight/Cleric).",
+      "area": "firelink",
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-lordran"
+        }
+      ],
+      "sets": [
+        {
+          "type": "result",
+          "id": "way-of-white"
+        }
+      ]
+    },
+    {
+      "id": "enter-undead-burg",
+      "type": "go",
+      "description": "Take the aqueduct from Firelink into the Undead Burg.",
+      "area": "undead-burg",
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-lordran"
+        }
+      ]
+    },
+    {
+      "id": "buy-residence-key",
+      "type": "collect",
+      "description": "Buy the Residence Key from the Male Undead Merchant in the Burg.",
+      "area": "undead-burg",
+      "gives": [
+        {
+          "item": "residence-key",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-undead-burg"
+        }
+      ]
+    },
+    {
+      "id": "defeat-taurus",
+      "type": "fight",
+      "description": "Defeat the Taurus Demon on the Burg tower wall.",
+      "area": "undead-burg",
+      "gives": [
+        {
+          "item": "soul-taurus",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-undead-burg"
+        }
+      ]
+    },
+    {
+      "id": "cut-hellkite-tail",
+      "type": "collect",
+      "description": "Cut the Hellkite Dragon’s tail on the Burg bridge for the Drake Sword.",
+      "area": "undead-burg",
+      "gives": [
+        {
+          "item": "drake-sword",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-taurus"
+        }
+      ],
+      "before": [
+        "kill-hellkite"
+      ]
+    },
+    {
+      "id": "kill-hellkite",
+      "type": "fight",
+      "description": "Kill the Hellkite Dragon on the Burg bridge (optional later).",
+      "area": "undead-burg",
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-taurus"
+        }
+      ]
+    },
+    {
+      "id": "reach-sunlight-altar",
+      "type": "go",
+      "description": "Pass under the Hellkite to the Sunlight Altar gate and open it.",
+      "area": "sunlight-altar",
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-taurus"
+        }
+      ]
+    },
+    {
+      "id": "raise-faith-25",
+      "type": "interact",
+      "description": "Reach 25 Faith offline (or lower the requirement later with prior White Phantom clears — this route assumes 25 Faith).",
+      "area": "sunlight-altar",
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-sunlight-altar"
+        }
+      ]
+    },
+    {
+      "id": "join-warrior-sunlight",
+      "type": "interact",
+      "description": "Pray at the broken Sunlight Altar statue to join Warrior of Sunlight.",
+      "area": "sunlight-altar",
+      "requires": [
+        {
+          "type": "action",
+          "id": "raise-faith-25"
+        }
+      ],
+      "sets": [
+        {
+          "type": "result",
+          "id": "warrior-sunlight"
+        }
+      ]
+    },
+    {
+      "id": "get-basement-key",
+      "type": "collect",
+      "description": "Loot the Basement Key from the corpse at the foot of the Parish church stairs.",
+      "area": "undead-parish",
+      "gives": [
+        {
+          "item": "basement-key",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-sunlight-altar"
+        }
+      ]
+    },
+    {
+      "id": "get-mystery-key",
+      "type": "collect",
+      "description": "Take the Mystery Key downstairs in the Parish church.",
+      "area": "undead-parish",
+      "gives": [
+        {
+          "item": "mystery-key",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-sunlight-altar"
+        }
+      ]
+    },
+    {
+      "id": "defeat-gargoyles",
+      "type": "fight",
+      "description": "Defeat the Bell Gargoyles on the Parish roof.",
+      "area": "undead-parish",
+      "gives": [
+        {
+          "item": "soul-gargoyle",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-sunlight-altar"
+        }
+      ]
+    },
+    {
+      "id": "ring-undead-church",
+      "type": "interact",
+      "description": "Climb the Parish tower and ring the Bell of Awakening.",
+      "area": "undead-parish",
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-gargoyles"
+        }
+      ]
+    },
+    {
+      "id": "buy-crest-artorias",
+      "type": "collect",
+      "description": "Buy the Crest of Artorias from Andre under the Parish.",
+      "area": "undead-parish",
+      "gives": [
+        {
+          "item": "crest-artorias",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "ring-undead-church"
+        }
+      ]
+    },
+    {
+      "id": "defeat-butterfly",
+      "type": "fight",
+      "description": "Defeat the Moonlight Butterfly in Darkroot Garden.",
+      "area": "darkroot",
+      "gives": [
+        {
+          "item": "soul-butterfly",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "ring-undead-church"
+        }
+      ]
+    },
+    {
+      "id": "get-divine-ember",
+      "type": "collect",
+      "description": "Take the Divine Ember behind the Moonlight Butterfly tower.",
+      "area": "darkroot",
+      "gives": [
+        {
+          "item": "divine-ember",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-butterfly"
+        }
+      ]
+    },
+    {
+      "id": "enter-lower-burg",
+      "type": "go",
+      "description": "Use the Basement Key to enter Lower Undead Burg.",
+      "area": "lower-burg",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "basement-key",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "ring-undead-church"
+        }
+      ]
+    },
+    {
+      "id": "free-griggs",
+      "type": "interact",
+      "description": "Open Griggs’s house with the Residence Key in Lower Burg.",
+      "area": "lower-burg",
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-lower-burg"
+        },
+        {
+          "type": "inventory",
+          "item": "residence-key",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "defeat-capra",
+      "type": "fight",
+      "description": "Defeat the Capra Demon in Lower Burg.",
+      "area": "lower-burg",
+      "gives": [
+        {
+          "item": "soul-capra",
+          "amount": 1
+        },
+        {
+          "item": "key-depths",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-lower-burg"
+        }
+      ]
+    },
+    {
+      "id": "enter-depths",
+      "type": "go",
+      "description": "Open the Depths with the Key to the Depths.",
+      "area": "depths",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "key-depths",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "get-large-ember",
+      "type": "collect",
+      "description": "Take the Large Ember from the Depths butcher’s chest.",
+      "area": "depths",
+      "gives": [
+        {
+          "item": "large-ember",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-depths"
+        }
+      ]
+    },
+    {
+      "id": "free-laurentius",
+      "type": "interact",
+      "description": "Break Laurentius out of the barrel in the Depths.",
+      "area": "depths",
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-depths"
+        }
+      ]
+    },
+    {
+      "id": "cut-gaping-tail",
+      "type": "collect",
+      "description": "Cut the Gaping Dragon’s tail for the Dragon King Greataxe.",
+      "area": "depths",
+      "gives": [
+        {
+          "item": "dragon-king-greataxe",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-depths"
+        }
+      ],
+      "before": [
+        "defeat-gaping"
+      ]
+    },
+    {
+      "id": "defeat-gaping",
+      "type": "fight",
+      "description": "Defeat the Gaping Dragon.",
+      "area": "depths",
+      "gives": [
+        {
+          "item": "soul-gaping",
+          "amount": 1
+        },
+        {
+          "item": "blighttown-key",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-depths"
+        }
+      ]
+    },
+    {
+      "id": "enter-blighttown",
+      "type": "go",
+      "description": "Open Blighttown from the Depths with the Blighttown Key.",
+      "area": "blighttown",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "blighttown-key",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "defeat-quelaag",
+      "type": "fight",
+      "description": "Defeat Chaos Witch Quelaag.",
+      "area": "blighttown",
+      "gives": [
+        {
+          "item": "soul-quelaag",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-blighttown"
+        }
+      ]
+    },
+    {
+      "id": "ring-quelaag",
+      "type": "interact",
+      "description": "Ring the second Bell of Awakening in Quelaag’s Domain.",
+      "area": "blighttown",
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-quelaag"
+        }
+      ],
+      "sets": [
+        {
+          "type": "result",
+          "id": "both-bells"
+        }
+      ]
+    },
+    {
+      "id": "join-chaos-servant",
+      "type": "interact",
+      "description": "Use the illusory wall after Quelaag, talk to Eingyi, then join the Daughter of Chaos covenant.",
+      "area": "blighttown",
+      "requires": [
+        {
+          "type": "action",
+          "id": "ring-quelaag"
+        }
+      ],
+      "sets": [
+        {
+          "type": "result",
+          "id": "chaos-servant"
+        }
+      ]
+    },
+    {
+      "id": "farm-humanity-30",
+      "type": "farm",
+      "description": "Gather 30 Humanity (rats, baby skeletons, or consumables) for Chaos Servant rank.",
+      "area": "blighttown",
+      "source": {
+        "type": "enemy",
+        "id": "darkwraith"
+      },
+      "gives": [
+        {
+          "item": "humanity",
+          "amount": 30
+        }
+      ],
+      "requires": [
+        {
+          "type": "result",
+          "id": "chaos-servant"
+        }
+      ]
+    },
+    {
+      "id": "offer-chaos-30",
+      "type": "interact",
+      "description": "Offer 30 Humanity to the Chaos Servant for Chaos Storm.",
+      "area": "blighttown",
+      "requires": [
+        {
+          "type": "result",
+          "id": "chaos-servant"
+        },
+        {
+          "type": "inventory",
+          "item": "humanity",
+          "amount": 30
+        }
+      ],
+      "consumes": [
+        {
+          "item": "humanity",
+          "amount": 30
+        }
+      ],
+      "gives": [
+        {
+          "item": "chaos-storm",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "enter-valley-drakes",
+      "type": "go",
+      "description": "Reach the Valley of Drakes (from New Londo key path or Darkroot Basin).",
+      "area": "valley-drakes",
+      "requires": [
+        {
+          "type": "action",
+          "id": "ring-quelaag"
+        }
+      ]
+    },
+    {
+      "id": "loot-astora-sword",
+      "type": "collect",
+      "description": "Loot Astora’s Straight Sword beside the undead dragon.",
+      "area": "valley-drakes",
+      "gives": [
+        {
+          "item": "astora-straight-sword",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-valley-drakes"
+        }
+      ]
+    },
+    {
+      "id": "loot-dragon-crest-shield",
+      "type": "collect",
+      "description": "Loot the Dragon Crest Shield by the undead dragon’s head.",
+      "area": "valley-drakes",
+      "gives": [
+        {
+          "item": "dragon-crest-shield",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-valley-drakes"
+        }
+      ]
+    },
+    {
+      "id": "enter-ash-lake",
+      "type": "go",
+      "description": "From Blighttown swamp, open the Great Hollow illusory walls and descend to Ash Lake.",
+      "area": "ash-lake",
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-blighttown"
+        }
+      ]
+    },
+    {
+      "id": "join-path-dragon",
+      "type": "interact",
+      "description": "Talk to the Stone Dragon at Ash Lake to join Path of the Dragon.",
+      "area": "ash-lake",
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-ash-lake"
+        }
+      ],
+      "sets": [
+        {
+          "type": "result",
+          "id": "path-dragon"
+        }
+      ]
+    },
+    {
+      "id": "cut-stone-dragon-tail",
+      "type": "collect",
+      "description": "Cut the Stone Dragon’s tail for the Dragon Greatsword (it will not aggro).",
+      "area": "ash-lake",
+      "gives": [
+        {
+          "item": "dragon-greatsword",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "join-path-dragon"
+        }
+      ]
+    },
+    {
+      "id": "enter-sens",
+      "type": "go",
+      "description": "Enter Sen’s Fortress after both bells are rung.",
+      "area": "sens",
+      "requires": [
+        {
+          "type": "result",
+          "id": "both-bells"
+        }
+      ]
+    },
+    {
+      "id": "get-cage-key",
+      "type": "collect",
+      "description": "Jump the Sen’s Fortress roof gap and take the Cage Key from the tower.",
+      "area": "sens",
+      "gives": [
+        {
+          "item": "cage-key",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-sens"
+        }
+      ]
+    },
+    {
+      "id": "free-logan-sens",
+      "type": "interact",
+      "description": "Free Big Hat Logan from the cage in Sen’s Fortress.",
+      "area": "sens",
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-sens"
+        },
+        {
+          "type": "inventory",
+          "item": "cage-key",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "defeat-iron-golem",
+      "type": "fight",
+      "description": "Defeat the Iron Golem at the top of Sen’s Fortress.",
+      "area": "sens",
+      "gives": [
+        {
+          "item": "soul-iron-golem",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-sens"
+        }
+      ]
+    },
+    {
+      "id": "reach-anor-londo",
+      "type": "go",
+      "description": "Ride the bat-wing demons into Anor Londo.",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-iron-golem"
+        }
+      ]
+    },
+    {
+      "id": "defeat-o-and-s-ornstein-first",
+      "type": "fight",
+      "description": "Defeat Ornstein first, then Smough, for Ornstein’s soul (NG path for Dragonslayer Spear).",
+      "area": "anor-londo",
+      "gives": [
+        {
+          "item": "soul-ornstein",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "get-lordvessel",
+      "type": "collect",
+      "description": "Receive the Lordvessel from Gwynevere after Ornstein & Smough.",
+      "area": "anor-londo",
+      "gives": [
+        {
+          "item": "lordvessel",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-o-and-s-ornstein-first"
+        }
+      ]
+    },
+    {
+      "id": "join-princess-guard",
+      "type": "interact",
+      "description": "Talk to Gwynevere to join Princess’s Guard (do this before killing her).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "action",
+          "id": "get-lordvessel"
+        }
+      ],
+      "sets": [
+        {
+          "type": "result",
+          "id": "princess-guard"
+        }
+      ],
+      "before": [
+        "kill-gwynevere"
+      ]
+    },
+    {
+      "id": "kill-gwynevere",
+      "type": "fight",
+      "description": "Kill Gwynevere to darken Anor Londo (needed for Gwyndolin access / Dark Anor Londo).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "action",
+          "id": "get-lordvessel"
+        }
+      ],
+      "sets": [
+        {
+          "type": "result",
+          "id": "firelink-down"
+        }
+      ]
+    },
+    {
+      "id": "join-darkmoon",
+      "type": "interact",
+      "description": "Equip the Darkmoon Seance Ring at the Darkmoon tomb and join Blade of the Darkmoon before fighting Gwyndolin.",
+      "area": "dark-anor-londo",
+      "requires": [
+        {
+          "type": "action",
+          "id": "get-lordvessel"
+        },
+        {
+          "type": "inventory",
+          "item": "darkmoon-seance",
+          "amount": 1
+        }
+      ],
+      "sets": [
+        {
+          "type": "result",
+          "id": "darkmoon"
+        }
+      ],
+      "before": [
+        "defeat-gwyndolin"
+      ]
+    },
+    {
+      "id": "get-darkmoon-seance",
+      "type": "collect",
+      "description": "Loot the Darkmoon Seance Ring from the Catacombs coffin near the first Necromancer.",
+      "area": "catacombs",
+      "gives": [
+        {
+          "item": "darkmoon-seance",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-lordran"
+        }
+      ]
+    },
+    {
+      "id": "defeat-gwyndolin",
+      "type": "fight",
+      "description": "Defeat Dark Sun Gwyndolin in Dark Anor Londo.",
+      "area": "dark-anor-londo",
+      "gives": [
+        {
+          "item": "soul-gwyndolin",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "get-lordvessel"
+        }
+      ]
+    },
+    {
+      "id": "get-peculiar-doll",
+      "type": "collect",
+      "description": "Return to the Undead Asylum via the Parish elevator crow nest and take the Peculiar Doll.",
+      "area": "undead-asylum",
+      "gives": [
+        {
+          "item": "peculiar-doll",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "ring-undead-church"
+        }
+      ]
+    },
+    {
+      "id": "enter-painted-world",
+      "type": "go",
+      "description": "Use the Peculiar Doll on the Anor Londo painting to enter the Painted World.",
+      "area": "painted-world",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "peculiar-doll",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "cut-priscilla-tail",
+      "type": "collect",
+      "description": "Cut Crossbreed Priscilla’s tail for the Priscilla Dagger.",
+      "area": "painted-world",
+      "gives": [
+        {
+          "item": "priscilla-dagger",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-painted-world"
+        }
+      ],
+      "before": [
+        "defeat-priscilla"
+      ]
+    },
+    {
+      "id": "defeat-priscilla",
+      "type": "fight",
+      "description": "Defeat Crossbreed Priscilla.",
+      "area": "painted-world",
+      "gives": [
+        {
+          "item": "soul-priscilla",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-painted-world"
+        }
+      ]
+    },
+    {
+      "id": "open-darkroot-door",
+      "type": "interact",
+      "description": "Open the Crest of Artorias door in Darkroot.",
+      "area": "darkroot",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "crest-artorias",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "join-forest-hunter",
+      "type": "interact",
+      "description": "Talk to Alvina behind the Crest door and join the Forest Hunter covenant.",
+      "area": "darkroot",
+      "requires": [
+        {
+          "type": "action",
+          "id": "open-darkroot-door"
+        }
+      ],
+      "sets": [
+        {
+          "type": "result",
+          "id": "forest-hunter"
+        }
+      ]
+    },
+    {
+      "id": "defeat-sif",
+      "type": "fight",
+      "description": "Defeat Great Grey Wolf Sif in Darkroot Garden.",
+      "area": "darkroot",
+      "gives": [
+        {
+          "item": "soul-sif",
+          "amount": 1
+        },
+        {
+          "item": "covenant-abyss",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "open-darkroot-door"
+        }
+      ]
+    },
+    {
+      "id": "get-rite-kindling",
+      "type": "collect",
+      "description": "Defeat Pinwheel in the Catacombs and take the Rite of Kindling.",
+      "area": "catacombs",
+      "gives": [
+        {
+          "item": "rite-kindling",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-lordran"
+        }
+      ]
+    },
+    {
+      "id": "join-gravelord",
+      "type": "interact",
+      "description": "In the Catacombs coffin with an Eye of Death, join Gravelord Servant (before killing Nito).",
+      "area": "catacombs",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "eyes-of-death",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "get-rite-kindling"
+        }
+      ],
+      "sets": [
+        {
+          "type": "result",
+          "id": "gravelord"
+        }
+      ],
+      "before": [
+        "defeat-nito"
+      ]
+    },
+    {
+      "id": "get-eye-of-death",
+      "type": "collect",
+      "description": "Loot Eyes of Death in the Catacombs (near the first Titanite Demon / patches area).",
+      "area": "catacombs",
+      "gives": [
+        {
+          "item": "eyes-of-death",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-lordran"
+        }
+      ]
+    },
+    {
+      "id": "place-lordvessel-kaathe",
+      "type": "interact",
+      "description": "Before Frampt: defeat Four Kings, talk to Kaathe in the Abyss, place the Lordvessel with him (Darkwraith path).",
+      "area": "the-abyss",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "lordvessel",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "defeat-four-kings"
+        }
+      ],
+      "sets": [
+        {
+          "type": "result",
+          "id": "lordvessel-placed"
+        }
+      ]
+    },
+    {
+      "id": "drain-new-londo",
+      "type": "interact",
+      "description": "Open New Londo, fetch the Key to the Seal from Ingward after the Lordvessel, and drain the ruins.",
+      "area": "new-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "lordvessel",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "defeat-four-kings",
+      "type": "fight",
+      "description": "Equip the Covenant of Artorias and defeat the Four Kings in the Abyss.",
+      "area": "the-abyss",
+      "gives": [
+        {
+          "item": "soul-four-kings",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "covenant-abyss",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "drain-new-londo"
+        }
+      ]
+    },
+    {
+      "id": "join-darkwraith",
+      "type": "interact",
+      "description": "Talk to Darkstalker Kaathe after Four Kings (before placing the Lordvessel with Frampt) and join Darkwraith.",
+      "area": "the-abyss",
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-four-kings"
+        }
+      ],
+      "sets": [
+        {
+          "type": "result",
+          "id": "darkwraith"
+        }
+      ],
+      "before": [
+        "place-lordvessel-frampt"
+      ]
+    },
+    {
+      "id": "place-lordvessel-frampt",
+      "type": "interact",
+      "description": "Place the Lordvessel with Kingseeker Frampt at Firelink Altar (locks out Kaathe Darkwraith join).",
+      "area": "firelink",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "lordvessel",
+          "amount": 1
+        }
+      ],
+      "sets": [
+        {
+          "type": "result",
+          "id": "lordvessel-placed"
+        }
+      ]
+    },
+    {
+      "id": "get-dark-hand",
+      "type": "collect",
+      "description": "Receive the Dark Hand when joining Darkwraith (or farm Darkwraiths in New Londo).",
+      "area": "the-abyss",
+      "gives": [
+        {
+          "item": "dark-hand",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "result",
+          "id": "darkwraith"
+        }
+      ]
+    },
+    {
+      "id": "enter-dukes",
+      "type": "go",
+      "description": "After the Lordvessel is placed, enter the Duke’s Archives from Anor Londo.",
+      "area": "dukes",
+      "requires": [
+        {
+          "type": "result",
+          "id": "lordvessel-placed"
+        }
+      ]
+    },
+    {
+      "id": "free-logan-dukes",
+      "type": "interact",
+      "description": "Free Big Hat Logan from the Duke’s Archives prison before killing Seath.",
+      "area": "dukes",
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-dukes"
+        }
+      ],
+      "before": [
+        "defeat-seath"
+      ]
+    },
+    {
+      "id": "cut-seath-tail",
+      "type": "collect",
+      "description": "Cut Seath’s tail in the Crystal Cave for the Moonlight Greatsword.",
+      "area": "crystal-cave",
+      "gives": [
+        {
+          "item": "moonlight-greatsword",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-dukes"
+        }
+      ],
+      "before": [
+        "defeat-seath"
+      ]
+    },
+    {
+      "id": "defeat-seath",
+      "type": "fight",
+      "description": "Defeat Seath the Scaleless in the Crystal Cave.",
+      "area": "crystal-cave",
+      "gives": [
+        {
+          "item": "soul-seath",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-dukes"
+        }
+      ]
+    },
+    {
+      "id": "defeat-nito",
+      "type": "fight",
+      "description": "Defeat Gravelord Nito in the Tomb of the Giants.",
+      "area": "tomb-giants",
+      "gives": [
+        {
+          "item": "soul-nito",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "result",
+          "id": "lordvessel-placed"
+        },
+        {
+          "type": "action",
+          "id": "get-rite-kindling"
+        }
+      ]
+    },
+    {
+      "id": "defeat-bed-of-chaos",
+      "type": "fight",
+      "description": "Defeat the Bed of Chaos in Lost Izalith.",
+      "area": "lost-izalith",
+      "gives": [
+        {
+          "item": "soul-bed",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "result",
+          "id": "lordvessel-placed"
+        },
+        {
+          "type": "action",
+          "id": "defeat-quelaag"
+        }
+      ]
+    },
+    {
+      "id": "place-lord-souls",
+      "type": "interact",
+      "description": "Place the four Lord Souls in the Lordvessel at Firelink Altar.",
+      "area": "firelink",
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-nito"
+        },
+        {
+          "type": "action",
+          "id": "defeat-bed-of-chaos"
+        },
+        {
+          "type": "action",
+          "id": "defeat-seath"
+        },
+        {
+          "type": "action",
+          "id": "defeat-four-kings"
+        }
+      ]
+    },
+    {
+      "id": "defeat-gwyn",
+      "type": "fight",
+      "description": "Defeat Gwyn, Lord of Cinder in the Kiln.",
+      "area": "kiln",
+      "gives": [
+        {
+          "item": "soul-gwyn",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "place-lord-souls"
+        }
+      ],
+      "sets": [
+        {
+          "type": "result",
+          "id": "gwyn-fallen"
+        }
+      ]
+    },
+    {
+      "id": "link-the-fire",
+      "type": "interact",
+      "description": "Light the Final Bonfire to Link the Fire (ends the run / enters NG+).",
+      "area": "kiln",
+      "requires": [
+        {
+          "type": "result",
+          "id": "gwyn-fallen"
+        }
+      ],
+      "newRun": true
+    },
+    {
+      "id": "dark-lord-ending",
+      "type": "interact",
+      "description": "Leave through the Kiln fog without lighting the fire for the Dark Lord ending (ends the run / enters NG+).",
+      "area": "kiln",
+      "requires": [
+        {
+          "type": "result",
+          "id": "gwyn-fallen"
+        }
+      ],
+      "newRun": true
+    },
+    {
+      "id": "give-standard-ember",
+      "type": "interact",
+      "description": "Give the Large Ember (and Very Large Ember later) to the appropriate blacksmith.",
+      "area": "undead-parish",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "large-ember",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "ring-undead-church"
+        },
+        {
+          "type": "inventory",
+          "item": "very-large-ember",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "craft-standard",
+      "type": "interact",
+      "description": "Reinforce a weapon to the max Standard path (materials assumed gathered).",
+      "area": "undead-parish",
+      "requires": [
+        {
+          "type": "action",
+          "id": "give-standard-ember"
+        }
+      ],
+      "gives": [
+        {
+          "item": "standard-weapon",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "get-very-large-ember",
+      "type": "collect",
+      "description": "Take the Very Large Ember from New Londo after draining the water.",
+      "area": "new-londo",
+      "gives": [
+        {
+          "item": "very-large-ember",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "drain-new-londo"
+        }
+      ]
+    },
+    {
+      "id": "give-crystal-ember",
+      "type": "interact",
+      "description": "Give the Crystal Ember to the appropriate blacksmith.",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "crystal-ember",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "ring-undead-church"
+        }
+      ]
+    },
+    {
+      "id": "craft-crystal",
+      "type": "interact",
+      "description": "Reinforce a weapon to the max Crystal path (materials assumed gathered).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "action",
+          "id": "give-crystal-ember"
+        }
+      ],
+      "gives": [
+        {
+          "item": "crystal-weapon",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "get-crystal-ember",
+      "type": "collect",
+      "description": "Take the Crystal Ember from the Duke’s Archives.",
+      "area": "dukes",
+      "gives": [
+        {
+          "item": "crystal-ember",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-dukes"
+        }
+      ]
+    },
+    {
+      "id": "craft-lightning",
+      "type": "interact",
+      "description": "Ascend a +10 weapon to Lightning +5 at the Giant Blacksmith (no ember).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ],
+      "gives": [
+        {
+          "item": "lightning-weapon",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "give-raw-ember",
+      "type": "interact",
+      "description": "Give the Large Ember to the appropriate blacksmith.",
+      "area": "undead-parish",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "large-ember",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "ring-undead-church"
+        }
+      ]
+    },
+    {
+      "id": "craft-raw",
+      "type": "interact",
+      "description": "Reinforce a weapon to the max Raw path (materials assumed gathered).",
+      "area": "undead-parish",
+      "requires": [
+        {
+          "type": "action",
+          "id": "give-raw-ember"
+        }
+      ],
+      "gives": [
+        {
+          "item": "raw-weapon",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "give-magic-ember",
+      "type": "interact",
+      "description": "Give the Large Magic Ember to the appropriate blacksmith.",
+      "area": "new-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "large-magic-ember",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "ring-undead-church"
+        }
+      ]
+    },
+    {
+      "id": "craft-magic",
+      "type": "interact",
+      "description": "Reinforce a weapon to the max Magic path (materials assumed gathered).",
+      "area": "new-londo",
+      "requires": [
+        {
+          "type": "action",
+          "id": "give-magic-ember"
+        }
+      ],
+      "gives": [
+        {
+          "item": "magic-weapon",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "get-large-magic-ember",
+      "type": "collect",
+      "description": "Take the Large Magic Ember from the Duke’s Archives balcony after freeing Logan’s first cell route.",
+      "area": "dukes",
+      "gives": [
+        {
+          "item": "large-magic-ember",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-dukes"
+        }
+      ]
+    },
+    {
+      "id": "give-enchanted-ember",
+      "type": "interact",
+      "description": "Give the Enchanted Ember to the appropriate blacksmith.",
+      "area": "darkroot",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "enchanted-ember",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "ring-undead-church"
+        }
+      ]
+    },
+    {
+      "id": "craft-enchanted",
+      "type": "interact",
+      "description": "Reinforce a weapon to the max Enchanted path (materials assumed gathered).",
+      "area": "darkroot",
+      "requires": [
+        {
+          "type": "action",
+          "id": "give-enchanted-ember"
+        }
+      ],
+      "gives": [
+        {
+          "item": "enchanted-weapon",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "get-enchanted-ember",
+      "type": "collect",
+      "description": "Take the Enchanted Ember from the Darkroot basin chest among Mushroom people.",
+      "area": "darkroot",
+      "gives": [
+        {
+          "item": "enchanted-ember",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "ring-undead-church"
+        }
+      ]
+    },
+    {
+      "id": "give-divine-ember",
+      "type": "interact",
+      "description": "Give the Divine Ember to the appropriate blacksmith.",
+      "area": "undead-parish",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "divine-ember",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "ring-undead-church"
+        },
+        {
+          "type": "inventory",
+          "item": "large-divine-ember",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "craft-divine",
+      "type": "interact",
+      "description": "Reinforce a weapon to the max Divine path (materials assumed gathered).",
+      "area": "undead-parish",
+      "requires": [
+        {
+          "type": "action",
+          "id": "give-divine-ember"
+        }
+      ],
+      "gives": [
+        {
+          "item": "divine-weapon",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "get-large-divine-ember",
+      "type": "collect",
+      "description": "Take the Large Divine Ember from the Tomb of the Giants.",
+      "area": "tomb-giants",
+      "gives": [
+        {
+          "item": "large-divine-ember",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "get-rite-kindling"
+        }
+      ]
+    },
+    {
+      "id": "give-occult-ember",
+      "type": "interact",
+      "description": "Give the Dark Ember to the appropriate blacksmith.",
+      "area": "undead-parish",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "dark-ember",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "ring-undead-church"
+        }
+      ]
+    },
+    {
+      "id": "craft-occult",
+      "type": "interact",
+      "description": "Reinforce a weapon to the max Occult path (materials assumed gathered).",
+      "area": "undead-parish",
+      "requires": [
+        {
+          "type": "action",
+          "id": "give-occult-ember"
+        }
+      ],
+      "gives": [
+        {
+          "item": "occult-weapon",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "get-dark-ember",
+      "type": "collect",
+      "description": "Take the Dark Ember from the Painted World annex.",
+      "area": "painted-world",
+      "gives": [
+        {
+          "item": "dark-ember",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-painted-world"
+        }
+      ]
+    },
+    {
+      "id": "give-fire-ember",
+      "type": "interact",
+      "description": "Give the Large Flame Ember to the appropriate blacksmith.",
+      "area": "catacombs",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "large-flame-ember",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "ring-undead-church"
+        }
+      ]
+    },
+    {
+      "id": "craft-fire",
+      "type": "interact",
+      "description": "Reinforce a weapon to the max Fire path (materials assumed gathered).",
+      "area": "catacombs",
+      "requires": [
+        {
+          "type": "action",
+          "id": "give-fire-ember"
+        }
+      ],
+      "gives": [
+        {
+          "item": "fire-weapon",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "get-large-flame-ember",
+      "type": "collect",
+      "description": "Take the Large Flame Ember from the Demon Ruins.",
+      "area": "demon-ruins",
+      "gives": [
+        {
+          "item": "large-flame-ember",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-quelaag"
+        }
+      ]
+    },
+    {
+      "id": "give-chaos-ember",
+      "type": "interact",
+      "description": "Give the Chaos Flame Ember to the appropriate blacksmith.",
+      "area": "demon-ruins",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "chaos-flame-ember",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "ring-undead-church"
+        }
+      ]
+    },
+    {
+      "id": "craft-chaos",
+      "type": "interact",
+      "description": "Reinforce a weapon to the max Chaos path (materials assumed gathered).",
+      "area": "demon-ruins",
+      "requires": [
+        {
+          "type": "action",
+          "id": "give-chaos-ember"
+        }
+      ],
+      "gives": [
+        {
+          "item": "chaos-weapon",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "get-chaos-flame-ember",
+      "type": "collect",
+      "description": "Take the Chaos Flame Ember behind the Demon Firesage / Centipede Demon path.",
+      "area": "demon-ruins",
+      "gives": [
+        {
+          "item": "chaos-flame-ember",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-quelaag"
+        }
+      ]
+    },
+    {
+      "id": "forge-moonlight-butterfly-horn",
+      "type": "interact",
+      "description": "Forge Moonlight Butterfly Horn at the Giant Blacksmith (+5 spear/rapier).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "soul-butterfly",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ],
+      "consumes": [
+        {
+          "item": "soul-butterfly",
+          "amount": 1
+        }
+      ],
+      "gives": [
+        {
+          "item": "moonlight-butterfly-horn",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "forge-crystal-ring-shield",
+      "type": "interact",
+      "description": "Forge Crystal Ring Shield at the Giant Blacksmith (+5 shield).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "soul-butterfly",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ],
+      "consumes": [
+        {
+          "item": "soul-butterfly",
+          "amount": 1
+        }
+      ],
+      "gives": [
+        {
+          "item": "crystal-ring-shield",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "forge-greatsword-artorias",
+      "type": "interact",
+      "description": "Forge Greatsword of Artorias at the Giant Blacksmith (broken straight sword / hilt).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "soul-sif",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ],
+      "consumes": [
+        {
+          "item": "soul-sif",
+          "amount": 1
+        }
+      ],
+      "gives": [
+        {
+          "item": "greatsword-artorias",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "forge-greatsword-artorias-cursed",
+      "type": "interact",
+      "description": "Forge Greatsword of Artorias (Cursed) at the Giant Blacksmith (+10 sword/dagger).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "soul-sif",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ],
+      "consumes": [
+        {
+          "item": "soul-sif",
+          "amount": 1
+        }
+      ],
+      "gives": [
+        {
+          "item": "greatsword-artorias-cursed",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "forge-greatshield-artorias",
+      "type": "interact",
+      "description": "Forge Greatshield of Artorias at the Giant Blacksmith (+10 shield).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "soul-sif",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ],
+      "consumes": [
+        {
+          "item": "soul-sif",
+          "amount": 1
+        }
+      ],
+      "gives": [
+        {
+          "item": "greatshield-artorias",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "forge-chaos-blade",
+      "type": "interact",
+      "description": "Forge Chaos Blade at the Giant Blacksmith (+10 katana).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "soul-quelaag",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ],
+      "consumes": [
+        {
+          "item": "soul-quelaag",
+          "amount": 1
+        }
+      ],
+      "gives": [
+        {
+          "item": "chaos-blade",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "forge-quelaag-fury-sword",
+      "type": "interact",
+      "description": "Forge Quelaag's Furysword at the Giant Blacksmith (+10 curved sword).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "soul-quelaag",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ],
+      "consumes": [
+        {
+          "item": "soul-quelaag",
+          "amount": 1
+        }
+      ],
+      "gives": [
+        {
+          "item": "quelaag-fury-sword",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "forge-golem-axe",
+      "type": "interact",
+      "description": "Forge Golem Axe at the Giant Blacksmith (+10 axe).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "soul-iron-golem",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ],
+      "consumes": [
+        {
+          "item": "soul-iron-golem",
+          "amount": 1
+        }
+      ],
+      "gives": [
+        {
+          "item": "golem-axe",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "forge-dragon-bone-fist",
+      "type": "interact",
+      "description": "Forge Dragon Bone Fist at the Giant Blacksmith (caestus).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "soul-iron-golem",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ],
+      "consumes": [
+        {
+          "item": "soul-iron-golem",
+          "amount": 1
+        }
+      ],
+      "gives": [
+        {
+          "item": "dragon-bone-fist",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "forge-dragonslayer-spear",
+      "type": "interact",
+      "description": "Forge Dragonslayer Spear at the Giant Blacksmith (+10 spear).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "soul-ornstein",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ],
+      "consumes": [
+        {
+          "item": "soul-ornstein",
+          "amount": 1
+        }
+      ],
+      "gives": [
+        {
+          "item": "dragonslayer-spear",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "forge-lifehunt-scythe",
+      "type": "interact",
+      "description": "Forge Lifehunt Scythe at the Giant Blacksmith (+10 halberd/whip).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "soul-priscilla",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ],
+      "consumes": [
+        {
+          "item": "soul-priscilla",
+          "amount": 1
+        }
+      ],
+      "gives": [
+        {
+          "item": "lifehunt-scythe",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "forge-darkmoon-bow",
+      "type": "interact",
+      "description": "Forge Darkmoon Bow at the Giant Blacksmith (+10 bow).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "soul-gwyndolin",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ],
+      "consumes": [
+        {
+          "item": "soul-gwyndolin",
+          "amount": 1
+        }
+      ],
+      "gives": [
+        {
+          "item": "darkmoon-bow",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "forge-tin-darkmoon-catalyst",
+      "type": "interact",
+      "description": "Forge Tin Darkmoon Catalyst at the Giant Blacksmith (catalyst).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "soul-gwyndolin",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ],
+      "consumes": [
+        {
+          "item": "soul-gwyndolin",
+          "amount": 1
+        }
+      ],
+      "gives": [
+        {
+          "item": "tin-darkmoon-catalyst",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "forge-great-lord-greatsword",
+      "type": "interact",
+      "description": "Forge Great Lord Greatsword at the Giant Blacksmith (+10 dagger/sword).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "soul-gwyn",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ],
+      "consumes": [
+        {
+          "item": "soul-gwyn",
+          "amount": 1
+        }
+      ],
+      "gives": [
+        {
+          "item": "great-lord-greatsword",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "defeat-o-and-s-smough-first",
+      "type": "fight",
+      "description": "In a later run, defeat Smough first then Ornstein for Smough’s soul.",
+      "area": "anor-londo",
+      "gives": [
+        {
+          "item": "soul-smough",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "forge-smough-hammer",
+      "type": "interact",
+      "description": "Forge Smough's Hammer at the Giant Blacksmith (+10 hammer).",
+      "area": "anor-londo",
+      "requires": [
+        {
+          "type": "inventory",
+          "item": "soul-smough",
+          "amount": 1
+        },
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ],
+      "consumes": [
+        {
+          "item": "soul-smough",
+          "amount": 1
+        }
+      ],
+      "gives": [
+        {
+          "item": "smough-hammer",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "farm-silver-knight-straight-sword",
+      "type": "farm",
+      "description": "Farm sword Silver Knights in Anor Londo.",
+      "area": "anor-londo",
+      "source": {
+        "type": "enemy",
+        "id": "silver-knight-sword"
+      },
+      "gives": [
+        {
+          "item": "silver-knight-straight-sword",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "farm-silver-knight-spear",
+      "type": "farm",
+      "description": "Farm spear Silver Knights in Anor Londo.",
+      "area": "anor-londo",
+      "source": {
+        "type": "enemy",
+        "id": "silver-knight-spear"
+      },
+      "gives": [
+        {
+          "item": "silver-knight-spear",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "farm-silver-knight-shield",
+      "type": "farm",
+      "description": "Farm Silver Knights for their shield.",
+      "area": "anor-londo",
+      "source": {
+        "type": "enemy",
+        "id": "silver-knight"
+      },
+      "gives": [
+        {
+          "item": "silver-knight-shield",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "farm-black-knight-sword",
+      "type": "farm",
+      "description": "Farm sword Black Knights in the Kiln.",
+      "area": "kiln",
+      "source": {
+        "type": "enemy",
+        "id": "black-knight-sword"
+      },
+      "gives": [
+        {
+          "item": "black-knight-sword",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "farm-black-knight-greatsword",
+      "type": "farm",
+      "description": "Farm greatsword Black Knights in the Kiln.",
+      "area": "kiln",
+      "source": {
+        "type": "enemy",
+        "id": "black-knight-greatsword"
+      },
+      "gives": [
+        {
+          "item": "black-knight-greatsword",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "farm-black-knight-greataxe",
+      "type": "farm",
+      "description": "Farm greataxe Black Knights in the Kiln.",
+      "area": "kiln",
+      "source": {
+        "type": "enemy",
+        "id": "black-knight-axe"
+      },
+      "gives": [
+        {
+          "item": "black-knight-greataxe",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "farm-black-knight-halberd",
+      "type": "farm",
+      "description": "Farm halberd Black Knights in the Kiln.",
+      "area": "kiln",
+      "source": {
+        "type": "enemy",
+        "id": "black-knight-halberd"
+      },
+      "gives": [
+        {
+          "item": "black-knight-halberd",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "farm-black-knight-shield",
+      "type": "farm",
+      "description": "Farm Black Knights for their shield.",
+      "area": "kiln",
+      "source": {
+        "type": "enemy",
+        "id": "black-knight"
+      },
+      "gives": [
+        {
+          "item": "black-knight-shield",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "farm-stone-greatsword",
+      "type": "farm",
+      "description": "Farm Stone Knights in Darkroot for the Stone Greatsword.",
+      "area": "darkroot",
+      "source": {
+        "type": "enemy",
+        "id": "stone-knight"
+      },
+      "gives": [
+        {
+          "item": "stone-greatsword",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "farm-stone-greatshield",
+      "type": "farm",
+      "description": "Farm Stone Knights in Darkroot for the Stone Greatshield.",
+      "area": "darkroot",
+      "source": {
+        "type": "enemy",
+        "id": "stone-knight"
+      },
+      "gives": [
+        {
+          "item": "stone-greatshield",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "farm-channelers-trident",
+      "type": "farm",
+      "description": "Farm Channelers (Parish / Depths / Archives) for the Trident.",
+      "area": "dukes",
+      "source": {
+        "type": "enemy",
+        "id": "channeler"
+      },
+      "gives": [
+        {
+          "item": "channelers-trident",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "loot-grant",
+      "type": "collect",
+      "description": "Kill invading Paladin Leeroy in the Tomb of the Giants for Grant.",
+      "area": "tomb-giants",
+      "gives": [
+        {
+          "item": "grant",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "get-rite-kindling"
+        }
+      ],
+      "before": [
+        "defeat-nito"
+      ]
+    },
+    {
+      "id": "loot-sanctus",
+      "type": "collect",
+      "description": "Kill invading Paladin Leeroy in the Tomb of the Giants for Sanctus.",
+      "area": "tomb-giants",
+      "gives": [
+        {
+          "item": "sanctus",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "get-rite-kindling"
+        }
+      ],
+      "before": [
+        "defeat-nito"
+      ]
+    },
+    {
+      "id": "loot-crest-shield",
+      "type": "collect",
+      "description": "Return to the Asylum and kill hollow Oscar for the Crest Shield.",
+      "area": "undead-asylum",
+      "gives": [
+        {
+          "item": "crest-shield",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "get-peculiar-doll"
+        }
+      ]
+    },
+    {
+      "id": "buy-crescent-axe",
+      "type": "collect",
+      "description": "Buy the Crescent Axe from Patches (forgive him) or loot it if you kill him.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "crescent-axe",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "get-rite-kindling"
+        }
+      ]
+    },
+    {
+      "id": "buy-demons-spear",
+      "type": "collect",
+      "description": "Buy the Demon’s Spear from Shiva of the East (Forest Hunter merchant in Blighttown).",
+      "area": "blighttown",
+      "gives": [
+        {
+          "item": "demons-spear",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "result",
+          "id": "forest-hunter"
+        }
+      ]
+    },
+    {
+      "id": "buy-giants-halberd",
+      "type": "collect",
+      "description": "Buy the Giant’s Halberd from the Giant Blacksmith in Anor Londo.",
+      "area": "anor-londo",
+      "gives": [
+        {
+          "item": "giants-halberd",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "loot-velkas-rapier",
+      "type": "collect",
+      "description": "Loot Velka’s Rapier in the Painted World annex.",
+      "area": "painted-world",
+      "gives": [
+        {
+          "item": "velkas-rapier",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-painted-world"
+        }
+      ]
+    },
+    {
+      "id": "get-gravelord-sword",
+      "type": "collect",
+      "description": "Receive the Gravelord Sword when joining Gravelord Servant.",
+      "area": "catacombs",
+      "gives": [
+        {
+          "item": "gravelord-sword",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "result",
+          "id": "gravelord"
+        }
+      ]
+    },
+    {
+      "id": "asylum-demon-hammer",
+      "type": "collect",
+      "description": "Kill the Asylum Demon in the cell courtyard (NG+ or strong start) for the Demon’s Great Hammer.",
+      "area": "undead-asylum",
+      "gives": [
+        {
+          "item": "demons-great-hammer",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-lordran"
+        }
+      ]
+    },
+    {
+      "id": "learn-soul-arrow",
+      "type": "collect",
+      "description": "Buy Soul Arrow from Griggs or Rickert.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "soul-arrow",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-griggs"
+        }
+      ]
+    },
+    {
+      "id": "learn-great-soul-arrow",
+      "type": "collect",
+      "description": "Buy Great Soul Arrow from Griggs.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "great-soul-arrow",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-griggs"
+        }
+      ]
+    },
+    {
+      "id": "learn-heavy-soul-arrow",
+      "type": "collect",
+      "description": "Buy Heavy Soul Arrow from Griggs.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "heavy-soul-arrow",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-griggs"
+        }
+      ]
+    },
+    {
+      "id": "learn-great-heavy-soul-arrow",
+      "type": "collect",
+      "description": "Buy Great Heavy Soul Arrow from Griggs.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "great-heavy-soul-arrow",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-griggs"
+        }
+      ]
+    },
+    {
+      "id": "learn-homing-soulmass",
+      "type": "collect",
+      "description": "Buy Homing Soulmass from Logan at Firelink.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "homing-soulmass",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-logan-sens"
+        }
+      ]
+    },
+    {
+      "id": "learn-homing-crystal-soulmass",
+      "type": "collect",
+      "description": "Buy Homing Crystal Soulmass from Logan in the Archives.",
+      "area": "dukes",
+      "gives": [
+        {
+          "item": "homing-crystal-soulmass",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-logan-dukes"
+        }
+      ]
+    },
+    {
+      "id": "learn-soul-spear",
+      "type": "collect",
+      "description": "Buy Soul Spear from Logan.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "soul-spear",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-logan-sens"
+        }
+      ]
+    },
+    {
+      "id": "learn-crystal-soul-spear",
+      "type": "collect",
+      "description": "Buy Crystal Soul Spear from Logan in the Archives.",
+      "area": "dukes",
+      "gives": [
+        {
+          "item": "crystal-soul-spear",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-logan-dukes"
+        }
+      ]
+    },
+    {
+      "id": "learn-magic-weapon",
+      "type": "collect",
+      "description": "Buy Magic Weapon from Griggs.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "magic-weapon",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-griggs"
+        }
+      ]
+    },
+    {
+      "id": "learn-great-magic-weapon",
+      "type": "collect",
+      "description": "Loot Great Magic Weapon in Anor Londo.",
+      "area": "anor-londo",
+      "gives": [
+        {
+          "item": "great-magic-weapon",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "learn-crystal-magic-weapon",
+      "type": "collect",
+      "description": "Buy Crystal Magic Weapon from Logan.",
+      "area": "dukes",
+      "gives": [
+        {
+          "item": "crystal-magic-weapon",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-logan-dukes"
+        }
+      ]
+    },
+    {
+      "id": "learn-magic-shield",
+      "type": "collect",
+      "description": "Buy Magic Shield from Griggs.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "magic-shield",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-griggs"
+        }
+      ]
+    },
+    {
+      "id": "learn-strong-magic-shield",
+      "type": "collect",
+      "description": "Loot Strong Magic Shield in the Archives.",
+      "area": "dukes",
+      "gives": [
+        {
+          "item": "strong-magic-shield",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-dukes"
+        }
+      ]
+    },
+    {
+      "id": "learn-aural-decoy",
+      "type": "collect",
+      "description": "Buy Aural Decoy from Griggs.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "aural-decoy",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-griggs"
+        }
+      ]
+    },
+    {
+      "id": "learn-hush",
+      "type": "collect",
+      "description": "Loot Hush in Sen’s Fortress.",
+      "area": "sens",
+      "gives": [
+        {
+          "item": "hush",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-sens"
+        }
+      ]
+    },
+    {
+      "id": "learn-fall-control",
+      "type": "collect",
+      "description": "Buy Fall Control from Griggs.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "fall-control",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-griggs"
+        }
+      ]
+    },
+    {
+      "id": "learn-hidden-body",
+      "type": "collect",
+      "description": "Buy Hidden Body from Dusk of Oolacile.",
+      "area": "darkroot",
+      "gives": [
+        {
+          "item": "hidden-body",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "open-darkroot-door"
+        }
+      ]
+    },
+    {
+      "id": "learn-cast-light",
+      "type": "collect",
+      "description": "Buy Cast Light from Dusk of Oolacile.",
+      "area": "darkroot",
+      "gives": [
+        {
+          "item": "cast-light",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "open-darkroot-door"
+        }
+      ]
+    },
+    {
+      "id": "learn-repair",
+      "type": "collect",
+      "description": "Buy Repair from Dusk of Oolacile.",
+      "area": "darkroot",
+      "gives": [
+        {
+          "item": "repair",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "open-darkroot-door"
+        }
+      ]
+    },
+    {
+      "id": "learn-chameleon",
+      "type": "collect",
+      "description": "Loot Chameleon in the Painted World.",
+      "area": "painted-world",
+      "gives": [
+        {
+          "item": "chameleon",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-painted-world"
+        }
+      ]
+    },
+    {
+      "id": "learn-remedy",
+      "type": "collect",
+      "description": "Loot Remedy in Blighttown.",
+      "area": "blighttown",
+      "gives": [
+        {
+          "item": "remedy",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-blighttown"
+        }
+      ]
+    },
+    {
+      "id": "learn-resist-curse",
+      "type": "collect",
+      "description": "Buy Resist Curse from Ingward.",
+      "area": "new-londo",
+      "gives": [
+        {
+          "item": "resist-curse",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "drain-new-londo"
+        }
+      ]
+    },
+    {
+      "id": "learn-white-dragon-breath",
+      "type": "collect",
+      "description": "After Seath, find hollow Logan in the Archives crystal cave room for White Dragon Breath.",
+      "area": "dukes",
+      "gives": [
+        {
+          "item": "white-dragon-breath",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-seath"
+        },
+        {
+          "type": "action",
+          "id": "free-logan-dukes"
+        }
+      ]
+    },
+    {
+      "id": "learn-fireball",
+      "type": "collect",
+      "description": "Buy Fireball from Laurentius.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "fireball",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-laurentius"
+        }
+      ]
+    },
+    {
+      "id": "learn-fire-orb",
+      "type": "collect",
+      "description": "Buy Fire Orb from Laurentius.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "fire-orb",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-laurentius"
+        }
+      ]
+    },
+    {
+      "id": "learn-combustion",
+      "type": "collect",
+      "description": "Buy Combustion from Laurentius.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "combustion",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-laurentius"
+        }
+      ]
+    },
+    {
+      "id": "learn-great-combustion",
+      "type": "collect",
+      "description": "Buy Great Combustion from Quelana.",
+      "area": "blighttown",
+      "gives": [
+        {
+          "item": "great-combustion",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "join-chaos-servant"
+        }
+      ]
+    },
+    {
+      "id": "learn-firestorm",
+      "type": "collect",
+      "description": "Buy Firestorm from Quelana.",
+      "area": "blighttown",
+      "gives": [
+        {
+          "item": "firestorm",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "join-chaos-servant"
+        }
+      ]
+    },
+    {
+      "id": "learn-fire-tempest",
+      "type": "collect",
+      "description": "Buy Fire Tempest from Quelana or loot after killing her sister path.",
+      "area": "blighttown",
+      "gives": [
+        {
+          "item": "fire-tempest",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "join-chaos-servant"
+        }
+      ]
+    },
+    {
+      "id": "learn-fire-whip",
+      "type": "collect",
+      "description": "Buy Fire Whip from Quelana.",
+      "area": "blighttown",
+      "gives": [
+        {
+          "item": "fire-whip",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "join-chaos-servant"
+        }
+      ]
+    },
+    {
+      "id": "learn-poison-mist",
+      "type": "collect",
+      "description": "Loot Poison Mist in Blighttown swamp.",
+      "area": "blighttown",
+      "gives": [
+        {
+          "item": "poison-mist",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-blighttown"
+        }
+      ]
+    },
+    {
+      "id": "learn-toxic-mist",
+      "type": "collect",
+      "description": "Buy Toxic Mist from Eingyi.",
+      "area": "blighttown",
+      "gives": [
+        {
+          "item": "toxic-mist",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "join-chaos-servant"
+        }
+      ]
+    },
+    {
+      "id": "learn-acid-surge",
+      "type": "collect",
+      "description": "Loot Acid Surge in the Painted World.",
+      "area": "painted-world",
+      "gives": [
+        {
+          "item": "acid-surge",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-painted-world"
+        }
+      ]
+    },
+    {
+      "id": "learn-iron-flesh",
+      "type": "collect",
+      "description": "Buy Iron Flesh from Laurentius.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "iron-flesh",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-laurentius"
+        }
+      ]
+    },
+    {
+      "id": "learn-flash-sweat",
+      "type": "collect",
+      "description": "Buy Flash Sweat from Laurentius.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "flash-sweat",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "free-laurentius"
+        }
+      ]
+    },
+    {
+      "id": "learn-power-within",
+      "type": "collect",
+      "description": "Loot Power Within near the Cragspider in Blighttown.",
+      "area": "blighttown",
+      "gives": [
+        {
+          "item": "power-within",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-blighttown"
+        }
+      ]
+    },
+    {
+      "id": "learn-undead-rapport",
+      "type": "collect",
+      "description": "Buy Undead Rapport from Quelana.",
+      "area": "blighttown",
+      "gives": [
+        {
+          "item": "undead-rapport",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "join-chaos-servant"
+        }
+      ]
+    },
+    {
+      "id": "learn-great-chaos-fireball",
+      "type": "collect",
+      "description": "Receive Great Chaos Fireball when joining Chaos Servant.",
+      "area": "blighttown",
+      "gives": [
+        {
+          "item": "great-chaos-fireball",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "result",
+          "id": "chaos-servant"
+        }
+      ]
+    },
+    {
+      "id": "learn-chaos-fire-whip",
+      "type": "collect",
+      "description": "Loot Chaos Fire Whip in Lost Izalith.",
+      "area": "lost-izalith",
+      "gives": [
+        {
+          "item": "chaos-fire-whip",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-bed-of-chaos"
+        }
+      ]
+    },
+    {
+      "id": "learn-heal",
+      "type": "collect",
+      "description": "Buy Heal from Petrus or Rhea.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "heal",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "join-way-of-white"
+        }
+      ]
+    },
+    {
+      "id": "learn-great-heal-excerpt",
+      "type": "collect",
+      "description": "Buy Great Heal Excerpt from Petrus.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "great-heal-excerpt",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "join-way-of-white"
+        }
+      ]
+    },
+    {
+      "id": "learn-great-heal",
+      "type": "collect",
+      "description": "Buy Great Heal from Rhea in the Parish (save her in Tomb of Giants first — do her quest early).",
+      "area": "undead-parish",
+      "gives": [
+        {
+          "item": "great-heal",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-capra"
+        }
+      ]
+    },
+    {
+      "id": "learn-soothing-sunlight",
+      "type": "collect",
+      "description": "Buy Soothing Sunlight from Rhea (conservative: finish her inventory before more bosses).",
+      "area": "undead-parish",
+      "gives": [
+        {
+          "item": "soothing-sunlight",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-capra"
+        }
+      ]
+    },
+    {
+      "id": "learn-replenishment",
+      "type": "collect",
+      "description": "Save Rhea in the Tomb of Giants pit for Replenishment.",
+      "area": "tomb-giants",
+      "gives": [
+        {
+          "item": "replenishment",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "get-rite-kindling"
+        }
+      ]
+    },
+    {
+      "id": "learn-bountiful-sunlight",
+      "type": "collect",
+      "description": "Buy Bountiful Sunlight from Rhea.",
+      "area": "undead-parish",
+      "gives": [
+        {
+          "item": "bountiful-sunlight",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-capra"
+        }
+      ]
+    },
+    {
+      "id": "learn-force",
+      "type": "collect",
+      "description": "Buy Force from Petrus or Rhea.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "force",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "join-way-of-white"
+        }
+      ]
+    },
+    {
+      "id": "learn-wrath-of-gods",
+      "type": "collect",
+      "description": "Buy Wrath of the Gods from Rhea.",
+      "area": "undead-parish",
+      "gives": [
+        {
+          "item": "wrath-of-gods",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-capra"
+        }
+      ]
+    },
+    {
+      "id": "learn-emit-force",
+      "type": "collect",
+      "description": "Receive Emit Force from Siegmeyer’s questline reward path / buy alternatives as needed.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "emit-force",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "learn-magic-barrier",
+      "type": "collect",
+      "description": "Buy Magic Barrier from Rhea.",
+      "area": "undead-parish",
+      "gives": [
+        {
+          "item": "magic-barrier",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-capra"
+        }
+      ]
+    },
+    {
+      "id": "learn-great-magic-barrier",
+      "type": "collect",
+      "description": "Loot Great Magic Barrier in Ash Lake’s hollow trunk.",
+      "area": "ash-lake",
+      "gives": [
+        {
+          "item": "great-magic-barrier",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-ash-lake"
+        }
+      ]
+    },
+    {
+      "id": "learn-homeward",
+      "type": "collect",
+      "description": "Buy Homeward from Petrus.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "homeward",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "join-way-of-white"
+        }
+      ]
+    },
+    {
+      "id": "learn-seek-guidance",
+      "type": "collect",
+      "description": "Buy Seek Guidance from Petrus.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "seek-guidance",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "join-way-of-white"
+        }
+      ]
+    },
+    {
+      "id": "learn-karmic-justice",
+      "type": "collect",
+      "description": "Buy Karmic Justice from Oswald after ringing the Parish bell.",
+      "area": "firelink",
+      "gives": [
+        {
+          "item": "karmic-justice",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "join-way-of-white"
+        }
+      ]
+    },
+    {
+      "id": "learn-vow-of-silence",
+      "type": "collect",
+      "description": "Loot Vow of Silence in the Painted World.",
+      "area": "painted-world",
+      "gives": [
+        {
+          "item": "vow-of-silence",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "enter-painted-world"
+        }
+      ]
+    },
+    {
+      "id": "learn-tranquil-walk",
+      "type": "collect",
+      "description": "Loot Tranquil Walk of Peace in the Catacombs.",
+      "area": "catacombs",
+      "gives": [
+        {
+          "item": "tranquil-walk",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "get-rite-kindling"
+        }
+      ]
+    },
+    {
+      "id": "learn-lightning-spear",
+      "type": "collect",
+      "description": "Receive Lightning Spear when joining Warrior of Sunlight.",
+      "area": "sunlight-altar",
+      "gives": [
+        {
+          "item": "lightning-spear",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "result",
+          "id": "warrior-sunlight"
+        }
+      ]
+    },
+    {
+      "id": "learn-great-lightning-spear",
+      "type": "collect",
+      "description": "Offer 10 Sunlight Medals at the Sunlight Altar for Great Lightning Spear.",
+      "area": "sunlight-altar",
+      "gives": [
+        {
+          "item": "great-lightning-spear",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "result",
+          "id": "warrior-sunlight"
+        }
+      ]
+    },
+    {
+      "id": "learn-sunlight-spear",
+      "type": "collect",
+      "description": "Offer the Soul of Gwyn at the Sunlight Altar for Sunlight Spear (forces a later run for Great Lord Greatsword if both are needed).",
+      "area": "sunlight-altar",
+      "gives": [
+        {
+          "item": "sunlight-spear",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "result",
+          "id": "warrior-sunlight"
+        },
+        {
+          "type": "inventory",
+          "item": "soul-gwyn",
+          "amount": 1
+        }
+      ],
+      "consumes": [
+        {
+          "item": "soul-gwyn",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "id": "learn-darkmoon-blade",
+      "type": "collect",
+      "description": "Reach Darkmoon covenant rank for Darkmoon Blade (Souvenirs of Reprisal — farm the Painting Guardians / Dark Anor Londo offline sources as available).",
+      "area": "dark-anor-londo",
+      "gives": [
+        {
+          "item": "darkmoon-blade",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "result",
+          "id": "darkmoon"
+        }
+      ]
+    },
+    {
+      "id": "learn-gravelord-sword-dance",
+      "type": "collect",
+      "description": "Receive Gravelord Sword Dance when joining Gravelord Servant.",
+      "area": "catacombs",
+      "gives": [
+        {
+          "item": "gravelord-sword-dance",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "result",
+          "id": "gravelord"
+        }
+      ]
+    },
+    {
+      "id": "learn-gravelord-greatsword-dance",
+      "type": "collect",
+      "description": "Offer Eyes of Death to rank up Gravelord Servant for Gravelord Greatsword Dance.",
+      "area": "catacombs",
+      "gives": [
+        {
+          "item": "gravelord-greatsword-dance",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "result",
+          "id": "gravelord"
+        }
+      ]
+    },
+    {
+      "id": "learn-sunlight-blade",
+      "type": "collect",
+      "description": "Loot Sunlight Blade after defeating Gwyndolin.",
+      "area": "dark-anor-londo",
+      "gives": [
+        {
+          "item": "sunlight-blade",
+          "amount": 1
+        }
+      ],
+      "requires": [
+        {
+          "type": "action",
+          "id": "defeat-gwyndolin"
+        }
+      ]
+    }
+  ],
+  "achievements": [
+    {
+      "id": "enkindle",
+      "name": "Enkindle",
+      "description": "Light bonfire flame.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "enkindle"
+        }
+      ]
+    },
+    {
+      "id": "estus-flask",
+      "name": "Estus Flask",
+      "description": "Acquire Estus Flask.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "get-estus"
+        }
+      ]
+    },
+    {
+      "id": "reach-lordran",
+      "name": "Reach Lordran",
+      "description": "Arrive in Lordran.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "reach-lordran"
+        }
+      ]
+    },
+    {
+      "id": "ring-bell-church",
+      "name": "Ring the Bell (Undead Church)",
+      "description": "Ring Bell of Awakening at Undead Church.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "ring-undead-church"
+        }
+      ]
+    },
+    {
+      "id": "ring-bell-quelaag",
+      "name": "Ring the Bell (Quelaag's Domain)",
+      "description": "Ring Bell of Awakening in Quelaag's domain.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "ring-quelaag"
+        }
+      ]
+    },
+    {
+      "id": "reach-anor-londo",
+      "name": "Reach Anor Londo",
+      "description": "Arrive in Anor Londo.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "reach-anor-londo"
+        }
+      ]
+    },
+    {
+      "id": "lordvessel",
+      "name": "Lordvessel",
+      "description": "Acquire the Lordvessel.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "get-lordvessel"
+        }
+      ]
+    },
+    {
+      "id": "rite-of-kindling",
+      "name": "Rite of Kindling",
+      "description": "Acquire the Rite of Kindling.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "get-rite-kindling"
+        }
+      ]
+    },
+    {
+      "id": "art-of-abysswalking",
+      "name": "Art of Abysswalking",
+      "description": "Acquire the Art of Abysswalking.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "defeat-sif"
+        }
+      ]
+    },
+    {
+      "id": "defeat-nito",
+      "name": "Defeat Gravelord Nito",
+      "description": "Defeat the Soul Lord Gravelord Nito.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "defeat-nito"
+        }
+      ]
+    },
+    {
+      "id": "defeat-bed-of-chaos",
+      "name": "Defeat Bed of Chaos",
+      "description": "Defeat the Soul Lord Bed of Chaos.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "defeat-bed-of-chaos"
+        }
+      ]
+    },
+    {
+      "id": "defeat-four-kings",
+      "name": "Defeat the Four Kings",
+      "description": "Defeat the Four Kings, inheritors of souls.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "defeat-four-kings"
+        }
+      ]
+    },
+    {
+      "id": "defeat-seath",
+      "name": "Defeat Seath the Scaleless",
+      "description": "Defeat Seath the Scaleless, inheritors of souls.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "defeat-seath"
+        }
+      ]
+    },
+    {
+      "id": "defeat-gwyndolin",
+      "name": "Defeat the Dark Sun Gwyndolin",
+      "description": "Defeat Dark Sun Gwyndolin, the Darkmoon God.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "defeat-gwyndolin"
+        }
+      ]
+    },
+    {
+      "id": "defeat-priscilla",
+      "name": "Defeat Crossbreed Priscilla",
+      "description": "Defeat Crossbreed Priscilla, the Lifehunter.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "defeat-priscilla"
+        }
+      ]
+    },
+    {
+      "id": "to-link-the-fire",
+      "name": "To Link the Fire",
+      "description": "Reach \"To Link the Fire\" ending.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "link-the-fire"
+        }
+      ]
+    },
+    {
+      "id": "dark-lord",
+      "name": "Dark Lord",
+      "description": "Reach \"The Dark Lord\" ending.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "dark-lord-ending"
+        }
+      ]
+    },
+    {
+      "id": "covenant-way-of-white",
+      "name": "Covenant: Way of White",
+      "description": "Discover Way of White covenant.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "join-way-of-white"
+        }
+      ]
+    },
+    {
+      "id": "covenant-princess-guard",
+      "name": "Covenant: Princess's Guard",
+      "description": "Discover Princess's Guard covenant.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "join-princess-guard"
+        }
+      ]
+    },
+    {
+      "id": "covenant-darkmoon",
+      "name": "Covenant: Blade of the Darkmoon",
+      "description": "Discover Blade of the Darkmoon covenant.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "join-darkmoon"
+        }
+      ]
+    },
+    {
+      "id": "covenant-warrior-sunlight",
+      "name": "Covenant: Warrior of Sunlight",
+      "description": "Discover Warrior of Sunlight covenant.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "join-warrior-sunlight"
+        }
+      ]
+    },
+    {
+      "id": "covenant-forest-hunter",
+      "name": "Covenant: Forest Hunter",
+      "description": "Discover Forest Hunter covenant.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "join-forest-hunter"
+        }
+      ]
+    },
+    {
+      "id": "covenant-darkwraith",
+      "name": "Covenant: Darkwraith",
+      "description": "Discover Darkwraith covenant.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "join-darkwraith"
+        }
+      ]
+    },
+    {
+      "id": "covenant-path-dragon",
+      "name": "Covenant: Path of the Dragon",
+      "description": "Discover Path of the Dragon covenant.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "join-path-dragon"
+        }
+      ]
+    },
+    {
+      "id": "covenant-gravelord",
+      "name": "Covenant: Gravelord Servant",
+      "description": "Discover Gravelord Servant covenant.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "join-gravelord"
+        }
+      ]
+    },
+    {
+      "id": "covenant-chaos-servant",
+      "name": "Covenant: Chaos Servant",
+      "description": "Discover Chaos Servant covenant.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "join-chaos-servant"
+        }
+      ]
+    },
+    {
+      "id": "strongest-weapon",
+      "name": "Strongest Weapon",
+      "description": "Acquire best weapon through standard reinforcement.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "craft-standard"
+        }
+      ]
+    },
+    {
+      "id": "crystal-weapon",
+      "name": "Crystal Weapon",
+      "description": "Acquire best weapon through crystal reinforcement.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "craft-crystal"
+        }
+      ]
+    },
+    {
+      "id": "lightning-weapon",
+      "name": "Lightning Weapon",
+      "description": "Acquire best weapon through lightning reinforcement.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "craft-lightning"
+        }
+      ]
+    },
+    {
+      "id": "raw-weapon",
+      "name": "Raw Weapon",
+      "description": "Acquire best weapon through raw reinforcement.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "craft-raw"
+        }
+      ]
+    },
+    {
+      "id": "magic-weapon",
+      "name": "Magic Weapon",
+      "description": "Acquire best weapon through magic reinforcement.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "craft-magic"
+        }
+      ]
+    },
+    {
+      "id": "enchanted-weapon",
+      "name": "Enchanted Weapon",
+      "description": "Acquire best weapon through enchanted reinforcement.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "craft-enchanted"
+        }
+      ]
+    },
+    {
+      "id": "divine-weapon",
+      "name": "Divine Weapon",
+      "description": "Acquire best weapon through divine reinforcement.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "craft-divine"
+        }
+      ]
+    },
+    {
+      "id": "occult-weapon",
+      "name": "Occult Weapon",
+      "description": "Acquire best weapon through occult reinforcement.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "craft-occult"
+        }
+      ]
+    },
+    {
+      "id": "fire-weapon",
+      "name": "Fire Weapon",
+      "description": "Acquire best weapon through fire reinforcement.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "craft-fire"
+        }
+      ]
+    },
+    {
+      "id": "chaos-weapon",
+      "name": "Chaos Weapon",
+      "description": "Acquire best weapon through chaos reinforcement.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "craft-chaos"
+        }
+      ]
+    },
+    {
+      "id": "wisdom-sage",
+      "name": "Wisdom of a Sage",
+      "description": "Acquire all sorceries.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "learn-soul-arrow"
+        },
+        {
+          "type": "action",
+          "id": "learn-great-soul-arrow"
+        },
+        {
+          "type": "action",
+          "id": "learn-heavy-soul-arrow"
+        },
+        {
+          "type": "action",
+          "id": "learn-great-heavy-soul-arrow"
+        },
+        {
+          "type": "action",
+          "id": "learn-homing-soulmass"
+        },
+        {
+          "type": "action",
+          "id": "learn-homing-crystal-soulmass"
+        },
+        {
+          "type": "action",
+          "id": "learn-soul-spear"
+        },
+        {
+          "type": "action",
+          "id": "learn-crystal-soul-spear"
+        },
+        {
+          "type": "action",
+          "id": "learn-magic-weapon"
+        },
+        {
+          "type": "action",
+          "id": "learn-great-magic-weapon"
+        },
+        {
+          "type": "action",
+          "id": "learn-crystal-magic-weapon"
+        },
+        {
+          "type": "action",
+          "id": "learn-magic-shield"
+        },
+        {
+          "type": "action",
+          "id": "learn-strong-magic-shield"
+        },
+        {
+          "type": "action",
+          "id": "learn-aural-decoy"
+        },
+        {
+          "type": "action",
+          "id": "learn-hush"
+        },
+        {
+          "type": "action",
+          "id": "learn-fall-control"
+        },
+        {
+          "type": "action",
+          "id": "learn-hidden-body"
+        },
+        {
+          "type": "action",
+          "id": "learn-cast-light"
+        },
+        {
+          "type": "action",
+          "id": "learn-repair"
+        },
+        {
+          "type": "action",
+          "id": "learn-chameleon"
+        },
+        {
+          "type": "action",
+          "id": "learn-remedy"
+        },
+        {
+          "type": "action",
+          "id": "learn-resist-curse"
+        },
+        {
+          "type": "action",
+          "id": "learn-white-dragon-breath"
+        }
+      ]
+    },
+    {
+      "id": "bond-pyromancer",
+      "name": "Bond of a Pyromancer",
+      "description": "Acquire all pyromancies.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "learn-fireball"
+        },
+        {
+          "type": "action",
+          "id": "learn-fire-orb"
+        },
+        {
+          "type": "action",
+          "id": "learn-combustion"
+        },
+        {
+          "type": "action",
+          "id": "learn-great-combustion"
+        },
+        {
+          "type": "action",
+          "id": "learn-firestorm"
+        },
+        {
+          "type": "action",
+          "id": "learn-fire-tempest"
+        },
+        {
+          "type": "action",
+          "id": "learn-fire-whip"
+        },
+        {
+          "type": "action",
+          "id": "learn-poison-mist"
+        },
+        {
+          "type": "action",
+          "id": "learn-toxic-mist"
+        },
+        {
+          "type": "action",
+          "id": "learn-acid-surge"
+        },
+        {
+          "type": "action",
+          "id": "learn-iron-flesh"
+        },
+        {
+          "type": "action",
+          "id": "learn-flash-sweat"
+        },
+        {
+          "type": "action",
+          "id": "learn-power-within"
+        },
+        {
+          "type": "action",
+          "id": "learn-undead-rapport"
+        },
+        {
+          "type": "action",
+          "id": "learn-great-chaos-fireball"
+        },
+        {
+          "type": "action",
+          "id": "learn-chaos-fire-whip"
+        },
+        {
+          "type": "action",
+          "id": "offer-chaos-30"
+        }
+      ]
+    },
+    {
+      "id": "prayer-maiden",
+      "name": "Prayer of a Maiden",
+      "description": "Acquire all miracles.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "learn-heal"
+        },
+        {
+          "type": "action",
+          "id": "learn-great-heal-excerpt"
+        },
+        {
+          "type": "action",
+          "id": "learn-great-heal"
+        },
+        {
+          "type": "action",
+          "id": "learn-soothing-sunlight"
+        },
+        {
+          "type": "action",
+          "id": "learn-replenishment"
+        },
+        {
+          "type": "action",
+          "id": "learn-bountiful-sunlight"
+        },
+        {
+          "type": "action",
+          "id": "learn-force"
+        },
+        {
+          "type": "action",
+          "id": "learn-wrath-of-gods"
+        },
+        {
+          "type": "action",
+          "id": "learn-emit-force"
+        },
+        {
+          "type": "action",
+          "id": "learn-magic-barrier"
+        },
+        {
+          "type": "action",
+          "id": "learn-great-magic-barrier"
+        },
+        {
+          "type": "action",
+          "id": "learn-homeward"
+        },
+        {
+          "type": "action",
+          "id": "learn-seek-guidance"
+        },
+        {
+          "type": "action",
+          "id": "learn-karmic-justice"
+        },
+        {
+          "type": "action",
+          "id": "learn-vow-of-silence"
+        },
+        {
+          "type": "action",
+          "id": "learn-tranquil-walk"
+        },
+        {
+          "type": "action",
+          "id": "learn-lightning-spear"
+        },
+        {
+          "type": "action",
+          "id": "learn-great-lightning-spear"
+        },
+        {
+          "type": "action",
+          "id": "learn-sunlight-spear"
+        },
+        {
+          "type": "action",
+          "id": "learn-darkmoon-blade"
+        },
+        {
+          "type": "action",
+          "id": "learn-gravelord-sword-dance"
+        },
+        {
+          "type": "action",
+          "id": "learn-gravelord-greatsword-dance"
+        },
+        {
+          "type": "action",
+          "id": "learn-sunlight-blade"
+        }
+      ]
+    },
+    {
+      "id": "knights-honor",
+      "name": "Knight's Honor",
+      "description": "Acquire all rare weapons.",
+      "conditions": [
+        {
+          "type": "action",
+          "id": "forge-moonlight-butterfly-horn"
+        },
+        {
+          "type": "action",
+          "id": "forge-crystal-ring-shield"
+        },
+        {
+          "type": "action",
+          "id": "forge-greatsword-artorias"
+        },
+        {
+          "type": "action",
+          "id": "forge-greatsword-artorias-cursed"
+        },
+        {
+          "type": "action",
+          "id": "forge-greatshield-artorias"
+        },
+        {
+          "type": "action",
+          "id": "forge-chaos-blade"
+        },
+        {
+          "type": "action",
+          "id": "forge-quelaag-fury-sword"
+        },
+        {
+          "type": "action",
+          "id": "forge-golem-axe"
+        },
+        {
+          "type": "action",
+          "id": "forge-dragon-bone-fist"
+        },
+        {
+          "type": "action",
+          "id": "forge-dragonslayer-spear"
+        },
+        {
+          "type": "action",
+          "id": "forge-lifehunt-scythe"
+        },
+        {
+          "type": "action",
+          "id": "forge-darkmoon-bow"
+        },
+        {
+          "type": "action",
+          "id": "forge-tin-darkmoon-catalyst"
+        },
+        {
+          "type": "action",
+          "id": "forge-great-lord-greatsword"
+        },
+        {
+          "type": "action",
+          "id": "forge-smough-hammer"
+        },
+        {
+          "type": "action",
+          "id": "farm-silver-knight-straight-sword"
+        },
+        {
+          "type": "action",
+          "id": "farm-silver-knight-spear"
+        },
+        {
+          "type": "action",
+          "id": "farm-silver-knight-shield"
+        },
+        {
+          "type": "action",
+          "id": "farm-black-knight-sword"
+        },
+        {
+          "type": "action",
+          "id": "farm-black-knight-greatsword"
+        },
+        {
+          "type": "action",
+          "id": "farm-black-knight-greataxe"
+        },
+        {
+          "type": "action",
+          "id": "farm-black-knight-halberd"
+        },
+        {
+          "type": "action",
+          "id": "farm-black-knight-shield"
+        },
+        {
+          "type": "action",
+          "id": "farm-stone-greatsword"
+        },
+        {
+          "type": "action",
+          "id": "farm-stone-greatshield"
+        },
+        {
+          "type": "action",
+          "id": "farm-channelers-trident"
+        },
+        {
+          "type": "action",
+          "id": "loot-grant"
+        },
+        {
+          "type": "action",
+          "id": "loot-sanctus"
+        },
+        {
+          "type": "action",
+          "id": "loot-crest-shield"
+        },
+        {
+          "type": "action",
+          "id": "buy-crescent-axe"
+        },
+        {
+          "type": "action",
+          "id": "buy-demons-spear"
+        },
+        {
+          "type": "action",
+          "id": "buy-giants-halberd"
+        },
+        {
+          "type": "action",
+          "id": "loot-velkas-rapier"
+        },
+        {
+          "type": "action",
+          "id": "get-gravelord-sword"
+        },
+        {
+          "type": "action",
+          "id": "asylum-demon-hammer"
+        },
+        {
+          "type": "action",
+          "id": "cut-hellkite-tail"
+        },
+        {
+          "type": "action",
+          "id": "cut-gaping-tail"
+        },
+        {
+          "type": "action",
+          "id": "cut-priscilla-tail"
+        },
+        {
+          "type": "action",
+          "id": "cut-stone-dragon-tail"
+        },
+        {
+          "type": "action",
+          "id": "cut-seath-tail"
+        },
+        {
+          "type": "action",
+          "id": "loot-astora-sword"
+        },
+        {
+          "type": "action",
+          "id": "loot-dragon-crest-shield"
+        },
+        {
+          "type": "action",
+          "id": "get-dark-hand"
+        }
+      ]
+    },
+    {
+      "id": "the-dark-soul",
+      "name": "The Dark Soul",
+      "description": "All achievements completed. Congratulations!",
+      "conditions": [
+        {
+          "type": "achievement",
+          "id": "to-link-the-fire"
+        },
+        {
+          "type": "achievement",
+          "id": "dark-lord"
+        },
+        {
+          "type": "achievement",
+          "id": "knights-honor"
+        },
+        {
+          "type": "achievement",
+          "id": "wisdom-sage"
+        },
+        {
+          "type": "achievement",
+          "id": "bond-pyromancer"
+        },
+        {
+          "type": "achievement",
+          "id": "prayer-maiden"
+        },
+        {
+          "type": "achievement",
+          "id": "covenant-way-of-white"
+        },
+        {
+          "type": "achievement",
+          "id": "covenant-princess-guard"
+        },
+        {
+          "type": "achievement",
+          "id": "covenant-darkmoon"
+        },
+        {
+          "type": "achievement",
+          "id": "covenant-warrior-sunlight"
+        },
+        {
+          "type": "achievement",
+          "id": "covenant-forest-hunter"
+        },
+        {
+          "type": "achievement",
+          "id": "covenant-darkwraith"
+        },
+        {
+          "type": "achievement",
+          "id": "covenant-path-dragon"
+        },
+        {
+          "type": "achievement",
+          "id": "covenant-gravelord"
+        },
+        {
+          "type": "achievement",
+          "id": "covenant-chaos-servant"
+        },
+        {
+          "type": "achievement",
+          "id": "strongest-weapon"
+        },
+        {
+          "type": "achievement",
+          "id": "crystal-weapon"
+        },
+        {
+          "type": "achievement",
+          "id": "lightning-weapon"
+        },
+        {
+          "type": "achievement",
+          "id": "raw-weapon"
+        },
+        {
+          "type": "achievement",
+          "id": "magic-weapon"
+        },
+        {
+          "type": "achievement",
+          "id": "enchanted-weapon"
+        },
+        {
+          "type": "achievement",
+          "id": "divine-weapon"
+        },
+        {
+          "type": "achievement",
+          "id": "occult-weapon"
+        },
+        {
+          "type": "achievement",
+          "id": "fire-weapon"
+        },
+        {
+          "type": "achievement",
+          "id": "chaos-weapon"
+        },
+        {
+          "type": "achievement",
+          "id": "enkindle"
+        },
+        {
+          "type": "achievement",
+          "id": "estus-flask"
+        },
+        {
+          "type": "achievement",
+          "id": "reach-lordran"
+        },
+        {
+          "type": "achievement",
+          "id": "ring-bell-church"
+        },
+        {
+          "type": "achievement",
+          "id": "ring-bell-quelaag"
+        },
+        {
+          "type": "achievement",
+          "id": "rite-of-kindling"
+        },
+        {
+          "type": "achievement",
+          "id": "art-of-abysswalking"
+        },
+        {
+          "type": "achievement",
+          "id": "reach-anor-londo"
+        },
+        {
+          "type": "achievement",
+          "id": "lordvessel"
+        },
+        {
+          "type": "achievement",
+          "id": "defeat-nito"
+        },
+        {
+          "type": "achievement",
+          "id": "defeat-bed-of-chaos"
+        },
+        {
+          "type": "achievement",
+          "id": "defeat-four-kings"
+        },
+        {
+          "type": "achievement",
+          "id": "defeat-seath"
+        },
+        {
+          "type": "achievement",
+          "id": "defeat-gwyndolin"
+        },
+        {
+          "type": "achievement",
+          "id": "defeat-priscilla"
+        }
+      ]
+    }
+  ]
+}

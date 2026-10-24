@@ -1,0 +1,19 @@
+import { validateGame } from './route.js'
+
+export function loadGames() {
+  const modules = import.meta.glob('../data/*.json', { eager: true })
+  const games = []
+  const errors = []
+
+  for (const [path, mod] of Object.entries(modules)) {
+    const file = path.split('/').pop()
+    const data = mod.default ?? mod
+    const error = validateGame(data)
+    if (error) errors.push(`${file}: ${error}`)
+    else games.push(data)
+  }
+
+  games.sort((a, b) => a.name.localeCompare(b.name))
+  errors.sort()
+  return { games, errors }
+}
