@@ -1,21 +1,57 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { loadGames } from './loadGames.js'
 import { planRoute } from './route.js'
 
 const loaded = loadGames()
+const STORAGE_KEY = 'achievement-route:v1'
 
-function StepRow({ step, index }) {
-  return (
-    <li key={`${step.id}-${step.occurrence}-${step.run}`} className="step" style={{ '--i': index }}>
-      <span className="index">{step.number}</span>
-      <div>
-        <p className="place">{step.area}</p>
-        <p className="what">{step.description}</p>
-        {step.sourceName && <p className="source">Farm: {step.sourceName}</p>}
-        {step.achievements.length > 0 && <p className="earned">{step.achievements.join(', ')}</p>}
-      </div>
-    </li>
-  )
+function stepKey(step) {
+  return `${step.id}:${step.occurrence}:${step.run}`
+}
+
+function loadStore() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (!raw) return null
+    return JSON.parse(raw)
+  } catch {
+    return null
+  }
+}
+
+function saveStore(data) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+}
+
+function formatRouteText(steps, display) {
+  if (display === 'runs') {
+    const lines = []
+    let currentRun = null
+    for (const step of steps) {
+      if (step.run !== currentRun) {
+        currentRun = step.run
+        if (lines.length) lines.push('')
+        lines.push(`Run ${currentRun}`)
+      }
+      lines.push(formatStepLine(step))
+      if (step.sourceName) lines.push(`  Farm: ${step.sourceName}`)
+      if (step.achievements.length) lines.push(`  → ${step.achievements.join(', ')}`)
+    }
+    return lines.join('\n')
+  }
+
+  return steps
+    .flatMap((step) => {
+      const rows = [formatStepLine(step)]
+      if (step.sourceName) rows.push(`  Farm: ${step.sourceName}`)
+      if (step.achievements.length) rows.push(`  → ${step.achievements.join(', ')}`)
+      return rows
+    })
+    .join('\n')
+}
+
+function formatStepLine(step) {
+  return `${step.number}. [${step.area}] ${step.description}`
 }
 
 function groupByRun(steps) {
@@ -28,17 +64,86 @@ function groupByRun(steps) {
   return runs
 }
 
+function StepRow({ step, index, checked, onToggle }) {
+  const key = stepKey(step)
+  return (
+    <li className={checked ? 'step done' : 'step'} style={{ '--i': index }}>
+      <label className="step-check">
+        <input type="checkbox" checked={checked} onChange={() => onToggle(key)} />
+        <span className="index">{step.number}</span>
+      </label>
+      <div>
+        <p className="place">{step.area}</p>
+        <p className="what">{step.description}</p>
+        {step.sourceName && <p className="source">Farm: {step.sourceName}</p>}
+        {step.achievements.length > 0 && <p className="earned">{step.achievements.join(', ')}</p>}
+      </div>
+    </li>
+  )
+}
+
 export default function App() {
-  const [gameId, setGameId] = useState(loaded.games[0]?.id ?? '')
-  const [picked, setPicked] = useState(() => new Set())
+  const stored = loadStore()
+  const initialGameId =
+    loaded.games.find((g) => g.id === stored?.gameId)?.id ?? loaded.games[0]?.id ?? ''
+  const initialGameState = stored?.byGame?.[initialGameId]
+
+  const [gameId, setGameId] = useState(initialGameId)
+  const [picked, setPicked] = useState(() => new Set(initialGameState?.picked ?? []))
+  const [checked, setChecked] = useState(() => new Set(initialGameState?.checked ?? []))
+  const [display, setDisplay] = useState(stored?.display ?? 'all')
+  const [query, setQuery] = useState('')
+  const [copied, setCopied] = useState(false)
   const [result, setResult] = useState(null)
-  const [display, setDisplay] = useState('all')
   const game = loaded.games.find((item) => item.id === gameId) ?? null
 
+  // Auto-generate if we restored picks
+  useEffect(() => {
+    if (!game || picked.size === 0) return
+    setResult(planRoute(game, [...picked]))
+    // ponytail: mount-only restore; game/picked changes go through explicit handlers
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    const prev = loadStore() ?? { byGame: {} }
+    saveStore({
+      gameId,
+      display,
+      byGame: {
+        ...prev.byGame,
+        [gameId]: {
+          picked: [...picked],
+          checked: [...checked],
+        },
+      },
+    })
+  }, [gameId, picked, checked, display])
+
+  const filtered = useMemo(() => {
+    if (!game) return []
+    const q = query.trim().toLowerCase()
+    if (!q) return game.achievements
+    return game.achievements.filter(
+      (a) => a.name.toLowerCase().includes(q) || a.description.toLowerCase().includes(q),
+    )
+  }, [game, query])
+
+  const runCount = result?.ok ? groupByRun(result.steps).length : 0
+  const doneCount = result?.ok ? result.steps.filter((s) => checked.has(stepKey(s))).length : 0
+
   function chooseGame(id) {
+    const prev = loadStore()
+    const nextState = prev?.byGame?.[id]
     setGameId(id)
-    setPicked(new Set())
+    setPicked(new Set(nextState?.picked ?? []))
+    setChecked(new Set(nextState?.checked ?? []))
+    setQuery('')
     setResult(null)
+    if (nextState?.picked?.length) {
+      const nextGame = loaded.games.find((item) => item.id === id)
+      if (nextGame) setResult(planRoute(nextGame, nextState.picked))
+    }
   }
 
   function toggle(id) {
@@ -50,21 +155,54 @@ export default function App() {
     })
   }
 
+  function clearPicked() {
+    setPicked(new Set())
+    setResult(null)
+    setChecked(new Set())
+  }
+
   function generate() {
     if (!game) return
     if (picked.size === 0) {
       setResult({ ok: false, message: 'Select at least one achievement.' })
       return
     }
-    setResult(planRoute(game, [...picked]))
+    const next = planRoute(game, [...picked])
+    setResult(next)
+    if (next.ok) {
+      // keep checks that still match the new route
+      const keys = new Set(next.steps.map(stepKey))
+      setChecked((current) => new Set([...current].filter((k) => keys.has(k))))
+    } else {
+      setChecked(new Set())
+    }
+  }
+
+  function toggleChecked(key) {
+    setChecked((current) => {
+      const next = new Set(current)
+      if (next.has(key)) next.delete(key)
+      else next.add(key)
+      return next
+    })
+  }
+
+  async function copyRoute() {
+    if (!result?.ok) return
+    const text = formatRouteText(result.steps, display)
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 1500)
+    } catch {
+      setCopied(false)
+    }
   }
 
   return (
-    <div className="ledger">
-      <header className="mast">
-        <p className="eyebrow">Wayfinder</p>
+    <div className="app">
+      <header className="top">
         <h1>Achievement Route</h1>
-        <p className="lede">One list for every mark you choose. Shared work is done once.</p>
       </header>
 
       {loaded.errors.length > 0 && (
@@ -77,7 +215,7 @@ export default function App() {
 
       {loaded.games.length === 0 ? (
         <section className="empty" aria-live="polite">
-          <h2>The ledger is empty</h2>
+          <h2>No games loaded</h2>
           <p>Add a game JSON file to the data folder. The dev server picks it up.</p>
         </section>
       ) : (
@@ -94,80 +232,140 @@ export default function App() {
               </select>
             </label>
 
-            <fieldset>
-              <legend>Achievements</legend>
-              <ul className="marks">
-                {game.achievements.map((achievement) => {
-                  const on = picked.has(achievement.id)
-                  return (
-                    <li key={achievement.id}>
-                      <button
-                        type="button"
-                        aria-pressed={on}
-                        className={on ? 'mark on' : 'mark'}
-                        onClick={() => toggle(achievement.id)}
-                      >
+            <div className="picker-head">
+              <h2 className="section-label">Achievements</h2>
+              <p className="count">
+                {picked.size} selected
+                {picked.size > 0 && (
+                  <>
+                    {' · '}
+                    <button type="button" className="text-btn" onClick={clearPicked}>
+                      Clear
+                    </button>
+                  </>
+                )}
+              </p>
+            </div>
+
+            <label className="search-field" htmlFor="ach-search">
+              <span className="sr-only">Search achievements</span>
+              <input
+                id="ach-search"
+                type="search"
+                placeholder="Search…"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+              />
+            </label>
+
+            <ul className="marks">
+              {filtered.map((achievement) => {
+                const on = picked.has(achievement.id)
+                return (
+                  <li key={achievement.id}>
+                    <button
+                      type="button"
+                      aria-pressed={on}
+                      className={on ? 'mark on' : 'mark'}
+                      onClick={() => toggle(achievement.id)}
+                    >
+                      <span className={on ? 'box on' : 'box'} aria-hidden="true" />
+                      <span className="mark-body">
                         <span className="mark-name">{achievement.name}</span>
                         <span className="mark-detail">{achievement.description}</span>
-                      </button>
-                    </li>
-                  )
-                })}
-              </ul>
-            </fieldset>
+                      </span>
+                    </button>
+                  </li>
+                )
+              })}
+              {filtered.length === 0 && <li className="no-match">No achievements match.</li>}
+            </ul>
 
-            <button type="button" className="generate" onClick={generate}>
-              Generate Route
-            </button>
+            <div className="generate-bar">
+              <button type="button" className="generate" onClick={generate}>
+                Generate route
+              </button>
+            </div>
           </section>
 
           <section className="route" aria-live="polite" aria-label="Route">
-            {!result && <p className="waiting">The route will be written here.</p>}
+            {!result && (
+              <p className="waiting">Select achievements, then generate a route.</p>
+            )}
             {result && !result.ok && <p className="warning">{result.message}</p>}
             {result?.ok && (
               <>
-                <div className="display-mode" role="group" aria-label="Route display">
-                  <button
-                    type="button"
-                    className={display === 'all' ? 'mode on' : 'mode'}
-                    aria-pressed={display === 'all'}
-                    onClick={() => setDisplay('all')}
-                  >
-                    All steps
-                  </button>
-                  <button
-                    type="button"
-                    className={display === 'runs' ? 'mode on' : 'mode'}
-                    aria-pressed={display === 'runs'}
-                    onClick={() => setDisplay('runs')}
-                  >
-                    By run
-                  </button>
-                </div>
-                {display === 'all' ? (
-                  <ol className="steps">
-                    {result.steps.map((step, index) => (
-                      <StepRow key={`${step.id}-${step.occurrence}-${step.run}`} step={step} index={index} />
-                    ))}
-                  </ol>
-                ) : (
-                  <div className="run-list">
-                    {groupByRun(result.steps).map((group) => (
-                      <section key={group.run} className="run-block">
-                        <h2 className="run-title">Run {group.run}</h2>
-                        <ol className="steps">
-                          {group.steps.map((step, index) => (
-                            <StepRow
-                              key={`${step.id}-${step.occurrence}-${step.run}`}
-                              step={{ ...step, number: index + 1 }}
-                              index={index}
-                            />
-                          ))}
-                        </ol>
-                      </section>
-                    ))}
+                <div className="route-head">
+                  <p className="route-meta">
+                    Route · {result.steps.length} steps
+                    {runCount > 1 ? ` · ${runCount} runs` : ''}
+                    {doneCount > 0 ? ` · ${doneCount} done` : ''}
+                  </p>
+                  <div className="route-actions">
+                    <div className="display-mode" role="group" aria-label="Route display">
+                      <button
+                        type="button"
+                        className={display === 'all' ? 'mode on' : 'mode'}
+                        aria-pressed={display === 'all'}
+                        onClick={() => setDisplay('all')}
+                      >
+                        All
+                      </button>
+                      <button
+                        type="button"
+                        className={display === 'runs' ? 'mode on' : 'mode'}
+                        aria-pressed={display === 'runs'}
+                        onClick={() => setDisplay('runs')}
+                      >
+                        By run
+                      </button>
+                    </div>
+                    <button type="button" className="copy" onClick={copyRoute}>
+                      {copied ? 'Copied' : 'Copy'}
+                    </button>
                   </div>
-                )}
+                </div>
+
+                <div className="route-scroll">
+                  {display === 'all' ? (
+                    <ol className="steps">
+                      {result.steps.map((step, index) => (
+                        <StepRow
+                          key={stepKey(step)}
+                          step={step}
+                          index={index}
+                          checked={checked.has(stepKey(step))}
+                          onToggle={toggleChecked}
+                        />
+                      ))}
+                    </ol>
+                  ) : (
+                    <div className="run-list">
+                      {groupByRun(result.steps).map((group) => (
+                        <section key={group.run} className="run-block">
+                          <h2 className="run-title">
+                            Run {group.run}
+                            <span className="run-count">
+                              {group.steps.length} steps · global{' '}
+                              {group.steps[0].number}–{group.steps[group.steps.length - 1].number}
+                            </span>
+                          </h2>
+                          <ol className="steps">
+                            {group.steps.map((step, index) => (
+                              <StepRow
+                                key={stepKey(step)}
+                                step={step}
+                                index={index}
+                                checked={checked.has(stepKey(step))}
+                                onToggle={toggleChecked}
+                              />
+                            ))}
+                          </ol>
+                        </section>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </>
             )}
           </section>

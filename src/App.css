@@ -1,15 +1,19 @@
 :root {
-  --ink: #e7dcc8;
-  --muted: #a89880;
-  --paper: #1c1612;
-  --panel: #261e18;
-  --line: rgba(212, 162, 76, 0.28);
-  --gold: #e0b15a;
-  --ember: #c4522a;
-  --ember-deep: #8a3018;
+  color-scheme: dark;
+  --ink: #e6e8eb;
+  --muted: #9aa3ad;
+  --paper: #121416;
+  --panel: #1a1d21;
+  --panel-2: #15181b;
+  --line: #2c3238;
+  --line-strong: #4a535c;
+  --accent: #3dba8a;
+  --accent-soft: rgba(61, 186, 138, 0.14);
+  --warn: #e0a080;
+  --warn-bg: #2a1c16;
   color: var(--ink);
   background: var(--paper);
-  font-family: Newsreader, Georgia, serif;
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
   font-optical-sizing: auto;
 }
 
@@ -17,95 +21,137 @@
   box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+}
+
 body {
   margin: 0;
-  min-height: 100vh;
-  background:
-    radial-gradient(ellipse at 12% -10%, rgba(196, 82, 42, 0.28), transparent 42%),
-    radial-gradient(ellipse at 100% 100%, rgba(224, 177, 90, 0.08), transparent 36%),
-    var(--paper);
+  overflow: hidden;
+  background: var(--paper);
 }
 
 button,
-select {
+select,
+input {
   font: inherit;
   color: inherit;
 }
 
-.ledger {
-  width: min(1080px, calc(100% - 2.5rem));
+.app {
+  display: flex;
+  flex-direction: column;
+  width: min(1100px, calc(100% - 2rem));
+  height: 100dvh;
   margin: 0 auto;
-  padding: 3.5rem 0 5rem;
+  padding: 1.25rem 0 1rem;
+  overflow: hidden;
 }
 
-.mast h1 {
-  margin: 0.15rem 0 0;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-weight: 500;
-  font-size: clamp(3.4rem, 8vw, 6.2rem);
-  letter-spacing: -0.03em;
-  line-height: 0.85;
+.top {
+  flex-shrink: 0;
 }
 
-.eyebrow {
+.top h1 {
   margin: 0;
-  color: var(--ember);
-  font-size: 0.78rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-}
-
-.lede {
-  max-width: 34rem;
-  margin: 1rem 0 0;
-  color: var(--muted);
-  font-size: 1.2rem;
-  font-style: italic;
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-weight: 600;
+  font-size: 1.55rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 
 .file-errors {
-  margin: 1.5rem 0 0;
-  padding: 0.8rem 1rem;
-  border-left: 2px solid var(--ember);
-  color: #f0c2b0;
+  flex-shrink: 0;
+  margin: 0.75rem 0 0;
+  padding: 0.7rem 0.9rem;
+  list-style: none;
+  background: var(--warn-bg);
+  border-left: 3px solid var(--warn);
+  color: var(--warn);
+  max-height: 5rem;
+  overflow: auto;
 }
 
 .sheet {
   display: grid;
   grid-template-columns: minmax(16rem, 22rem) 1fr;
-  gap: 3.5rem;
-  margin-top: 2.8rem;
-  align-items: start;
+  gap: 0;
+  flex: 1;
+  min-height: 0;
+  margin-top: 1rem;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  overflow: hidden;
+}
+
+.picker {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 1rem 0;
+  border-right: 1px solid var(--line);
+  background: var(--panel-2);
+  min-height: 0;
+  overflow: hidden;
 }
 
 .field {
   display: grid;
-  gap: 0.4rem;
+  gap: 0.3rem;
   color: var(--muted);
-  font-size: 0.82rem;
-  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-select {
-  padding: 0.7rem 0.8rem;
+select,
+.search-field input {
+  width: 100%;
+  padding: 0.55rem 0.65rem;
   border: 1px solid var(--line);
-  border-radius: 0;
+  border-radius: 2px;
   background: var(--panel);
 }
 
-fieldset {
-  margin: 1.6rem 0 0;
-  padding: 0;
-  border: 0;
+.search-field input {
+  font-size: 0.95rem;
 }
 
-legend {
-  margin-bottom: 0.7rem;
-  color: var(--muted);
-  font-size: 0.82rem;
-  letter-spacing: 0.14em;
+.picker-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+}
+
+.section-label {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: var(--muted);
+}
+
+.count {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.text-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .marks {
@@ -113,85 +159,219 @@ legend {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 0.45rem;
+  gap: 0;
+  overflow: auto;
+  flex: 1;
+  min-height: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
 .mark {
   display: grid;
-  gap: 0.15rem;
+  grid-template-columns: 1.1rem 1fr;
+  gap: 0.55rem;
+  align-items: start;
   width: 100%;
-  padding: 0.75rem 0.85rem;
+  padding: 0.55rem 0.35rem;
   text-align: left;
-  border: 1px solid transparent;
+  border: 0;
   border-bottom: 1px solid var(--line);
   background: transparent;
   cursor: pointer;
 }
 
+.mark:hover {
+  background: rgba(61, 186, 138, 0.06);
+}
+
 .mark.on {
-  border-color: var(--gold);
-  background: rgba(224, 177, 90, 0.08);
+  background: var(--accent-soft);
+}
+
+.box {
+  width: 0.95rem;
+  height: 0.95rem;
+  margin-top: 0.2rem;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 2px;
+  background: var(--panel);
+}
+
+.box.on {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: inset 0 0 0 2px var(--panel);
+}
+
+.mark-body {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
 }
 
 .mark-name {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 1.45rem;
-  line-height: 1;
+  font-weight: 600;
+  font-size: 0.98rem;
+  line-height: 1.25;
 }
 
 .mark-detail {
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.no-match {
+  padding: 1rem 0.35rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.generate-bar {
+  flex-shrink: 0;
+  margin: 0 -1rem;
+  padding: 0.75rem 1rem 1rem;
+  background: var(--panel-2);
 }
 
 .generate {
-  margin-top: 1.4rem;
-  padding: 0.85rem 1.2rem;
-  border: 0;
-  background: linear-gradient(180deg, #d16138, var(--ember-deep));
-  color: #1a100c;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 1.45rem;
-  letter-spacing: 0.04em;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid #2f9a6f;
+  border-radius: 2px;
+  background: #1f7a56;
+  color: #eefaf4;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   cursor: pointer;
+}
+
+.generate:hover {
+  background: #249266;
 }
 
 .generate:focus-visible,
 .mark:focus-visible,
-select:focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 3px;
+.mode:focus-visible,
+.copy:focus-visible,
+select:focus-visible,
+.search-field input:focus-visible,
+.step-check input:focus-visible,
+.text-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .route {
-  min-height: 16rem;
-  padding-top: 0.4rem;
-  border-left: 1px solid var(--line);
-  padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.25rem 1rem;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.route-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
 }
 
 .waiting,
 .warning,
 .empty p {
   color: var(--muted);
-  font-size: 1.15rem;
+  font-size: 0.98rem;
 }
 
 .warning {
-  color: #f0c2b0;
+  margin: 0;
+  padding: 0.7rem 0.85rem;
+  background: var(--warn-bg);
+  color: var(--warn);
+  border-left: 3px solid var(--warn);
 }
 
 .empty {
-  margin-top: 3.5rem;
+  margin-top: 2.5rem;
   max-width: 28rem;
 }
 
 .empty h2 {
   margin: 0;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-weight: 500;
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
-  line-height: 0.95;
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.route-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  flex-shrink: 0;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.route-meta {
+  margin: 0;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.route-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.display-mode {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.mode {
+  padding: 0.3rem 0.65rem;
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.mode:last-child {
+  border-right: 0;
+}
+
+.mode.on {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.copy {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--panel);
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.copy:hover {
+  border-color: var(--line-strong);
 }
 
 .steps {
@@ -199,112 +379,125 @@ select:focus-visible {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 1.35rem;
+  gap: 0.15rem;
 }
 
 .step {
   display: grid;
-  grid-template-columns: 2.4rem 1fr;
-  gap: 0.9rem;
-  animation: rise 0.45s ease both;
-  animation-delay: calc(var(--i) * 45ms);
+  grid-template-columns: auto 1fr;
+  gap: 0.65rem;
+  padding: 0.55rem 0.35rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.step.done .what,
+.step.done .place,
+.step.done .source,
+.step.done .earned {
+  opacity: 0.45;
+}
+
+.step.done .what {
+  text-decoration: line-through;
+}
+
+.step-check {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 0.4rem;
+  align-items: start;
+  cursor: pointer;
+  padding-top: 0.1rem;
+}
+
+.step-check input {
+  margin: 0.2rem 0 0;
+  accent-color: var(--accent);
 }
 
 .index {
-  color: var(--gold);
-  font-family: Newsreader, Georgia, serif;
-  font-size: 1.35rem;
-  font-variant-numeric: lining-nums;
-  line-height: 1.2;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.85rem;
+  color: var(--muted);
+  min-width: 1.6rem;
+  text-align: right;
+  line-height: 1.4;
 }
 
 .place {
   margin: 0;
-  color: var(--ember);
-  font-size: 0.78rem;
-  letter-spacing: 0.16em;
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
 .what {
-  margin: 0.15rem 0 0;
-  font-size: 1.25rem;
+  margin: 0.1rem 0 0;
+  font-size: 1.02rem;
   line-height: 1.35;
 }
 
 .earned {
-  margin: 0.3rem 0 0;
-  color: var(--gold);
-  font-style: italic;
+  margin: 0.25rem 0 0;
+  color: var(--accent);
+  font-size: 0.88rem;
 }
 
 .source {
-  margin: 0.25rem 0 0;
+  margin: 0.2rem 0 0;
   color: var(--muted);
-  font-size: 0.95rem;
-}
-
-.display-mode {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.4rem;
-}
-
-.mode {
-  padding: 0.35rem 0.7rem;
-  border: 1px solid var(--line);
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-}
-
-.mode.on {
-  border-color: var(--gold);
-  color: var(--ink);
-  background: rgba(224, 177, 90, 0.08);
+  font-size: 0.88rem;
 }
 
 .run-list {
   display: grid;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .run-title {
-  margin: 0 0 0.9rem;
-  color: var(--ember);
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-weight: 500;
-  font-size: 1.8rem;
-  letter-spacing: 0.02em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.75rem;
+  margin: 0 0 0.5rem;
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-weight: 600;
+  font-size: 1.15rem;
 }
 
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+.run-count {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 @media (max-width: 800px) {
   .sheet {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    grid-template-rows: minmax(0, 45%) minmax(0, 1fr);
+  }
+
+  .picker {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
   }
 
   .route {
-    border-left: 0;
-    padding-left: 0;
-    border-top: 1px solid var(--line);
-    padding-top: 1.5rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .step {
-    animation: none;
+    padding-top: 1rem;
   }
 }

@@ -2,7 +2,8 @@
 
 Works:
 
-- Game select, achievement toggles, Generate Route, all-steps / by-run display.
+- Game select, achievement search/toggles, Generate Route, all-steps / by-run display.
+- Step checkoffs, copy route as text, localStorage for game/picks/checks/display.
 - Farms with enemy source, result states, repeatable, newRun, persist by item type, meta achievements.
 - `npm run check` passes.
 - Demo `data/ashen-keep.json`.

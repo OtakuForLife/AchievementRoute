@@ -6,4 +6,6 @@
 
 `src/route.check.js` holds planner fixtures. The app does not import it.
 
+`src/App.jsx` is the whole UI: picker + route panel. Persistence is one `localStorage` blob keyed by game.
+
 `scripts/build-dsr.js` authors the Dark Souls Remastered data file.

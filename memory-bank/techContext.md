@@ -1,6 +1,6 @@
 # Tech context
 
-Vite and React. No router and no component library. Scripts: `dev`, `build`, `preview`, `check`.
+Vite and React. No router and no component library. Scripts: `dev`, `build`, `preview`, `check`. UI fonts: IBM Plex Sans / Condensed / Mono. Dark mode only (`color-scheme: dark`). Session state in `localStorage` key `achievement-route:v1`.
 
 Run with Docker: `docker compose up --build`, then http://localhost:5173. The compose file bind-mounts the project and keeps the container's `node_modules`. `CHOKIDAR_USEPOLLING` lets Vite see files added on Windows.
 
