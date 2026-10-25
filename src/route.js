@@ -19,8 +19,10 @@
  //
  // requires {type:"action"} → must be in done (this cycle), not merely everDone.
 
-const ITEM_TYPES = new Set(['key', 'weapon', 'consumable', 'material', 'spell', 'soul'])
-const ACTION_TYPES = new Set(['collect', 'interact', 'fight', 'go', 'farm'])
+export const ITEM_TYPES = ['key', 'weapon', 'consumable', 'material', 'spell', 'soul']
+export const ACTION_TYPES = ['collect', 'interact', 'fight', 'go', 'farm']
+const ITEM_TYPE_SET = new Set(ITEM_TYPES)
+const ACTION_TYPE_SET = new Set(ACTION_TYPES)
 const MAX_STEPS = 5_000
 const EXACT_COLOR_LIMIT = 18
 
@@ -619,7 +621,7 @@ export function validateGame(data) {
   }
   for (const item of items) {
     if (!item.id || !item.name) return 'Each item needs an id and a name.'
-    if (!ITEM_TYPES.has(item.type)) return `${item.id} has an unknown item type.`
+    if (!ITEM_TYPE_SET.has(item.type)) return `${item.id} has an unknown item type.`
     if (item.persist !== undefined && typeof item.persist !== 'boolean') {
       return `${item.id} persist must be a boolean.`
     }
@@ -636,7 +638,7 @@ export function validateGame(data) {
 
   for (const action of actions) {
     if (!action.id || !action.description) return 'Each action needs an id and a description.'
-    if (!ACTION_TYPES.has(action.type)) return `${action.id} has an unknown type.`
+    if (!ACTION_TYPE_SET.has(action.type)) return `${action.id} has an unknown type.`
     if (!areaIds.has(action.area)) return `${action.id} points at a missing area.`
     if ((action.type === 'collect' || action.type === 'farm') && action.gives.length === 0) {
       return `${action.id} must give an item.`

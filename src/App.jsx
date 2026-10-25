@@ -1,9 +1,19 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import Editor from './Editor.jsx'
 import { loadGames } from './loadGames.js'
 import { planRouteAsync } from './planAsync.js'
 
 const loaded = loadGames()
 const STORAGE_KEY = 'achievement-route:v1'
+const TAB_KEY = 'achievement-route:tab'
+
+function loadTab() {
+  try {
+    return sessionStorage.getItem(TAB_KEY) === 'data' ? 'data' : 'route'
+  } catch {
+    return 'route'
+  }
+}
 
 function stepKey(step) {
   return `${step.id}:${step.occurrence}:${step.run}`
@@ -201,6 +211,8 @@ export default function App() {
     loaded.games.find((g) => g.id === stored?.gameId)?.id ?? loaded.games[0]?.id ?? ''
   const initialGameState = stored?.byGame?.[initialGameId]
 
+  const [catalog, setCatalog] = useState(loaded)
+  const [tab, setTab] = useState(loadTab)
   const [gameId, setGameId] = useState(initialGameId)
   const [picked, setPicked] = useState(() => new Set(initialGameState?.picked ?? []))
   const [checked, setChecked] = useState(() => new Set(initialGameState?.checked ?? []))
@@ -210,7 +222,15 @@ export default function App() {
   const [result, setResult] = useState(null)
   const [planning, setPlanning] = useState(false)
   const planRequest = useRef(0)
-  const game = loaded.games.find((item) => item.id === gameId) ?? null
+  const game = catalog.games.find((item) => item.id === gameId) ?? null
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(TAB_KEY, tab)
+    } catch {
+      // private mode
+    }
+  }, [tab])
 
   async function runPlan(nextGame, ids) {
     const request = ++planRequest.current
@@ -274,9 +294,42 @@ export default function App() {
     setQuery('')
     setResult(null)
     if (nextState?.picked?.length) {
-      const nextGame = loaded.games.find((item) => item.id === id)
+      const nextGame = catalog.games.find((item) => item.id === id)
       if (nextGame) runPlan(nextGame, nextState.picked)
     }
+  }
+
+  function commitGame(previousId, nextGame) {
+    const storedGame = structuredClone(nextGame)
+    setCatalog((current) => {
+      const files = { ...current.files }
+      if (previousId !== storedGame.id) {
+        files[storedGame.id] = files[previousId]
+        delete files[previousId]
+      }
+      const games = current.games
+        .map((item) => (item.id === previousId ? storedGame : item))
+        .sort((a, b) => a.name.localeCompare(b.name))
+      return { ...current, games, files }
+    })
+    if (previousId !== storedGame.id) {
+      setGameId(storedGame.id)
+      const prev = loadStore() ?? { byGame: {} }
+      const carried = prev.byGame?.[previousId] ?? { picked: [...picked], checked: [...checked] }
+      const byGame = { ...prev.byGame, [storedGame.id]: carried }
+      delete byGame[previousId]
+      saveStore({ ...prev, gameId: storedGame.id, byGame })
+    }
+    if (picked.size > 0) runPlan(storedGame, [...picked])
+    else setResult(null)
+  }
+
+  function onTabsKeyDown(event) {
+    if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return
+    event.preventDefault()
+    const next = tab === 'route' ? 'data' : 'route'
+    setTab(next)
+    document.getElementById(next === 'route' ? 'tab-route' : 'tab-data')?.focus()
   }
 
   function toggle(id) {
@@ -355,25 +408,61 @@ export default function App() {
         </ul>
       )}
 
-      {loaded.games.length === 0 ? (
+      {catalog.games.length === 0 ? (
         <section className="empty" aria-live="polite">
           <h2>No games loaded</h2>
           <p>Add a game JSON file to the data folder. The dev server picks it up.</p>
         </section>
       ) : (
-        <div className="sheet">
-          <section className="picker">
-            <label className="field" htmlFor="game">
+        <>
+          <div className="page-bar">
+            <label className="field game-field" htmlFor="game">
               Game
               <select id="game" value={gameId} onChange={(event) => chooseGame(event.target.value)}>
-                {loaded.games.map((item) => (
+                {catalog.games.map((item) => (
                   <option key={item.id} value={item.id}>
                     {item.name}
                   </option>
                 ))}
               </select>
             </label>
+            <div className="tabs" role="tablist" aria-label="Game" onKeyDown={onTabsKeyDown}>
+              <button
+                type="button"
+                role="tab"
+                id="tab-route"
+                className={tab === 'route' ? 'tab on' : 'tab'}
+                aria-selected={tab === 'route'}
+                aria-controls="panel-route"
+                tabIndex={tab === 'route' ? 0 : -1}
+                onClick={() => setTab('route')}
+              >
+                Route
+              </button>
+              <button
+                type="button"
+                role="tab"
+                id="tab-data"
+                className={tab === 'data' ? 'tab on' : 'tab'}
+                aria-selected={tab === 'data'}
+                aria-controls="panel-data"
+                tabIndex={tab === 'data' ? 0 : -1}
+                onClick={() => setTab('data')}
+              >
+                Data
+              </button>
+            </div>
+          </div>
 
+          <div
+            className={tab === 'route' ? 'sheet' : 'sheet sheet-data'}
+            role="tabpanel"
+            id={tab === 'route' ? 'panel-route' : 'panel-data'}
+            aria-labelledby={tab === 'route' ? 'tab-route' : 'tab-data'}
+          >
+          {tab === 'route' ? (
+          <>
+          <section className="picker">
             <div className="picker-head">
               <h2 className="section-label">Achievements</h2>
               <p className="count">
@@ -527,7 +616,17 @@ export default function App() {
               </>
             )}
           </section>
+          </>
+          ) : (
+            <Editor
+              game={game}
+              file={catalog.files[game.id]}
+              otherIds={catalog.games.filter((item) => item.id !== game.id).map((item) => item.id)}
+              onSaved={(next) => commitGame(game.id, next)}
+            />
+          )}
         </div>
+        </>
       )}
     </div>
   )

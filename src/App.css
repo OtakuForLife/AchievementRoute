@@ -35,7 +35,8 @@ body {
 
 button,
 select,
-input {
+input,
+textarea {
   font: inherit;
   color: inherit;
 }
@@ -75,16 +76,66 @@ input {
   overflow: auto;
 }
 
+.page-bar {
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
+  margin-top: 1rem;
+}
+
+.game-field {
+  flex: 1 1 16rem;
+  max-width: 28rem;
+}
+
+.tabs {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.2rem;
+}
+
+.tab {
+  position: relative;
+  margin: 0;
+  padding: 0.5rem 0.95rem 0.45rem;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  border-radius: 2px 2px 0 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+
+.tab.on {
+  z-index: 1;
+  top: 1px;
+  color: var(--ink);
+  background: var(--panel);
+  border-color: var(--line);
+}
+
 .sheet {
   display: grid;
   grid-template-columns: minmax(16rem, 22rem) 1fr;
   gap: 0;
   flex: 1;
   min-height: 0;
-  margin-top: 1rem;
+  margin-top: 0;
   border: 1px solid var(--line);
   background: var(--panel);
   overflow: hidden;
+}
+
+.sheet.sheet-data {
+  display: flex;
+  flex-direction: column;
 }
 
 .picker {
@@ -109,12 +160,18 @@ input {
 }
 
 select,
-.search-field input {
+.search-field input,
+.field input,
+.field textarea {
   width: 100%;
   padding: 0.55rem 0.65rem;
   border: 1px solid var(--line);
   border-radius: 2px;
   background: var(--panel);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+  font-size: 0.95rem;
 }
 
 .search-field input {
@@ -126,7 +183,6 @@ select,
   align-items: baseline;
   justify-content: space-between;
   gap: 0.75rem;
-  margin-top: 0.35rem;
 }
 
 .section-label {
@@ -264,8 +320,13 @@ select,
 .mark:focus-visible,
 .mode:focus-visible,
 .copy:focus-visible,
+.save:focus-visible,
+.tab:focus-visible,
+.pick:focus-visible,
+.section-switch button:focus-visible,
 select:focus-visible,
-.search-field input:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
 .step-check input:focus-visible,
 .text-btn:focus-visible {
   outline: 2px solid var(--accent);
@@ -654,6 +715,338 @@ select:focus-visible,
   color: var(--muted);
 }
 
+.editor {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--panel);
+}
+
+.editor-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.editor-bar .field {
+  flex: 0 1 14rem;
+}
+
+.editor-bar .field.grow {
+  flex: 1 1 16rem;
+}
+
+.editor-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin-left: auto;
+}
+
+.file-name {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.save {
+  padding: 0.45rem 0.9rem;
+  border: 1px solid #2f9a6f;
+  border-radius: 2px;
+  background: #1f7a56;
+  color: #eefaf4;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.save:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.editor-issue {
+  margin: 0.75rem 1rem 0;
+  flex-shrink: 0;
+  max-height: 4.5rem;
+  overflow: auto;
+}
+
+.section-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-switch button {
+  padding: 0.28rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.section-switch button.on {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.switch-count {
+  margin-left: 0.35rem;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  opacity: 0.7;
+}
+
+.editor-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 0 1rem 1rem;
+}
+
+.editor-body.split-body {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+
+.editor-subhead {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.65rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--panel);
+}
+
+.editor-subhead .search-field {
+  flex: 1;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.split-list,
+.detail {
+  min-height: 0;
+  min-width: 0;
+  overflow: auto;
+}
+
+.split-list {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--line);
+}
+
+.split-list .editor-subhead {
+  position: static;
+  padding: 0.65rem;
+}
+
+.detail {
+  padding: 0.9rem 1rem 1.5rem;
+}
+
+.pick-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pick {
+  display: grid;
+  gap: 0.12rem;
+  width: 100%;
+  padding: 0.45rem 0.65rem;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+}
+
+.pick:hover,
+.pick.on {
+  background: var(--accent-soft);
+}
+
+.pick-id {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.78rem;
+}
+
+.pick-desc {
+  color: var(--muted);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pick-hidden {
+  margin: 0;
+  padding: 0.55rem 0.65rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.detail-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.detail-title {
+  margin: 0;
+  font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+}
+
+.edit-block {
+  display: grid;
+  gap: 0.4rem;
+  margin-top: 0.9rem;
+}
+
+.flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.25rem;
+  margin-top: 0.85rem;
+}
+
+.flags label,
+.persist {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.92rem;
+}
+
+.editor input[type='checkbox'] {
+  accent-color: var(--accent);
+}
+
+.edit-list,
+.conditions {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.edit-list-row,
+.condition-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.edit-list-row select,
+.condition-row select {
+  width: auto;
+  flex: 1 1 12rem;
+  min-width: 8rem;
+}
+
+.edit-block > select {
+  width: 100%;
+}
+
+.edit-list-row input[type='number'] {
+  width: 4.5rem;
+  padding: 0.45rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--panel);
+}
+
+.condition {
+  display: grid;
+  gap: 0.35rem;
+  margin-left: 0.15rem;
+  padding-left: 0.7rem;
+  border-left: 2px solid var(--line);
+}
+
+.entity-table {
+  display: grid;
+  gap: 0;
+}
+
+.entity-row {
+  display: grid;
+  gap: 0.4rem;
+  align-items: center;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.entity-row.plain {
+  grid-template-columns: minmax(7rem, 0.8fr) minmax(8rem, 1.4fr) auto;
+}
+
+.entity-row.results {
+  grid-template-columns: minmax(7rem, 0.8fr) minmax(8rem, 1.4fr) 4.5rem auto;
+}
+
+.entity-row.items {
+  grid-template-columns: minmax(7rem, 0.7fr) minmax(8rem, 1.2fr) 8.5rem 4.5rem auto;
+}
+
+.entity-head {
+  position: sticky;
+  top: 3.15rem;
+  z-index: 1;
+  padding-top: 0.15rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.entity-row input,
+.entity-row select {
+  width: 100%;
+  min-width: 0;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--panel);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -670,6 +1063,20 @@ select:focus-visible,
   .sheet {
     grid-template-columns: 1fr;
     grid-template-rows: minmax(0, 45%) minmax(0, 1fr);
+  }
+
+  .sheet.sheet-data {
+    display: flex;
+  }
+
+  .split {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(8rem, 38%) minmax(0, 1fr);
+  }
+
+  .split-list {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
   }
 
   .picker {
