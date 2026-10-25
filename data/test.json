@@ -1,6 +1,6 @@
 {
-  "id": "ashen-keep",
-  "name": "Ashen Keep",
+  "id": "test",
+  "name": "Test Game",
   "areas": [
     { "id": "yard", "name": "Ash Yard" },
     { "id": "gatehouse", "name": "Gatehouse" },
