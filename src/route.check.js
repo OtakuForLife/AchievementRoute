@@ -562,4 +562,74 @@ check('item persist false drops on newRun', () => {
   assert.ok(herbBeforeLate.length >= 1, 'non-persist herb must be reacquired after newRun before spending it')
 })
 
+check('subset run count never exceeds the full selection', () => {
+  const fixture = game({
+    results: [{ id: 'boss-down', name: 'Boss down' }],
+    items: [{ id: 'boss-soul', name: 'Boss Soul', type: 'soul', persist: true }],
+    actions: [
+      { id: 'talk', type: 'interact', description: 'Talk first', area: 'here', before: ['kill'] },
+      { id: 'kill', type: 'fight', description: 'Kill', area: 'here', sets: [{ type: 'result', id: 'boss-down' }] },
+      {
+        id: 'fight-boss',
+        type: 'fight',
+        description: 'Fight boss',
+        area: 'here',
+        gives: [{ item: 'boss-soul', amount: 1 }],
+      },
+      {
+        id: 'forge-a',
+        type: 'interact',
+        description: 'Forge A',
+        area: 'here',
+        consumes: [{ item: 'boss-soul', amount: 1 }],
+      },
+      {
+        id: 'forge-b',
+        type: 'interact',
+        description: 'Forge B',
+        area: 'here',
+        consumes: [{ item: 'boss-soul', amount: 1 }],
+      },
+      { id: 'side-quest', type: 'interact', description: 'Side', area: 'here' },
+      {
+        id: 'enter-ng',
+        type: 'interact',
+        description: 'NG',
+        area: 'here',
+        requires: [{ type: 'result', id: 'boss-down' }],
+        newRun: true,
+      },
+    ],
+    achievements: [
+      { id: 'talker', name: 'Talker', description: 'Talk', conditions: [{ type: 'action', id: 'talk' }] },
+      { id: 'ending', name: 'Ending', description: 'End', conditions: [{ type: 'action', id: 'enter-ng' }] },
+      { id: 'a', name: 'A', description: 'A', conditions: [{ type: 'action', id: 'forge-a' }] },
+      { id: 'b', name: 'B', description: 'B', conditions: [{ type: 'action', id: 'forge-b' }] },
+      { id: 'side', name: 'Side', description: 'Side', conditions: [{ type: 'action', id: 'side-quest' }] },
+    ],
+  })
+  const runCount = (picked) => {
+    const result = planRoute(fixture, picked)
+    assert.equal(result.ok, true, `${result.message} (${picked.join(',')})`)
+    return Math.max(...result.steps.map((step) => step.run))
+  }
+
+  assert.equal(runCount(['talker', 'ending']), 1)
+  assert.ok(runCount(['a', 'b']) > runCount(['a']))
+
+  const full = ['talker', 'ending', 'a', 'b', 'side']
+  const fullRuns = runCount(full)
+  for (let mask = 1; mask < 1 << full.length; mask++) {
+    const subset = full.filter((_, index) => (mask >> index) & 1)
+    const count = runCount(subset)
+    assert.ok(count <= fullRuns, `${subset.join(',')} needs ${count} runs, full selection needs ${fullRuns}`)
+  }
+
+  const both = planRoute(fixture, full)
+  const firstForge = both.steps.find((step) => step.id === 'forge-a')
+  const side = both.steps.find((step) => step.id === 'side-quest')
+  assert.equal(side.run, firstForge.run)
+  assert.ok(side.number < both.steps.find((step) => step.id === 'enter-ng').number)
+})
+
 console.log(`${passed} checks passed`)

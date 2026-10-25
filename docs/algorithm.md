@@ -2,7 +2,7 @@
 
 ## Goal
 
-Turn selected achievements into one short action list. Shared work inside a cycle is done once. Extra cycles appear only when achievements cannot share a single world cycle.
+Turn selected achievements into one short action list. The number of runs is the number of times a once-only reward must be produced. Other achievements join the fullest run that can hold them. Steps inside a run follow achievement chains.
 
 ## World state
 
@@ -18,58 +18,54 @@ Turn selected achievements into one short action list. Shared work inside a cycl
 
 Persist is per **item** / **result** (`persist: true`). There is no type-level persist list.
 
-## Algorithm: group-and-merge
+## Algorithm
 
 ```mermaid
 flowchart TD
-  solos[1 Solo resolve each achievement]
-  conflict[2 Conflict graph: cannot share one cycle]
-  color[3 Min coloring = run groups]
-  merge[4 Greedy-merge steps inside each group]
-  stitch[5 newRun between groups]
-  solos --> conflict --> color --> merge --> stitch
+  demand[Demand per achievement]
+  copies[K from scarce copies and endings]
+  seed[Seed each run with one conflicting piece]
+  pack[Pack other achievements into the fullest legal run]
+  order[Order each run along achievement chains]
+  demand --> copies --> seed --> pack --> order
 ```
 
-### 1. Solo resolve
+### 1. Run count
 
-For each selected achievement, greedily walk its dependency tree (requires, inventory givers, results, `before` missables) and record a step list. If any solo plan fails, the whole route fails.
+Expand the selected achievements, including nested achievements. For an `any` condition, keep the branch with the smallest copy count. That choice is per condition, not a search over combinations of branches.
 
-### 2. Same-cycle conflicts
+`K` is at least 1. It is also at least the number of demanded `newRun` actions, and at least `ceil(consumed / produced per cycle)` for each item that has no repeatable giver. A farm never forces another run. Adding an achievement only adds demand, so this bound cannot fall.
 
-Achievements A and B **conflict** if resolving `{A, B}` from an empty world with **`newRun` forbidden** fails. Typical causes: mutually exclusive endings, the same once-only boss soul consumed twice, `before` deadlocks.
+One achievement can occupy several runs. Knight's Honor forges three weapons from Sif's soul, and that soul is produced once per cycle, so that achievement is three runs.
 
-### 3. Minimum groups (runs)
+### 2. Seed
 
-Build an undirected conflict graph. Color it so each color class is a set of achievements that can share one cycle.
+Each consumer of a scarce item is its own piece. Pieces that share an item go into different runs, up to what one cycle can produce.
 
-- **n ≤ 18:** exact minimum coloring (DP over independent sets)
-- **n > 18:** greedy Welsh–Powell (degree order)
+Demanded endings occupy cycle boundaries first. Extra boundaries use a `newRun` action that no achievement points at (`begin-next-cycle` in Dark Souls Remastered), and that filler is repeated before an ending is repeated. The last cycle still plays a demanded ending when the selection needs that action and there is no later cycle to put it in.
 
-Fewer colors ⇒ fewer cycles.
+### 3. Pack
 
-### 4. Merge inside a group
+Every other achievement is a guest. Guests that fit in fewer runs are seated first. A guest joins the legal run that already holds the most achievements. Ties go to the earlier run, so the first cycle is the fullest and the reset comes after that work.
 
-For each color class, run the same greedy resolver on the whole group together. Shared prerequisites appear once; order follows requires / `before`.
+A guest fits when its actions, closed under `requires`, givers, result setters, and demanded `before` missables, can be ordered and the run still produces every item it consumes. Runs are not reordered after packing.
 
-### 5. Stitch groups
+### 4. Order
 
-Process groups in selection order. Between groups, if the current cycle still has progress (`done` non-empty), perform a `newRun` action (and pack any remaining group work that still fits before the reset).
+Inside a run, prerequisites, givers, and setters come first. A missable comes before the blocker named in `before`. The `newRun` step is last. Among ready actions, the achievement packed earliest in that run goes first. The final tie-break is the action id.
 
-## Greedy resolver (used in steps 1, 2, 4, 5)
+A repeatable giver is emitted `ceil(still needed / amount given)` times. Two teeth from a farm that gives one take two farm steps in the same run.
 
-- `ensureSatisfied` — achievement leaves: once in `everDone` is enough
-- `ensureDone` — action requirements: must be in `done` this cycle
-- Inventory / results pulled via givers and setters
-- Preferred `before` missables pulled before their blockers
-- `newRun` when a once-only action must be repeated or a `before` is blocked; optional pack-before-reset
+The same boss in a later run pulls its `requires` chain again, because a new cycle clears `done`.
 
 ## What this optimizes / does not
 
-**Optimizes:** number of cycles (groups), then a fast greedy merge per cycle.
+**Optimizes:** fewest cycles implied by scarce copies and endings, then the fullest legal run for everything else.
 
-**Does not guarantee:** globally fewest *actions* (A* over full state space would; it was too slow). Incomplete game data still yields incomplete routes.
+**Does not guarantee:** a shortest walk of the map. There is no area graph. An `any` branch is chosen by its own copy count. If a result puzzle has no `consumes` and no `before`, a piece that fits no current run opens one more cycle.
 
 ## Code
 
-[`src/route.js`](../src/route.js) — `planRoute`, `validateGame`  
+[`src/route.js`](../src/route.js) — `planRoute`, `validateGame`
+
 [`src/route.check.js`](../src/route.check.js) — fixtures

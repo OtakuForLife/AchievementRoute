@@ -2,7 +2,7 @@
 
 `src/loadGames.js` globs `data/*.json` and keeps files that pass `validateGame`. It also records each game's filename.
 
-`src/route.js` uses **group-and-merge**: solo greedy plans → conflict graph (cannot share one cycle) → min coloring (runs) → greedy merge per group → `newRun` between groups. World state is `done` / `results` / `inventory` / `everDone`; persist is per item/result. See `docs/algorithm.md`.
+`src/route.js` sets the run count from scarce once-only copies and demanded endings, packs other achievements into the fullest legal run, then orders each run along achievement chains. World state is `done` / `results` / `inventory` / `everDone`; persist is per item/result. See `docs/algorithm.md`.
 
 `src/route.check.js` holds planner fixtures. The app does not import it.
 

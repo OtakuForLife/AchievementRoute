@@ -1,134 +1,727 @@
 // Achievement Route planner
 //
-// Algorithm (group-and-merge):
-// 1. Resolve each selected achievement alone (greedy dependency walk) → solo steps.
-// 2. Build a conflict graph: A conflicts with B if they cannot both finish in one
-//    cycle (greedy resolve of {A,B} with newRun forbidden fails).
-// 3. Color the conflict graph (min colors ≈ min runs). Exact bit-DP for n≤18,
-//    greedy Welsh-Powell otherwise.
-// 4. For each color class (group), merge by greedy-resolving that set of
- //    achievements in one pass (shared work done once, correct order).
-// 5. Between groups, perform a newRun when the world still has cycle progress.
- //
- // World state = { done, results, inventory, everDone, run }
- //   done      — once-only actions since last reset
- //   results   — flags (persist:true keep on newRun)
- //   inventory — counts (persist:true keep on newRun)
- //   everDone  — achievement ledger (never cleared)
- //   run       — UI counter only
- //
- // requires {type:"action"} → must be in done (this cycle), not merely everDone.
+// 1. Run count K is how many times a once-only reward must be produced,
+//    and how many demanded newRun actions each end a cycle.
+// 2. Seed each run with one conflicting piece, then pack every other
+//    achievement into the fullest run it can legally join.
+// 3. Order steps inside a run along achievement chains. Farms repeat
+//    until the run's consumers are paid.
 
 export const ITEM_TYPES = ['key', 'weapon', 'consumable', 'material', 'spell', 'soul']
 export const ACTION_TYPES = ['collect', 'interact', 'fight', 'go', 'farm']
 const ITEM_TYPE_SET = new Set(ITEM_TYPES)
 const ACTION_TYPE_SET = new Set(ACTION_TYPES)
 const MAX_STEPS = 5_000
-const EXACT_COLOR_LIMIT = 18
+const REPAIR_LIMIT = 8
 
 export function planRoute(game, achievementIds) {
-  const actions = (game.actions ?? []).map(normalizeAction)
-  const byId = new Map(actions.map((action) => [action.id, action]))
-  const achievements = game.achievements ?? []
-  const achievementById = new Map(achievements.map((row) => [row.id, row]))
+  const ctx = makeContext(game)
   const selected = []
-
   for (const id of achievementIds ?? []) {
-    const achievement = achievementById.get(id)
+    const achievement = ctx.achievementById.get(id)
     if (!achievement) return fail(`Unknown achievement ${id}.`)
     selected.push(achievement)
   }
-
   if (selected.length === 0) return fail('Select at least one achievement.')
 
-  const itemById = new Map((game.items ?? []).map((item) => [item.id, item]))
-  const resultById = new Map((game.results ?? []).map((row) => [row.id, row]))
-  const enemyById = new Map((game.enemies ?? []).map((enemy) => [enemy.id, enemy]))
-  const areas = new Map((game.areas ?? []).map((area) => [area.id, area.name]))
-  const newRunActions = actions.filter((action) => action.newRun)
-
-  const baseCtx = {
-    byId,
-    actions,
-    itemById,
-    resultById,
-    achievementById,
-    newRunActions,
-    preferredActions: preferredActionIds(selected, achievementById),
-    allowNewRun: true,
-  }
-
-  // 1) Solo plans — fail early if any achievement is impossible alone.
+  const demands = []
   for (const achievement of selected) {
-    const solo = resolveAchievements([achievement], emptyState(), {
-      ...baseCtx,
-      preferredActions: preferredActionIds([achievement], achievementById),
-      allowNewRun: true,
-    })
-    if (!solo.ok) return solo
+    const actions = collectActions(achievement.conditions, ctx, new Set())
+    if (!actions) return fail(`No branch of an any-condition works for ${achievement.id}.`)
+    demands.push({ achievement, actions, body: [] })
   }
 
-  // 2) Conflict graph — cannot share one cycle.
-  const n = selected.length
-  const conflict = Array.from({ length: n }, () => Array(n).fill(false))
-  for (let i = 0; i < n; i++) {
-    for (let j = i + 1; j < n; j++) {
-      const pair = resolveAchievements([selected[i], selected[j]], emptyState(), {
-        ...baseCtx,
-        preferredActions: preferredActionIds([selected[i], selected[j]], achievementById),
-        allowNewRun: false,
-      })
-      const clashes = !pair.ok
-      conflict[i][j] = clashes
-      conflict[j][i] = clashes
+  const all = new Set()
+  for (const demand of demands) for (const id of demand.actions) all.add(id)
+  const bound = lowerBound(all, ctx)
+  if (bound.error) return fail(bound.error)
+  if (bound.K > 1 && ctx.newRunActions.length === 0) {
+    return fail('A new run is needed, but this game has no newRun action.')
+  }
+
+  const scarceItems = scarceItemSet(all, ctx)
+  const scarce = new Set()
+  for (const id of all) {
+    const action = ctx.byId.get(id)
+    if (action.consumes.some((stack) => scarceItems.has(stack.item))) scarce.add(id)
+  }
+  for (const demand of demands) {
+    demand.body = [...demand.actions]
+      .filter((id) => !scarce.has(id) && !ctx.byId.get(id).newRun)
+      .sort()
+  }
+  ctx.demanded = all
+  indexMissables(ctx)
+
+  let K = bound.K
+  const pins = new Map()
+  const tried = new Map()
+  let last = 'No route fits these achievements.'
+  for (let attempt = 0; attempt < REPAIR_LIMIT; attempt++) {
+    const built = assemble(selected, demands, scarce, scarceItems, K, pins, ctx)
+    if (built.ok) {
+      if (built.steps.length > MAX_STEPS) return fail('This route is over the step limit.')
+      return formatResult(built.steps, selected, ctx.byId, ctx.enemyById, ctx.areas, ctx.achievementById)
+    }
+    last = built.message
+    if (built.hard) return fail(last)
+    const movable = built.action && (scarce.has(built.action) || demands.some((demand) => demand.body.includes(built.action)))
+    if (!movable) {
+      K += 1
+      pins.clear()
+      tried.clear()
+      continue
+    }
+    const seen = tried.get(built.action) ?? new Set()
+    seen.add(built.runIndex)
+    tried.set(built.action, seen)
+    let next = -1
+    for (let i = 0; i < K; i++) {
+      if (!seen.has(i)) {
+        next = i
+        break
+      }
+    }
+    if (next < 0) {
+      // ponytail: growing K is the last resort after every existing run refused the piece.
+      // Upgrade path: try another any-branch or giver before opening a run.
+      K += 1
+      pins.clear()
+      tried.clear()
+    } else {
+      pins.set(built.action, next)
+    }
+  }
+  return fail(last)
+}
+
+function assemble(selected, demands, scarce, scarceItems, K, pins, ctx) {
+  const runs = Array.from({ length: K }, () => ({ actions: new Set(), members: [], boundary: null }))
+  const seeded = seed(runs, demands, scarce, scarceItems, pins, ctx)
+  if (!seeded.ok) return seeded
+
+  const seededEntering = enterStates(runs, ctx)
+  if (!seededEntering) return soft('A seeded run cannot be ordered.', null, 0)
+  const bases = runs.map((run, index) => baseClosure(run, seededEntering[index], ctx))
+  const guests = demands
+    .filter((demand) => demand.body.length > 0)
+    .map((demand) => ({
+      demand,
+      legal: bases.reduce(
+        (count, base, index) => count + (base.ok && fitsClosed(base.set, demand, seededEntering[index], ctx) ? 1 : 0),
+        0,
+      ),
+    }))
+    .sort((a, b) => a.legal - b.legal || a.demand.achievement.id.localeCompare(b.demand.achievement.id))
+
+  for (const guest of guests) {
+    const forced = pinnedRun(guest.demand.body, pins)
+    if (forced === 'split') return soft('A step was pinned to two runs.', guest.demand.body[0], 0)
+    let best = null
+    for (let i = 0; i < runs.length; i++) {
+      if (forced !== null && i !== forced) continue
+      if (!bases[i].ok) continue
+      const count = runs[i].members.length
+      if (best && (count < best.count || (count === best.count && i > best.index))) continue
+      if (!fitsClosed(bases[i].set, guest.demand, seededEntering[i], ctx)) continue
+      best = { index: i, count }
+    }
+    if (!best) return soft(`No run fits ${guest.demand.achievement.name}.`, guest.demand.body[0], 0)
+    for (const id of guest.demand.body) runs[best.index].actions.add(id)
+    addMember(runs[best.index], guest.demand)
+    const pending = []
+    for (const id of guest.demand.body) {
+      if (bases[best.index].set.has(id)) continue
+      bases[best.index].set.add(id)
+      pending.push(id)
+    }
+    if (pending.length > 0) {
+      const grown = close(bases[best.index].set, seededEntering[best.index], ctx, pending)
+      if (!grown.ok) return grown
     }
   }
 
-  // 3) Min groups (graph coloring).
-  const colors = colorConflict(conflict)
-  const groupCount = Math.max(0, ...colors) + 1
-  const groups = Array.from({ length: groupCount }, () => [])
-  for (let i = 0; i < n; i++) groups[colors[i]].push(selected[i])
-
-  // Stable group order: by earliest selected index in each group.
-  groups.sort((a, b) => selected.indexOf(a[0]) - selected.indexOf(b[0]))
-
-  // 4–5) Merge within each group; newRun between groups when needed.
   const state = emptyState()
   const steps = []
-  try {
-    for (let g = 0; g < groups.length; g++) {
-      const remaining = groups.slice(g).flat()
-      if (g > 0 && state.done.size > 0) {
-        ensureNewRun(state, steps, {
-          ...baseCtx,
-          allowNewRun: true,
-          packSelected: remaining,
-          preferredActions: preferredActionIds(remaining, achievementById),
-        })
+  for (let i = 0; i < runs.length; i++) {
+    const ordered = orderRun(runs[i], state, ctx)
+    if (!ordered.ok) return { ...ordered, runIndex: i }
+    for (const id of ordered.steps) {
+      const action = ctx.byId.get(id)
+      if (!canPerform(action, state)) {
+        return soft(`Cannot perform ${action.id}.`, action.id, i)
       }
-      const group = groups[g]
-      const merged = resolveAchievements(group, state, {
-        ...baseCtx,
-        preferredActions: preferredActionIds(group, achievementById),
-        allowNewRun: true,
-        packSelected: group,
-        steps,
-      })
-      if (!merged.ok) return merged
+      try {
+        perform(action, state, steps, ctx)
+      } catch (error) {
+        if (!error?.planFail) throw error
+        return soft(error.message, action.id, i)
+      }
     }
-  } catch (error) {
-    if (error?.planFail) return fail(error.message)
-    throw error
+  }
+  for (const achievement of selected) {
+    if (earned(achievement, state.everDone, ctx.achievementById)) continue
+    const demand = demands.find((row) => row.achievement.id === achievement.id)
+    const missing = [...(demand?.actions ?? [])].find((id) => !state.everDone.has(id)) ?? null
+    return soft(`Missed ${achievement.name}.`, missing, 0)
+  }
+  return { ok: true, steps }
+}
+
+function seed(runs, demands, scarce, scarceItems, pins, ctx) {
+  const demandedEndings = []
+  const seenEnding = new Set()
+  for (const demand of demands) {
+    for (const id of demand.actions) {
+      if (!ctx.byId.get(id).newRun || seenEnding.has(id)) continue
+      seenEnding.add(id)
+      demandedEndings.push(id)
+    }
+  }
+  demandedEndings.sort()
+  const catalog = resetCatalog(ctx)
+  const plain = catalog.plain
+  const unselected = [...catalog.endings].filter((id) => !seenEnding.has(id)).sort()
+  const resets = [...demandedEndings]
+  const slots = Math.max(runs.length - 1, demandedEndings.length)
+  if (slots > 0 && resets.length === 0 && plain.length === 0 && unselected.length === 0) {
+    return { ok: false, hard: true, message: 'A new run is needed, but this game has no newRun action.' }
+  }
+  let extra = 0
+  while (resets.length < slots) {
+    if (plain.length > 0) resets.push(plain[0])
+    else if (unselected.length > 0) resets.push(unselected[Math.min(extra, unselected.length - 1)])
+    else resets.push(demandedEndings[0])
+    extra += 1
+  }
+  for (let i = 0; i < slots && i < runs.length; i++) {
+    runs[i].boundary = resets[i]
+    for (const demand of demands) {
+      if (demand.actions.has(resets[i])) addMember(runs[i], demand)
+    }
   }
 
-  if (steps.length > MAX_STEPS) return fail('This route is over the step limit.')
+  const perCycle = new Map()
+  for (const item of scarceItems) perCycle.set(item, onceOnlySupply(item, ctx))
+  const used = runs.map(() => new Map())
+  const consumers = [...scarce].sort()
+  for (const id of consumers) {
+    const action = ctx.byId.get(id)
+    const preferred = pins.get(id)
+    let placed = false
+    for (let i = 0; i < runs.length; i++) {
+      if (preferred !== undefined && i !== preferred) continue
+      if (!roomFor(used[i], action, perCycle)) continue
+      runs[i].actions.add(id)
+      for (const stack of action.consumes) {
+        if (!perCycle.has(stack.item)) continue
+        used[i].set(stack.item, (used[i].get(stack.item) ?? 0) + stack.amount)
+      }
+      for (const demand of demands) {
+        if (demand.actions.has(id)) addMember(runs[i], demand)
+      }
+      placed = true
+      break
+    }
+    if (!placed) return soft(`No run can produce enough for ${id}.`, id, preferred ?? 0)
+  }
+  return { ok: true }
+}
 
-  return formatResult(steps, selected, byId, enemyById, areas, achievementById)
+function baseClosure(run, carry, ctx) {
+  const set = new Set(run.actions)
+  if (run.boundary) set.add(run.boundary)
+  return close(set, carry, ctx)
+}
+
+function fitsClosed(baseSet, demand, carry, ctx) {
+  const set = new Set(baseSet)
+  const pending = []
+  for (const id of demand.body) {
+    if (set.has(id)) continue
+    set.add(id)
+    pending.push(id)
+  }
+  if (pending.length === 0) return true
+  const closed = pending.length === 0 ? { ok: true, set } : close(set, carry, ctx, pending)
+  if (!closed.ok || !supplies(closed.set, carry, ctx)) return false
+  const index = new Map()
+  return topo(closed.set, index, ctx) !== null
+}
+
+function supplies(set, carry, ctx) {
+  const items = new Set()
+  for (const id of set) {
+    for (const item of itemsNeeded(ctx.byId.get(id))) items.add(item)
+  }
+  for (const item of items) {
+    if (produced(set, item, carry, ctx) < itemNeed(set, item, ctx)) return false
+  }
+  return true
+}
+
+function resetCatalog(ctx) {
+  if (ctx.resetCatalog) return ctx.resetCatalog
+  const endings = new Set()
+  for (const achievement of ctx.achievementById.values()) {
+    const actions = collectActions(achievement.conditions, ctx, new Set())
+    if (!actions) continue
+    for (const id of actions) if (ctx.byId.get(id)?.newRun) endings.add(id)
+  }
+  const plain = ctx.newRunActions.map((action) => action.id).filter((id) => !endings.has(id)).sort()
+  ctx.resetCatalog = { endings, plain }
+  return ctx.resetCatalog
+}
+
+function enterStates(runs, ctx) {
+  const states = []
+  const state = emptyState()
+  for (const run of runs) {
+    states.push(snapshot(state))
+    const ordered = orderRun(run, state, ctx)
+    if (!ordered.ok) return null
+    for (const id of ordered.steps) {
+      const action = ctx.byId.get(id)
+      if (!canPerform(action, state)) return null
+      try {
+        perform(action, state, [], ctx)
+      } catch (error) {
+        if (!error?.planFail) throw error
+        return null
+      }
+    }
+  }
+  return states
+}
+
+function orderRun(run, carry, ctx) {
+  const set = new Set(run.actions)
+  if (run.boundary) set.add(run.boundary)
+  const closed = close(set, carry, ctx)
+  if (!closed.ok) return closed
+  const index = ownerIndex(closed.set, run, ctx)
+  const ordered = topo(closed.set, index, ctx)
+  if (!ordered) return soft('These actions cannot share a run.', [...closed.set][0] ?? null, 0)
+  const steps = []
+  for (const id of ordered) {
+    const times = repeatCount(ctx.byId.get(id), closed.set, carry, ctx)
+    for (let n = 0; n < times; n++) steps.push(id)
+  }
+  const state = snapshot(carry)
+  for (const id of steps) {
+    const action = ctx.byId.get(id)
+    if (!canPerform(action, state)) return soft(`Cannot perform ${id}.`, id, 0)
+    try {
+      perform(action, state, [], ctx)
+    } catch (error) {
+      if (!error?.planFail) throw error
+      return soft(error.message, id, 0)
+    }
+  }
+  return { ok: true, steps }
+}
+
+function close(set, carry, ctx, pending = null) {
+  const queue = pending ?? [...set]
+  for (let head = 0; head < queue.length; head++) {
+    const id = queue[head]
+    const action = ctx.byId.get(id)
+    const add = (depId) => {
+      if (!depId || set.has(depId)) return true
+      const dep = ctx.byId.get(depId)
+      if (!dep || dep.newRun) return true
+      set.add(depId)
+      queue.push(depId)
+      return true
+    }
+    for (const requirement of action.requires) {
+      if (requirement.type === 'action') {
+        add(requirement.id)
+      } else if (requirement.type === 'result' && !carry.results.has(requirement.id)) {
+        const setters = ctx.settersByResult.get(requirement.id) ?? []
+        if (setters.some((setter) => set.has(setter.id))) continue
+        const setter = pickSetter(requirement.id, set, ctx)
+        if (!setter) return soft(`Nothing sets result ${requirement.id}.`, id, 0)
+        add(setter.id)
+      }
+    }
+    for (const item of itemsNeeded(action)) {
+      while (produced(set, item, carry, ctx) < itemNeed(set, item, ctx)) {
+        const giver = pickGiver(item, set, ctx)
+        if (!giver) {
+          const name = ctx.itemById.get(item)?.name ?? item
+          return { ok: false, hard: true, message: `Nothing gives enough ${name}.`, action: id, runIndex: 0 }
+        }
+        add(giver.id)
+        if (isRepeatable(giver)) break
+      }
+    }
+    for (const miss of ctx.missablesByBlocker.get(id) ?? []) add(miss)
+  }
+  return { ok: true, set }
+}
+
+function topo(set, index, ctx) {
+  const indegree = new Map()
+  const outgoing = new Map()
+  for (const id of set) {
+    indegree.set(id, 0)
+    outgoing.set(id, [])
+  }
+  for (const id of set) {
+    for (const pred of predecessors(ctx.byId.get(id), set, ctx)) {
+      if (pred === id || !set.has(pred)) continue
+      outgoing.get(pred).push(id)
+      indegree.set(id, indegree.get(id) + 1)
+    }
+  }
+  const ready = [...set].filter((id) => indegree.get(id) === 0)
+  const ordered = []
+  while (ready.length > 0) {
+    ready.sort((a, b) => (index.get(a) ?? 1e9) - (index.get(b) ?? 1e9) || a.localeCompare(b))
+    const id = ready.shift()
+    ordered.push(id)
+    for (const next of outgoing.get(id)) {
+      const left = indegree.get(next) - 1
+      indegree.set(next, left)
+      if (left === 0) ready.push(next)
+    }
+  }
+  return ordered.length === set.size ? ordered : null
+}
+
+function predecessors(action, set, ctx) {
+  const preds = new Set()
+  if (action.newRun) {
+    for (const id of set) if (id !== action.id) preds.add(id)
+    return preds
+  }
+  for (const requirement of action.requires) {
+    if (requirement.type === 'action' && set.has(requirement.id)) preds.add(requirement.id)
+    if (requirement.type === 'result') {
+      for (const setter of ctx.settersByResult.get(requirement.id) ?? []) {
+        if (set.has(setter.id)) preds.add(setter.id)
+      }
+    }
+    if (requirement.type === 'inventory') {
+      for (const giver of ctx.giversByItem.get(requirement.item) ?? []) {
+        if (set.has(giver.id)) preds.add(giver.id)
+      }
+    }
+  }
+  for (const stack of action.consumes) {
+    for (const giver of ctx.giversByItem.get(stack.item) ?? []) {
+      if (giver.id !== action.id && set.has(giver.id)) preds.add(giver.id)
+    }
+  }
+  for (const id of set) {
+    if (ctx.byId.get(id).before.includes(action.id)) preds.add(id)
+  }
+  for (const effect of action.clears) {
+    if (effect.type !== 'result') continue
+    for (const id of set) {
+      if (id !== action.id && requiresResult(ctx.byId.get(id), effect.id)) preds.add(id)
+    }
+  }
+  return preds
+}
+
+function ownerIndex(set, run, ctx) {
+  const index = new Map()
+  for (const id of set) index.set(id, 1e9)
+  for (const member of run.members) {
+    for (const id of member.actions) {
+      if (!set.has(id)) continue
+      index.set(id, Math.min(index.get(id), member.order))
+    }
+  }
+  let changed = true
+  while (changed) {
+    changed = false
+    for (const id of set) {
+      const action = ctx.byId.get(id)
+      if (action.newRun) continue
+      for (const pred of predecessors(action, set, ctx)) {
+        if ((index.get(pred) ?? 1e9) > index.get(id)) {
+          index.set(pred, index.get(id))
+          changed = true
+        }
+      }
+    }
+  }
+  if (run.boundary && set.has(run.boundary)) index.set(run.boundary, 1e9)
+  return index
+}
+
+function lowerBound(actionIds, ctx) {
+  let K = 1
+  let endings = 0
+  const consumes = new Map()
+  for (const id of actionIds) {
+    const action = ctx.byId.get(id)
+    if (!action) return { error: `Missing action ${id}.` }
+    if (action.newRun) endings += 1
+    for (const stack of action.consumes) {
+      consumes.set(stack.item, (consumes.get(stack.item) ?? 0) + stack.amount)
+    }
+  }
+  K = Math.max(K, endings)
+  for (const [item, need] of consumes) {
+    if (hasRepeatableGiver(item, ctx)) continue
+    const per = onceOnlySupply(item, ctx)
+    if (need > 0 && per <= 0) {
+      const name = ctx.itemById.get(item)?.name ?? item
+      return { error: `Nothing gives enough ${name}.` }
+    }
+    if (need > per) K = Math.max(K, Math.ceil(need / per))
+  }
+  return { K }
+}
+
+function scarceItemSet(actionIds, ctx) {
+  const consumes = new Map()
+  for (const id of actionIds) {
+    for (const stack of ctx.byId.get(id).consumes) {
+      consumes.set(stack.item, (consumes.get(stack.item) ?? 0) + stack.amount)
+    }
+  }
+  const scarce = new Set()
+  for (const [item, need] of consumes) {
+    if (hasRepeatableGiver(item, ctx)) continue
+    if (need > onceOnlySupply(item, ctx)) scarce.add(item)
+  }
+  return scarce
+}
+
+function collectActions(conditions, ctx, seen) {
+  const ids = new Set()
+  for (const condition of conditions ?? []) {
+    if (condition.type === 'action') {
+      ids.add(condition.id)
+      continue
+    }
+    if (condition.type === 'achievement') {
+      if (seen.has(condition.id)) return null
+      const nested = ctx.achievementById.get(condition.id)
+      if (!nested) return null
+      seen.add(condition.id)
+      const inner = collectActions(nested.conditions, ctx, seen)
+      seen.delete(condition.id)
+      if (!inner) return null
+      for (const id of inner) ids.add(id)
+      continue
+    }
+    if (condition.type === 'any') {
+      // ponytail: each any keeps the branch with the smallest copy lower bound.
+      // Combinations of branches are not searched.
+      let best = null
+      let bestKey = null
+      for (const alternative of condition.of ?? []) {
+        const branch = collectActions([alternative], ctx, new Set(seen))
+        if (!branch) continue
+        const bound = lowerBound(branch, ctx)
+        if (bound.error) continue
+        const key = [bound.K, branch.size]
+        if (!bestKey || key[0] < bestKey[0] || (key[0] === bestKey[0] && key[1] < bestKey[1])) {
+          best = branch
+          bestKey = key
+        }
+      }
+      if (!best) return null
+      for (const id of best) ids.add(id)
+    }
+  }
+  return ids
+}
+
+function roomFor(used, action, perCycle) {
+  for (const stack of action.consumes) {
+    if (!perCycle.has(stack.item)) continue
+    if ((used.get(stack.item) ?? 0) + stack.amount > perCycle.get(stack.item)) return false
+  }
+  return true
+}
+
+function pinnedRun(body, pins) {
+  const runs = new Set()
+  for (const id of body) if (pins.has(id)) runs.add(pins.get(id))
+  if (runs.size > 1) return 'split'
+  if (runs.size === 0) return null
+  return [...runs][0]
+}
+
+function addMember(run, demand) {
+  if (run.members.some((member) => member.id === demand.achievement.id)) return
+  run.members.push({
+    id: demand.achievement.id,
+    order: run.members.length,
+    actions: demand.actions,
+  })
+}
+
+function pickGiver(item, set, ctx) {
+  const givers = (ctx.giversByItem.get(item) ?? []).filter((action) => !set.has(action.id))
+  givers.sort((a, b) => {
+    const rank = (action) => (ctx.demanded.has(action.id) ? 0 : 1)
+    return rank(a) - rank(b) || a.id.localeCompare(b.id)
+  })
+  return givers[0] ?? null
+}
+
+function pickSetter(resultId, set, ctx) {
+  const setters = (ctx.settersByResult.get(resultId) ?? []).filter((action) => !set.has(action.id))
+  setters.sort((a, b) => {
+    const rank = (action) => (ctx.demanded.has(action.id) ? 0 : 1)
+    return rank(a) - rank(b) || a.id.localeCompare(b.id)
+  })
+  return setters[0] ?? null
+}
+
+function onceOnlySupply(item, ctx) {
+  let total = 0
+  for (const action of ctx.actions) {
+    if (action.newRun || isRepeatable(action)) continue
+    total += giveAmount(action, item)
+  }
+  return total
+}
+
+function hasRepeatableGiver(item, ctx) {
+  return ctx.actions.some((action) => !action.newRun && isRepeatable(action) && giveAmount(action, item) > 0)
+}
+
+function produced(set, item, carry, ctx) {
+  let total = count(carry.inventory, item)
+  for (const id of set) {
+    const action = ctx.byId.get(id)
+    const amount = giveAmount(action, item)
+    if (amount <= 0) continue
+    if (isRepeatable(action)) return Infinity
+    total += amount
+  }
+  return total
+}
+
+function itemNeed(set, item, ctx) {
+  let consumed = 0
+  let peak = 0
+  for (const id of set) {
+    const action = ctx.byId.get(id)
+    for (const stack of action.consumes) if (stack.item === item) consumed += stack.amount
+    for (const requirement of action.requires) {
+      if (requirement.type === 'inventory' && requirement.item === item) peak = Math.max(peak, requirement.amount)
+    }
+  }
+  return Math.max(consumed, peak)
+}
+
+function repeatCount(action, set, carry, ctx) {
+  if (!isRepeatable(action)) return 1
+  let times = 1
+  for (const stack of action.gives) {
+    let covered = count(carry.inventory, stack.item)
+    for (const id of set) {
+      if (id === action.id) continue
+      const other = ctx.byId.get(id)
+      if (isRepeatable(other)) continue
+      covered += giveAmount(other, stack.item)
+    }
+    const short = itemNeed(set, stack.item, ctx) - covered
+    if (short > 0) times = Math.max(times, Math.ceil(short / stack.amount))
+  }
+  return times
+}
+
+function itemsNeeded(action) {
+  const items = new Set()
+  for (const stack of action.consumes) items.add(stack.item)
+  for (const requirement of action.requires) {
+    if (requirement.type === 'inventory') items.add(requirement.item)
+  }
+  return items
+}
+
+function giveAmount(action, item) {
+  let total = 0
+  for (const stack of action.gives) if (stack.item === item) total += stack.amount
+  return total
+}
+
+function requiresResult(action, resultId) {
+  return action.requires.some((requirement) => requirement.type === 'result' && requirement.id === resultId)
+}
+
+function canPerform(action, state) {
+  if (!action) return false
+  if (state.done.has(action.id) && !isRepeatable(action)) return false
+  for (const blocked of action.before) {
+    if (state.done.has(blocked)) return false
+  }
+  for (const requirement of action.requires) {
+    if (requirement.type === 'action' && !state.done.has(requirement.id)) return false
+    if (requirement.type === 'inventory' && count(state.inventory, requirement.item) < requirement.amount) return false
+    if (requirement.type === 'result' && !state.results.has(requirement.id)) return false
+  }
+  for (const stack of action.consumes) {
+    if (count(state.inventory, stack.item) < stack.amount) return false
+  }
+  return true
+}
+
+function makeContext(game) {
+  const actions = (game.actions ?? []).map(normalizeAction)
+  const giversByItem = new Map()
+  const settersByResult = new Map()
+  for (const action of actions) {
+    if (action.newRun) continue
+    for (const stack of action.gives) {
+      const list = giversByItem.get(stack.item) ?? []
+      list.push(action)
+      giversByItem.set(stack.item, list)
+    }
+    for (const effect of action.sets) {
+      if (effect.type !== 'result') continue
+      const list = settersByResult.get(effect.id) ?? []
+      list.push(action)
+      settersByResult.set(effect.id, list)
+    }
+  }
+  return {
+    byId: new Map(actions.map((action) => [action.id, action])),
+    actions,
+    itemById: new Map((game.items ?? []).map((item) => [item.id, item])),
+    resultById: new Map((game.results ?? []).map((row) => [row.id, row])),
+    enemyById: new Map((game.enemies ?? []).map((enemy) => [enemy.id, enemy])),
+    achievementById: new Map((game.achievements ?? []).map((row) => [row.id, row])),
+    areas: new Map((game.areas ?? []).map((area) => [area.id, area.name])),
+    newRunActions: actions.filter((action) => action.newRun),
+    demanded: new Set(),
+    missablesByBlocker: new Map(),
+    giversByItem,
+    settersByResult,
+  }
+}
+
+function indexMissables(ctx) {
+  const byBlocker = new Map()
+  for (const id of ctx.demanded) {
+    const action = ctx.byId.get(id)
+    if (!action || action.newRun) continue
+    for (const blocker of action.before) {
+      const list = byBlocker.get(blocker) ?? []
+      list.push(id)
+      byBlocker.set(blocker, list)
+    }
+  }
+  ctx.missablesByBlocker = byBlocker
 }
 
 function fail(message) {
   return { ok: false, message }
+}
+
+function soft(message, action, runIndex) {
+  return { ok: false, hard: false, message, action, runIndex }
 }
 
 function planFail(message) {
@@ -186,239 +779,6 @@ function conditionMet(condition, everDone, achievementById, seen = new Set()) {
   return false
 }
 
-function preferredActionIds(selected, achievementById) {
-  const ids = new Set()
-  const walk = (conditions, seen) => {
-    for (const condition of conditions ?? []) {
-      if (condition.type === 'action') ids.add(condition.id)
-      else if (condition.type === 'any') walk(condition.of, seen)
-      else if (condition.type === 'achievement' && !seen.has(condition.id)) {
-        seen.add(condition.id)
-        const nested = achievementById.get(condition.id)
-        if (nested) walk(nested.conditions, seen)
-      }
-    }
-  }
-  for (const achievement of selected) walk(achievement.conditions, new Set())
-  return ids
-}
-
-function resolveAchievements(selected, state, ctx) {
-  const steps = ctx.steps ?? []
-  const ownedSteps = ctx.steps === undefined
-  try {
-    for (const achievement of selected) {
-      if (earned(achievement, state.everDone, ctx.achievementById)) continue
-      ensureConditions(achievement.conditions, state, steps, ctx, new Set())
-    }
-  } catch (error) {
-    if (error?.planFail) return fail(error.message)
-    throw error
-  }
-  if (steps.length > MAX_STEPS) return fail('This route is over the step limit.')
-  return { ok: true, steps: ownedSteps ? steps : undefined }
-}
-
-function ensureConditions(conditions, state, steps, ctx, seenAchievements) {
-  for (const condition of conditions ?? []) {
-    ensureCondition(condition, state, steps, ctx, seenAchievements)
-  }
-}
-
-function ensureCondition(condition, state, steps, ctx, seenAchievements) {
-  if (condition.type === 'action') {
-    ensureSatisfied(condition.id, state, steps, ctx)
-    return
-  }
-  if (condition.type === 'any') {
-    const options = condition.of ?? []
-    if (options.length === 0) planFail('Empty any condition.')
-    if (options.some((inner) => conditionMet(inner, state.everDone, ctx.achievementById))) return
-    let last = null
-    for (const inner of options) {
-      const snap = snapshot(state)
-      const stepSnap = steps.length
-      try {
-        ensureCondition(inner, state, steps, ctx, seenAchievements)
-        return
-      } catch (error) {
-        if (!error?.planFail) throw error
-        last = error
-        restore(state, snap)
-        steps.length = stepSnap
-      }
-    }
-    planFail(last?.message ?? 'No branch of an any-condition works.')
-  }
-  if (condition.type === 'achievement') {
-    if (seenAchievements.has(condition.id)) planFail(`Achievement condition cycle at ${condition.id}.`)
-    const nested = ctx.achievementById.get(condition.id)
-    if (!nested) planFail(`Unknown achievement condition ${condition.id}.`)
-    seenAchievements.add(condition.id)
-    ensureConditions(nested.conditions, state, steps, ctx, seenAchievements)
-    seenAchievements.delete(condition.id)
-  }
-}
-
-function ensureSatisfied(actionId, state, steps, ctx) {
-  if (state.everDone.has(actionId) || state.done.has(actionId)) return
-  ensurePerform(actionId, state, steps, ctx)
-}
-
-function ensureDone(actionId, state, steps, ctx) {
-  if (state.done.has(actionId)) return
-  ensurePerform(actionId, state, steps, ctx)
-}
-
-function ensurePerform(actionId, state, steps, ctx) {
-  const action = ctx.byId.get(actionId)
-  if (!action) planFail(`Missing action ${actionId}.`)
-  if (ctx.packing && action.newRun) planFail('new run blocked while packing.')
-
-  for (const other of ctx.actions) {
-    if (!other.before.includes(actionId)) continue
-    if (!ctx.preferredActions.has(other.id)) continue
-    if (state.everDone.has(other.id) || state.done.has(other.id)) continue
-    ensurePerform(other.id, state, steps, ctx)
-  }
-
-  if (state.done.has(actionId) && !isRepeatable(action)) {
-    ensureNewRun(state, steps, ctx)
-  }
-
-  for (const blocked of action.before) {
-    if (state.done.has(blocked)) {
-      ensureNewRun(state, steps, ctx)
-      break
-    }
-  }
-
-  for (const requirement of action.requires) {
-    if (requirement.type === 'action') ensureDone(requirement.id, state, steps, ctx)
-    else if (requirement.type === 'inventory') ensureItems(requirement.item, requirement.amount, state, steps, ctx)
-    else if (requirement.type === 'result') ensureResult(requirement.id, state, steps, ctx)
-  }
-
-  for (const stack of action.consumes) {
-    ensureItems(stack.item, stack.amount, state, steps, ctx)
-  }
-
-  for (const blocked of action.before) {
-    if (state.done.has(blocked)) ensureNewRun(state, steps, ctx)
-  }
-
-  if (state.done.has(actionId) && !isRepeatable(action)) {
-    ensureNewRun(state, steps, ctx)
-  }
-
-  perform(action, state, steps, ctx)
-}
-
-function ensureItems(itemId, amount, state, steps, ctx) {
-  while (count(state.inventory, itemId) < amount) {
-    const giver = pickGiver(itemId, ctx.actions, state, ctx.preferredActions, ctx.allowNewRun)
-    if (!giver) {
-      const name = ctx.itemById.get(itemId)?.name ?? itemId
-      planFail(`Nothing gives enough ${name}.`)
-    }
-    ensurePerform(giver.id, state, steps, ctx)
-  }
-}
-
-function ensureResult(resultId, state, steps, ctx) {
-  if (state.results.has(resultId)) return
-  const setter = ctx.actions.find((action) =>
-    action.sets.some((effect) => effect.type === 'result' && effect.id === resultId),
-  )
-  if (!setter) planFail(`Nothing sets result ${resultId}.`)
-  ensurePerform(setter.id, state, steps, ctx)
-  if (!state.results.has(resultId)) planFail(`Result ${resultId} was not set.`)
-}
-
-function ensureNewRun(state, steps, ctx) {
-  if (!ctx.allowNewRun) planFail('new run blocked in this cycle.')
-  if (ctx.packing) planFail('new run blocked while packing.')
-  if (ctx.newRunActions.length === 0) {
-    planFail('A new run is needed, but this game has no newRun action.')
-  }
-  packCurrentCycle(state, steps, ctx)
-  let last = null
-  for (const action of ctx.newRunActions) {
-    if (state.done.has(action.id) && !isRepeatable(action)) continue
-    const snap = snapshot(state)
-    const stepSnap = steps.length
-    try {
-      for (const requirement of action.requires) {
-        if (requirement.type === 'action') ensureDone(requirement.id, state, steps, ctx)
-        else if (requirement.type === 'inventory') ensureItems(requirement.item, requirement.amount, state, steps, ctx)
-        else if (requirement.type === 'result') ensureResult(requirement.id, state, steps, ctx)
-      }
-      for (const stack of action.consumes) {
-        ensureItems(stack.item, stack.amount, state, steps, ctx)
-      }
-      perform(action, state, steps, ctx)
-      return
-    } catch (error) {
-      if (!error?.planFail) throw error
-      last = error
-      restore(state, snap)
-      steps.length = stepSnap
-    }
-  }
-  planFail(last?.message ?? 'Could not start a new run.')
-}
-
-function packCurrentCycle(state, steps, ctx) {
-  if (ctx.packing) return
-  const selected = ctx.packSelected
-  if (!selected?.length) return
-  ctx.packing = true
-  const prevAllow = ctx.allowNewRun
-  ctx.allowNewRun = false
-  try {
-    let progress = true
-    while (progress) {
-      progress = false
-      for (const achievement of selected) {
-        if (earned(achievement, state.everDone, ctx.achievementById)) continue
-        const snap = snapshot(state)
-        const stepSnap = steps.length
-        try {
-          ensureConditions(achievement.conditions, state, steps, ctx, new Set())
-          if (steps.length > stepSnap) progress = true
-        } catch (error) {
-          if (!error?.planFail) throw error
-          restore(state, snap)
-          steps.length = stepSnap
-        }
-      }
-    }
-  } finally {
-    ctx.allowNewRun = prevAllow
-    ctx.packing = false
-  }
-}
-
-function pickGiver(itemId, actions, state, preferredActions = new Set(), allowNewRun = false) {
-  const givers = actions.filter((action) => {
-    if (!gives(action, itemId)) return false
-    if (isRepeatable(action)) return true
-    if (!state.done.has(action.id)) return true
-    return allowNewRun
-  })
-  if (givers.length === 0) return null
-  givers.sort((a, b) => {
-    const aPref = preferredActions.has(a.id) ? 0 : 1
-    const bPref = preferredActions.has(b.id) ? 0 : 1
-    if (aPref !== bPref) return aPref - bPref
-    const aDone = state.done.has(a.id) && !isRepeatable(a) ? 1 : 0
-    const bDone = state.done.has(b.id) && !isRepeatable(b) ? 1 : 0
-    if (aDone !== bDone) return aDone - bDone
-    return a.id.localeCompare(b.id)
-  })
-  return givers[0]
-}
-
 function perform(action, state, steps, ctx) {
   for (const stack of action.consumes) {
     const next = count(state.inventory, stack.item) - stack.amount
@@ -469,96 +829,8 @@ function snapshot(state) {
   }
 }
 
-function restore(state, snap) {
-  state.done = snap.done
-  state.results = snap.results
-  state.inventory = snap.inventory
-  state.everDone = snap.everDone
-  state.run = snap.run
-}
-
 function count(inventory, item) {
   return inventory.get(item) ?? 0
-}
-
-function gives(action, item) {
-  return (action.gives ?? []).some((stack) => stack.item === item && stack.amount > 0)
-}
-
-function colorConflict(conflict) {
-  const n = conflict.length
-  if (n === 0) return []
-  if (n <= EXACT_COLOR_LIMIT) return colorExact(conflict)
-  return colorGreedy(conflict)
-}
-
-// Minimum coloring via DP over independent sets. O(3^n)ish, fine for n≤18.
-function colorExact(conflict) {
-  const n = conflict.length
-  const ok = new Array(1 << n).fill(false)
-  ok[0] = true
-  for (let mask = 1; mask < 1 << n; mask++) {
-    let good = true
-    for (let i = 0; i < n && good; i++) {
-      if (((mask >> i) & 1) === 0) continue
-      for (let j = i + 1; j < n; j++) {
-        if (((mask >> j) & 1) === 0) continue
-        if (conflict[i][j]) {
-          good = false
-          break
-        }
-      }
-    }
-    ok[mask] = good
-  }
-
-  const dp = new Array(1 << n).fill(Infinity)
-  const pick = new Array(1 << n).fill(0)
-  dp[0] = 0
-  for (let mask = 1; mask < 1 << n; mask++) {
-    for (let sub = mask; sub > 0; sub = (sub - 1) & mask) {
-      if (!ok[sub]) continue
-      const prev = mask ^ sub
-      const cand = dp[prev] + 1
-      if (cand < dp[mask]) {
-        dp[mask] = cand
-        pick[mask] = sub
-      }
-    }
-  }
-
-  const colors = Array(n).fill(-1)
-  let color = 0
-  let mask = (1 << n) - 1
-  while (mask > 0) {
-    const sub = pick[mask]
-    for (let i = 0; i < n; i++) {
-      if ((sub >> i) & 1) colors[i] = color
-    }
-    color += 1
-    mask ^= sub
-  }
-  return colors
-}
-
-function colorGreedy(conflict) {
-  const n = conflict.length
-  const order = Array.from({ length: n }, (_, i) => i).sort((a, b) => {
-    const da = conflict[a].filter(Boolean).length
-    const db = conflict[b].filter(Boolean).length
-    return db - da
-  })
-  const colors = Array(n).fill(-1)
-  for (const v of order) {
-    const used = new Set()
-    for (let u = 0; u < n; u++) {
-      if (conflict[v][u] && colors[u] >= 0) used.add(colors[u])
-    }
-    let c = 0
-    while (used.has(c)) c += 1
-    colors[v] = c
-  }
-  return colors
 }
 
 function formatResult(steps, selected, byId, enemyById, areas, achievementById) {

@@ -1,4 +1,4 @@
-// ponytail: one shared worker; UI stays responsive while A* runs.
+// ponytail: one shared worker; UI stays responsive while the route is planned.
 let worker = null
 let nextId = 1
 const pending = new Map()

@@ -4,7 +4,7 @@ A local page that turns the achievements you pick into one short list of actions
 
 No game is included. Put one JSON file per game in `data/`.
 
-The planner **groups achievements into as few cycles as possible**, then merges steps inside each cycle. See [docs/algorithm.md](docs/algorithm.md).
+The planner **counts how many cycles scarce rewards force**, packs every other achievement into the fullest cycle that can hold it, then orders the steps. See [docs/algorithm.md](docs/algorithm.md).
 
 ## Run
 

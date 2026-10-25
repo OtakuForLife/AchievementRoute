@@ -2,11 +2,11 @@
 
 Works:
 
-- A\* route planner (world state, persist flags, newRun reset); see `docs/algorithm.md`.
+- Copy-count route planner (world state, persist flags, newRun reset); see `docs/algorithm.md`.
 - Game select, achievement search/toggles, Generate Route, all-steps / by-run, checkoffs, copy, localStorage.
 - Data tab: edit the selected game and save it back to `data/`.
 - Farms, results, repeatable, meta achievements, missable `before`.
-- `npm run check` passes (15 planner + editGame).
+- `npm run check` passes (16 planner + editGame).
 - Demo `data/demo.json` (Ashen Keep).
 - Offline DSR JSON (41 achievements); Link Fire + Dark Lord replays Asylum→Lordvessel after ending.
 

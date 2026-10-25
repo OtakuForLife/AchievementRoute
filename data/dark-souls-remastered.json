@@ -2659,6 +2659,19 @@
       "newRun": true
     },
     {
+      "id": "begin-next-cycle",
+      "type": "interact",
+      "description": "Leave the Kiln. The next cycle starts after Gwyn. This is not an ending.",
+      "area": "kiln",
+      "requires": [
+        {
+          "type": "result",
+          "id": "gwyn-fallen"
+        }
+      ],
+      "newRun": true
+    },
+    {
       "id": "give-standard-ember",
       "type": "interact",
       "description": "Give the Large Ember (and Very Large Ember later) to the appropriate blacksmith.",

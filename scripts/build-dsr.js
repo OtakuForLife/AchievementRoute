@@ -771,6 +771,14 @@ act({
   requires: [reqResult('gwyn-fallen')],
   newRun: true,
 })
+act({
+  id: 'begin-next-cycle',
+  type: 'interact',
+  description: 'Leave the Kiln. The next cycle starts after Gwyn. This is not an ending.',
+  area: 'kiln',
+  requires: [reqResult('gwyn-fallen')],
+  newRun: true,
+})
 
 // Upgrade path achievements: give ember to smith + craft max weapon leaf
 function upgradePath(id, name, emberId, smithArea, description) {
