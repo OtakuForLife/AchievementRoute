@@ -64,6 +64,22 @@ function groupByRun(steps) {
   return runs
 }
 
+function nestedAchievementIds(conditions, achievementById, seen = new Set()) {
+  const ids = []
+  for (const condition of conditions ?? []) {
+    if (condition.type === 'achievement') {
+      if (seen.has(condition.id)) continue
+      seen.add(condition.id)
+      ids.push(condition.id)
+      const nested = achievementById.get(condition.id)
+      if (nested) ids.push(...nestedAchievementIds(nested.conditions, achievementById, seen))
+    } else if (condition.type === 'any') {
+      ids.push(...nestedAchievementIds(condition.of, achievementById, seen))
+    }
+  }
+  return ids
+}
+
 function StepRow({ step, index, checked, onToggle }) {
   const key = stepKey(step)
   return (
@@ -169,10 +185,25 @@ export default function App() {
   function toggle(id) {
     setPicked((current) => {
       const next = new Set(current)
-      if (next.has(id)) next.delete(id)
-      else next.add(id)
+      if (next.has(id)) {
+        next.delete(id)
+        return next
+      }
+      next.add(id)
+      if (game) {
+        const byId = new Map(game.achievements.map((row) => [row.id, row]))
+        const achievement = byId.get(id)
+        for (const nestedId of nestedAchievementIds(achievement?.conditions, byId)) {
+          next.add(nestedId)
+        }
+      }
       return next
     })
+  }
+
+  function selectAll() {
+    if (!game) return
+    setPicked(new Set(game.achievements.map((row) => row.id)))
   }
 
   function clearPicked() {
@@ -250,6 +281,14 @@ export default function App() {
               <h2 className="section-label">Achievements</h2>
               <p className="count">
                 {picked.size} selected
+                {game && picked.size < game.achievements.length && (
+                  <>
+                    {' · '}
+                    <button type="button" className="text-btn" onClick={selectAll}>
+                      Select all
+                    </button>
+                  </>
+                )}
                 {picked.size > 0 && (
                   <>
                     {' · '}
