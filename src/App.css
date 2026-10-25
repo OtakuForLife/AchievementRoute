@@ -812,8 +812,10 @@ textarea:focus-visible,
 .editor-body {
   flex: 1;
   min-height: 0;
-  overflow: auto;
-  padding: 0 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
 }
 
 .editor-body.split-body {
@@ -825,12 +827,10 @@ textarea:focus-visible,
 
 .editor-subhead {
   display: flex;
+  flex-shrink: 0;
   gap: 0.5rem;
   align-items: center;
-  padding: 0.65rem 0;
-  position: sticky;
-  top: 0;
-  z-index: 2;
+  padding: 0.65rem 1rem;
   background: var(--panel);
 }
 
@@ -857,11 +857,21 @@ textarea:focus-visible,
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--line);
+  overflow: hidden;
 }
 
 .split-list .editor-subhead {
+  flex-shrink: 0;
   position: static;
   padding: 0.65rem;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+
+.split-list .pick-list {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
 }
 
 .detail {
@@ -1001,6 +1011,10 @@ textarea:focus-visible,
 .entity-table {
   display: grid;
   gap: 0;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 0 1rem 1rem;
 }
 
 .entity-row {
@@ -1025,7 +1039,7 @@ textarea:focus-visible,
 
 .entity-head {
   position: sticky;
-  top: 3.15rem;
+  top: 0;
   z-index: 1;
   padding-top: 0.15rem;
   border-bottom: 1px solid var(--line);
