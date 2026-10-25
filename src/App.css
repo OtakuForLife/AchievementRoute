@@ -281,10 +281,159 @@ select:focus-visible,
   overflow: hidden;
 }
 
+.viz {
+  flex-shrink: 0;
+  display: grid;
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.viz-progress {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.viz-meter {
+  height: 0.35rem;
+  background: var(--line);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.viz-meter-fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.2s ease;
+}
+
+.viz-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin: 0;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.viz-runs {
+  display: flex;
+  gap: 0.35rem;
+  min-height: 2.6rem;
+}
+
+.viz-run {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 0.2rem;
+  min-width: 2.5rem;
+  padding: 0.25rem 0.3rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--panel-2);
+  color: var(--muted);
+  cursor: pointer;
+  text-align: left;
+}
+
+.viz-run:hover {
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.viz-run-label,
+.viz-run-count {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.68rem;
+  line-height: 1;
+}
+
+.viz-run-count {
+  text-align: right;
+}
+
+.viz-run-track {
+  display: block;
+  height: 0.45rem;
+  align-self: center;
+  background: var(--line);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.viz-run-fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.2s ease;
+}
+
+.viz-marks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  max-height: 5.5rem;
+  overflow: auto;
+}
+
+.viz-mark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  max-width: 100%;
+  padding: 0.25rem 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.78rem;
+  text-align: left;
+}
+
+.viz-mark:hover {
+  border-color: var(--line-strong);
+}
+
+.viz-mark.done {
+  border-color: rgba(61, 186, 138, 0.45);
+  background: var(--accent-soft);
+}
+
+.viz-mark-step {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.viz-mark-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.viz-mark-run {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.68rem;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
 .route-scroll {
   flex: 1;
   min-height: 0;
   overflow: auto;
+}
+
+.step:target,
+.step:focus-within {
+  background: rgba(61, 186, 138, 0.06);
 }
 
 .waiting,

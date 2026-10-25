@@ -80,10 +80,107 @@ function nestedAchievementIds(conditions, achievementById, seen = new Set()) {
   return ids
 }
 
+function jumpToStep(number) {
+  const el = document.getElementById(`step-${number}`)
+  el?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+}
+
+function RouteViz({ steps, checked, picked, achievements }) {
+  const runs = useMemo(() => groupByRun(steps), [steps])
+  const total = steps.length
+  const doneSteps = steps.filter((step) => checked.has(stepKey(step))).length
+
+  const milestones = useMemo(() => {
+    const byName = new Map(achievements.map((row) => [row.name, row]))
+    const rows = []
+    for (const step of steps) {
+      for (const name of step.achievements) {
+        const row = byName.get(name)
+        rows.push({
+          name,
+          id: row?.id,
+          step: step.number,
+          run: step.run,
+          done: checked.has(stepKey(step)),
+          selected: row ? picked.has(row.id) : true,
+        })
+      }
+    }
+    return rows
+  }, [steps, checked, picked, achievements])
+
+  const earned = milestones.filter((row) => row.done).length
+
+  return (
+    <div className="viz">
+      <div className="viz-progress">
+        <div className="viz-meters" aria-hidden="true">
+          <div className="viz-meter">
+            <span className="viz-meter-fill" style={{ width: `${total ? (doneSteps / total) * 100 : 0}%` }} />
+          </div>
+        </div>
+        <p className="viz-stats">
+          <span>
+            {doneSteps}/{total} steps
+          </span>
+          <span>
+            {earned}/{milestones.length} achievements
+          </span>
+        </p>
+      </div>
+
+      <div className="viz-runs" role="list" aria-label="Runs">
+        {runs.map((group) => {
+          const done = group.steps.filter((step) => checked.has(stepKey(step))).length
+          const flex = group.steps.length
+          return (
+            <button
+              key={group.run}
+              type="button"
+              role="listitem"
+              className="viz-run"
+              style={{ flex }}
+              title={`Run ${group.run}: ${done}/${group.steps.length} steps`}
+              onClick={() => jumpToStep(group.steps[0].number)}
+            >
+              <span className="viz-run-label">R{group.run}</span>
+              <span className="viz-run-track">
+                <span
+                  className="viz-run-fill"
+                  style={{ width: `${group.steps.length ? (done / group.steps.length) * 100 : 0}%` }}
+                />
+              </span>
+              <span className="viz-run-count">{group.steps.length}</span>
+            </button>
+          )
+        })}
+      </div>
+
+      {milestones.length > 0 && (
+        <ul className="viz-marks" aria-label="Achievement milestones">
+          {milestones.map((row) => (
+            <li key={`${row.name}-${row.step}`}>
+              <button
+                type="button"
+                className={row.done ? 'viz-mark done' : 'viz-mark'}
+                onClick={() => jumpToStep(row.step)}
+              >
+                <span className="viz-mark-step">#{row.step}</span>
+                <span className="viz-mark-name">{row.name}</span>
+                <span className="viz-mark-run">run {row.run}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}
+
 function StepRow({ step, index, checked, onToggle }) {
   const key = stepKey(step)
   return (
-    <li className={checked ? 'step done' : 'step'} style={{ '--i': index }}>
+    <li id={`step-${step.number}`} className={checked ? 'step done' : 'step'} style={{ '--i': index }}>
       <label className="step-check">
         <input type="checkbox" checked={checked} onChange={() => onToggle(key)} />
         <span className="index">{step.number}</span>
@@ -379,6 +476,13 @@ export default function App() {
                     </button>
                   </div>
                 </div>
+
+                <RouteViz
+                  steps={result.steps}
+                  checked={checked}
+                  picked={picked}
+                  achievements={game?.achievements ?? []}
+                />
 
                 <div className="route-scroll">
                   {display === 'all' ? (
